@@ -1,0 +1,20 @@
+.Invalid {
+  border: 1px solid red;
+  background-color: #fda49a;
+}
+
+.InputElement {
+  border: none;
+  font-family: "M PLUS 1p", sans-serif;
+  height: 2rem;
+  width: 13rem;
+  border-bottom: 1px rgba(0, 0, 0, 0.157) solid;
+}
+
+.InputElement:focus,
+.InputElement:checked,
+.InputElement:hover,
+.InputElement:active,
+.InputElement:target {
+  border-color: #54768b5e;
+}
