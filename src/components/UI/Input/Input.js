@@ -1,9 +1,10 @@
 import React from "react";
 import classes from "./Input.module.scss";
+import Aux from "../../../hoc/Aux/Aux";
 
 const input = props => {
   let inputElement = null;
-  const inputClasses = [classes.inputElement];
+  const inputClasses = [classes.InputElement];
   if (props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(classes.Invalid);
   }
@@ -54,7 +55,7 @@ const input = props => {
         />
       );
   }
-  return { inputElement };
+  return <Aux>{inputElement}</Aux>;
 };
 
 export default input;
