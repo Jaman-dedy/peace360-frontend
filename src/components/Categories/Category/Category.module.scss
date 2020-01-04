@@ -1,0 +1,18 @@
+.Category {
+  display: grid;
+  grid-template-areas: "experience experience mostSeen";
+  grid-gap: 1.3rem;
+}
+.Title {
+  font-family: "M PLUS 1p", sans-serif;
+  font-size: 1.2rem;
+  border-bottom: solid 1.5px #5a55541f;
+  padding-bottom: 1rem;
+  font-weight: 700;
+  color: #5a5554;
+  span {
+    width: fit-content;
+    border-bottom: #5a5554 1.5px solid;
+    padding-bottom: 1rem;
+  }
+}

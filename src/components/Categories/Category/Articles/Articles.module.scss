@@ -1,0 +1,9 @@
+.Articles {
+  grid-area: experience;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 1.3rem;
+  a {
+    text-decoration: none;
+  }
+}
