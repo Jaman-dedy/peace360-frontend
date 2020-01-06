@@ -1,9 +1,7 @@
 let slideIndex = 0;
-showSlides();
-
 function showSlides() {
   let i;
-  let slides = document.getElementsByClassName("ArticleSlider");
+  let slides = document.getElementsByClassName("article-slider");
   let dots = document.getElementsByClassName("dot");
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
@@ -19,3 +17,7 @@ function showSlides() {
   dots[slideIndex - 1].className += " active";
   setTimeout(showSlides, 8000);
 }
+
+window.onload = () => {
+  showSlides();
+};
