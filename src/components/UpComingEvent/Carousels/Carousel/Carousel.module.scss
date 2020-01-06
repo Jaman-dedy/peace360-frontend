@@ -1,0 +1,26 @@
+.Carousel {
+  width: 20%;
+  height: 13rem;
+  border-radius: 5px;
+  counter-increment: carousel-cell;
+  img {
+    width: 78%;
+    height: 75%;
+    object-fit: cover;
+    border-radius: 0.4rem;
+  }
+}
+.Title {
+  width: 80%;
+  font-family: "M PLUS 1p", sans-serif;
+  line-height: 1;
+  padding-top: 0.3rem;
+  padding-bottom: 0.7rem;
+  color: #5a5554;
+  font-size: 0.8rem;
+}
+.Detail {
+  font-family: "M PLUS 1p", sans-serif;
+  color: #5a5554a8;
+  font-size: 0.6rem;
+}

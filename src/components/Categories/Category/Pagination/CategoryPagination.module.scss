@@ -1,0 +1,21 @@
+.CategoryPagination {
+  display: inline-block;
+  padding-top: 2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 22.5rem;
+  a {
+    color: #5a5554c9;
+    text-decoration: none;
+    transition: background-color 0.4s;
+    padding: 0.4rem 0.8rem;
+    border-radius: 100%;
+    &.Active {
+      background-color: #54768b;
+      color: #fff;
+    }
+    &:hover:not(.Active) {
+      background-color: #54768b5e;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.Mission {
+  grid-area: peace-mission;
+  text-align: center;
+}
+.Vision {
+  grid-area: peace-vision;
+  text-align: center;
+}
+.VisionMission {
+  margin-left: 13rem;
+  line-height: 1.6;
+  display: grid;
+  grid-template-areas: " peace-mission peace-vision";
+  grid-column-gap: 4rem;
+  margin-top: 2rem;
+  color: #5a5554af;
+  font-family: sans-serif;
+  width: 40rem;
+}

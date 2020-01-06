@@ -1,0 +1,21 @@
+.Pagination {
+  margin-top: 1rem;
+  width: 3.7rem;
+  height: 1rem;
+  border: solid 1px #5a55541f;
+  padding: 0.5rem;
+  color: #5a55548a;
+  border-radius: 0.4rem;
+  box-shadow: 1px 1px 1px #aaaaaa;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  a {
+    text-decoration: none;
+    color: #5a555480;
+    &:hover,
+    &:active {
+      color: #5a5554;
+    }
+  }
+}
