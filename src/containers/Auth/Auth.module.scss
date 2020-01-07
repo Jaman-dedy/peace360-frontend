@@ -1,0 +1,69 @@
+.Block {
+  grid-area: auth-right-side;
+}
+.Auth {
+  margin: 0;
+  height: 51.25rem;
+  display: grid;
+  grid-template-areas: "auth-left-side auth-right-side";
+  grid-template-columns: 35% 65%;
+  overflow: hidden;
+}
+.Image {
+  padding-top: 1rem;
+  height: 20rem;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+.FormBlock {
+  color: #5a5554;
+  height: 31rem;
+  padding-top: 1rem;
+  text-align: center;
+}
+.FormContent {
+  margin-top: 1rem;
+  margin-left: 19rem;
+  width: 20rem;
+  height: 20rem;
+}
+
+.Input {
+  padding-top: 1rem;
+  input[type="email"],
+  input[type="password"] {
+    background-color: #1617180e;
+    padding-left: 1rem;
+    width: 95%;
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid #5a55545b;
+    height: 3rem;
+    font-size: 1rem;
+    color: #5a5554;
+    &:focus {
+      border-bottom: 1px solid #2e424e;
+    }
+  }
+  input[type="password"]:-webkit-autofill {
+    background-color: red !important;
+  }
+  input[type="password"] {
+    margin-top: 2rem;
+  }
+  input[type="checkbox"] {
+    margin-left: -1rem;
+  }
+  button {
+    margin-top: 1rem;
+    width: 100%;
+    height: 2.5rem;
+    color: rgb(246, 243, 243);
+    font-family: "Open Sans", sans-serif;
+    background-color: #395161;
+    font-size: 0.9rem;
+  }
+}
+

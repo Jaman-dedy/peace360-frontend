@@ -48,6 +48,7 @@ const input = props => {
     default:
       inputElement = (
         <input
+          autocomplete="off"
           className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
