@@ -1,0 +1,21 @@
+.Left {
+  grid-area: auth-left-side;
+  background-color: #395161;
+}
+.Text {
+  text-align: center;
+  padding: 16.3rem 3rem;
+  color: rgb(246, 243, 243);
+  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
+  h1 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+  a {
+    color: rgb(246, 243, 243);
+    background-color: #395161;
+  }
+}
