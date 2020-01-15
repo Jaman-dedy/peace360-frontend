@@ -8,6 +8,7 @@ import SocialAuth from "../../../components/Authentication/SocialAuth/SocialAuth
 import styles from "../Auth.module.scss";
 import classes from "./Signup.module.scss";
 import AuthImg from "../../../assets/svg/meetup.svg";
+import Backward from "../../../components/Backward/Backward";
 
 class Signup extends Component {
   state = {
@@ -59,7 +60,11 @@ class Signup extends Component {
     }
   };
   inputChangeHandler = (event, inputName) => {};
+  checkClickedHandler = e => {};
   render() {
+    const checkBoxElementConfig = {
+      type: "checkbox"
+    };
     const formElementsArray = [];
     for (let key in this.state.signupForm) {
       formElementsArray.push({
@@ -82,6 +87,7 @@ class Signup extends Component {
     ));
     return (
       <div className={styles.Auth}>
+        <Backward link="/" />
         <LeftSide />
         <div className={styles.Block}>
           <div className={styles.Image}>
@@ -93,12 +99,20 @@ class Signup extends Component {
               <div className={styles.Input}>
                 <form>
                   {form}
+                  <div className={classes.CheckTerms}>
+                    <Input
+                      elementType="checkbox"
+                      elementConfig={checkBoxElementConfig}
+                      changed={e => this.checkClickedHandler(e)}
+                    />
+                    I have read and accept{" "}
+                    <NavLink to="#">Terms and conditions</NavLink>
+                  </div>
                   <Button>LOG IN</Button>
                 </form>
               </div>
             </div>
             <div className={classes.Actions}>
-              <span>Forgot your password?</span>
               <span>
                 Already have an account?{" "}
                 <NavLink to="/login">

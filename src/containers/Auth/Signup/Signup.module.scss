@@ -2,10 +2,19 @@
   margin-top: -1.5rem;
   span {
     display: block;
-    padding-bottom: .5rem;
+    padding-bottom: 0.5rem;
   }
   a {
     text-decoration: none;
     color: #395161;
   }
+}
+.CheckTerms {
+  a {
+    text-decoration: none;
+    color: #2e424e;
+  }
+  input[type="checkbox"] {
+  margin-left: -1rem;
+}
 }

@@ -1,6 +1,6 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import classes from "./AuthenticationAction.module.scss";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import classes from './AuthenticationAction.module.scss';
 
 const authenticationAction = () => (
   <div className={classes.Authentication}>

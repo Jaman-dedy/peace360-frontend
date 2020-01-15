@@ -4,7 +4,7 @@ import Carousel from "./Carousel/Caoursel";
 import classes from "./Carousels.module.scss";
 
 const carousel = () => (
-  <div className={classes.Carousels} data-flickity='{ "autoPlay": true  }'>
+  <div className={classes.Carousels}>
     <Carousel />
   </div>
 );

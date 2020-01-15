@@ -8,6 +8,7 @@ import SocialAuth from "../../../components/Authentication/SocialAuth/SocialAuth
 import classes from "./Login.module.scss";
 import styles from "../Auth.module.scss";
 import AuthImg from "../../../assets/svg/meetup.svg";
+import Backward from "../../../components/Backward/Backward";
 
 class Login extends Component {
   state = {
@@ -71,6 +72,7 @@ class Login extends Component {
     ));
     return (
       <div className={styles.Auth}>
+        <Backward link="/" />
         <LeftSide />
         <div className={styles.Block}>
           <div className={classes.Image}>
@@ -80,7 +82,7 @@ class Login extends Component {
             <SocialAuth />
             <div className={styles.FormContent}>
               <div className={styles.Input}>
-                <form >
+                <form>
                   {form}
                   <Button>LOG IN</Button>
                 </form>

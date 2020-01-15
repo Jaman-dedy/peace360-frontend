@@ -45,10 +45,19 @@ const input = props => {
         </select>
       );
       break;
+    case "checkbox":
+      inputElement = (
+        <input
+          className={inputClasses.join(" ")}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      );
+      break;
     default:
       inputElement = (
         <input
-          autocomplete="off"
           className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
