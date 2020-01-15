@@ -31,10 +31,10 @@
 }
 
 .Input {
-  padding-top: 1rem;
+  padding-top: .5rem;
   input[type="email"],
   input[type="password"] {
-    background-color: #1617180e;
+    background-color: #374e5c0e;
     padding-left: 1rem;
     width: 95%;
     outline: none;
@@ -51,7 +51,7 @@
     background-color: red !important;
   }
   input[type="password"] {
-    margin-top: 2rem;
+    margin-top: 1.6rem;
   }
   input[type="checkbox"] {
     margin-left: -1rem;

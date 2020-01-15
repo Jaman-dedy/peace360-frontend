@@ -1,0 +1,14 @@
+.Backward {
+  background-color: #395161;
+  position: fixed;
+  left: 1rem;
+  top: 0.6rem;
+  font-size: 1.8rem;
+  color: rgb(187, 184, 184) !important;
+  transition: all 0.5s ease;
+  text-decoration: none;
+  span:hover{
+   background-color: #435f72e8;
+   border-radius: 100%;
+  }
+}
