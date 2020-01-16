@@ -5,6 +5,7 @@ import Login from '../containers/Auth/Login/Login';
 import Signup from '../containers/Auth/Signup/Signup';
 import SingleArticle from '../components/SingleArticle/SingleArticle';
 import Profile from '../components/Profile/Profile';
+import AboutUs from '../components/AboutUs/AboutUs';
 
 class Routes extends Component {
   render() {
@@ -15,6 +16,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/singleArticle" component={SingleArticle} />
         <Route path="/profile" component={Profile} />
+        <Route path="/aboutUs" component={AboutUs} />
       </Switch>
     );
     return <div>{routes}</div>;
