@@ -1,0 +1,17 @@
+.Like {
+  margin-top: 0.5rem;
+  font-size: 1.7rem;
+  transition: all 0.3s;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    transform: scaleX(1.6) scaleY(1.7);
+  }
+}
+.Clicked {
+  color: rgba(149, 26, 26, 0.911);
+}

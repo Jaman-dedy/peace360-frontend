@@ -1,0 +1,159 @@
+.Profile {
+  padding-top: 7rem;
+  width: 45rem;
+  margin-left: 12rem;
+  color: #5a5554;
+}
+.Tab {
+  text-align: center;
+  button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    .active {
+      color: #54768b;
+    }
+  }
+}
+.FollowMe {
+  margin-left: 14rem;
+  width: 15rem;
+  margin-top: 2rem;
+  color: #5a5554d5;
+  text-align: center;
+  border-top: #5a555431 solid 1px;
+  border-bottom: solid 1px #5a555431;
+  padding-bottom: 1.5rem;
+  a {
+    padding-right: 0.5rem;
+    font-size: 1.5rem;
+    color: #5a5554ea;
+  }
+}
+.SocialMedia {
+  font-size: 2rem;
+  a {
+    text-decoration: none;
+    color: #5a5554;
+    &:active,
+    &:hover {
+      color: #54768b;
+    }
+  }
+}
+.ProfileTab {
+  color: #5a5554;
+  padding: 1rem 2rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  height: fit-content;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.274);
+  span {
+    display: block;
+  }
+}
+.Location {
+  font-size: 1.3rem;
+  padding-bottom: 0.5rem;
+}
+.Details {
+  color: #5a55549a;
+  font-size: 0.9rem;
+}
+.Bio {
+  line-height: 1.3;
+  text-align: justify;
+}
+.Skills {
+  i {
+    font-style: normal;
+    padding-right: 0.7rem;
+    font-size: 0.9rem;
+    color: #54768bc9;
+    cursor: pointer;
+    &:hover {
+      color: #3c525f;
+    }
+  }
+}
+.Posts {
+  padding-top: 2rem;
+  a {
+    text-decoration: none;
+  }
+}
+.MyPosts {
+  img {
+    width: 100%;
+    height: 16rem;
+    object-fit: cover;
+  }
+}
+.PostTitle {
+  font-family: 'M PLUS 1p', sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  padding-top: 0.3rem;
+  padding-bottom: 0.7rem;
+  color: #5a5554;
+}
+.PostDetails {
+  font-family: 'M PLUS 1p', sans-serif;
+  color: #5a5554a8;
+  font-size: 0.7rem;
+}
+.MyFollowers {
+  display: grid;
+  grid-template-areas:
+    'my-follower-img my-follower-name'
+    'my-follower-img my-follower-follow-box';
+  grid-template-columns: 6rem 6rem;
+  height: 4rem;
+  grid-gap: 1rem;
+  padding: 2rem 0rem;
+  border-bottom: #5a555431 solid 1px;
+  img {
+    margin-top: -1rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+}
+.Avatar {
+  grid-area: my-follower-img;
+}
+.Name {
+  grid-area: my-follower-name;
+}
+.Follow,
+.UnFollow {
+  grid-area: my-follower-follow-box;
+  margin-top: -1.5rem;
+  text-align: center;
+  border: solid 1px #5a555491;
+  padding: 0.3rem;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  width: 4rem;
+  height: 0.8rem;
+}
+.Follow {
+  &:hover {
+    color: #54768b;
+    border-color: #54768b;
+  }
+  color: #5a5554d7;
+}
+.UnFollow {
+  background-color: #5a5554;
+  color: #fff;
+  &:hover {
+    background-color: #2e424e;
+    border-color: #54768b;
+  }
+}
