@@ -1,0 +1,14 @@
+.SocialShare {
+  position: fixed;
+  margin-left: -5rem;
+}
+.Icon {
+  a {
+    text-decoration: none;
+    color: #5a5554;
+    font-size: 1.5rem;
+    &:hover {
+      color: #54768b;
+    }
+  }
+}
