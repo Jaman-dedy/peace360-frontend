@@ -11,7 +11,7 @@ import jessicaAvatar from '../../assets/images/jessica.png';
 
 class AboutUs extends Component {
   state = {
-    slideIndex: 1
+    slideIndex: 0
   };
   plusSlides = (e, number) => {
     // this.showSlides((slideIndex += n));
@@ -26,25 +26,22 @@ class AboutUs extends Component {
     let i;
     let slides = document.getElementsByClassName('slide-founder');
     let dots = document.getElementsByClassName('dot');
-    console.log('n', n);
-    if (n >= slides.length) {
-      //   slideIndex = 1;
-      this.setState({ slideIndex: 1 });
-      console.log('this.state.slideIndex', this.state.slideIndex);
-    }
-    if (n < 1) {
-      //   slideIndex = slides.length;
-      this.setState({ slideIndex: slides.length });
-      console.log('this.state.slideIndex', this.state.slidesIndex);
-    }
     for (i = 0; i < slides.length; i++) {
       slides[i].style.display = 'none';
     }
     for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(' actives', '');
     }
-    slides[this.state.slideIndex - 1].style.display = 'block';
-    dots[this.state.slideIndex - 1].className += ' actives';
+    this.state.slideIndex >= slides.length
+      ? this.setState({ slideIndex: 0 })
+      : this.state.slideIndex < 0
+      ? this.setState({ slideIndex: 3 })
+      : (slides[this.state.slideIndex].style.display = 'block');
+    this.state.slideIndex >= slides.length
+      ? this.setState({ slideIndex: 0 })
+      : this.state.slideIndex < 0
+      ? this.setState({ slideIndex: 3 })
+      : (dots[this.state.slideIndex].className += ' actives');
   };
   componentDidMount() {
     this.showSlides(this.state.slideIndex);
