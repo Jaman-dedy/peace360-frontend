@@ -1,21 +1,16 @@
-import React from "react";
-import Router from "./routes/route";
-import "./App.scss";
-// import './assets/js/slider';
+import React from 'react';
+import { Provider } from 'react-redux';
+import Router from './routes/route';
+import './App.scss';
+import Store from './store/Store';
 
 const App = () => {
-  // React.useEffect(() => {
-  //   const script = document.createElement("script");
-  //   script.src = __dirname + "/assets/js/slider.js";
-  //   script.async = true;
-  //   script.onload = () => this.scriptLoaded();
-
-  //   document.body.appendChild(script);
-  // });
   return (
-    <div className="App">
-      <Router />
-    </div>
+    <Provider store={Store}>
+      <div className="App">
+        <Router />
+      </div>
+    </Provider>
   );
 };
 

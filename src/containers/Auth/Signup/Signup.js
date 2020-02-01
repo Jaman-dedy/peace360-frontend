@@ -1,26 +1,29 @@
-import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-import Aux from "../../../hoc/Aux/Aux";
-import Input from "../../../components/UI/Input/Input";
-import Button from "../../../components/UI/Button/Button";
-import LeftSide from "../../../components/Authentication/AuthLeftSide/AuthLeftSide";
-import SocialAuth from "../../../components/Authentication/SocialAuth/SocialAuth";
-import styles from "../Auth.module.scss";
-import classes from "./Signup.module.scss";
-import AuthImg from "../../../assets/svg/meetup.svg";
-import Backward from "../../../components/Backward/Backward";
-
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Aux from '../../../hoc/Aux/Aux';
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
+import LeftSide from '../../../components/Authentication/AuthLeftSide/AuthLeftSide';
+import SocialAuth from '../../../components/Authentication/SocialAuth/SocialAuth';
+import styles from '../Auth.module.scss';
+import classes from './Signup.module.scss';
+import AuthImg from '../../../assets/svg/meetup.svg';
+import Backward from '../../../components/Backward/Backward';
+import * as actions from '../../../store/actions/signup';
+import { updatedObject, checkValidity } from '../../../shared/utility';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 class Signup extends Component {
   state = {
     signupForm: {
       email: {
-        elementType: "input",
+        elementType: 'input',
         elementConfig: {
-          type: "email",
-          placeholder: "Email"
+          type: 'email',
+          placeholder: 'Email'
         },
-        value: "",
-        label: "Email",
+        value: '',
+        label: 'Email',
         validation: {
           required: true
         },
@@ -28,13 +31,13 @@ class Signup extends Component {
         touched: false
       },
       password: {
-        elementType: "input",
+        elementType: 'input',
         elementConfig: {
-          type: "password",
-          placeholder: "Password"
+          type: 'password',
+          placeholder: 'Password'
         },
-        value: "",
-        label: "Password",
+        value: '',
+        label: 'Password',
         validation: {
           required: true,
           minLength: 6
@@ -43,13 +46,13 @@ class Signup extends Component {
         touched: false
       },
       confirmPassword: {
-        elementType: "input",
+        elementType: 'input',
         elementConfig: {
-          type: "password",
-          placeholder: "Confirm your password"
+          type: 'password',
+          placeholder: 'Confirm your password'
         },
-        value: "",
-        label: "Password",
+        value: '',
+        label: 'Password',
         validation: {
           required: true,
           minLength: 6
@@ -59,11 +62,30 @@ class Signup extends Component {
       }
     }
   };
-  inputChangeHandler = (event, inputName) => {};
+  submitHandler = event => {
+    event.preventDefault();
+    this.props.onRegister(
+      this.state.signupForm.email.value,
+      this.state.signupForm.password.value
+    );
+  };
+  inputChangeHandler = (event, inputName) => {
+    const updatedInputs = updatedObject(this.state.signupForm, {
+      [inputName]: updatedObject(this.state.signupForm[inputName], {
+        value: event.target.value,
+        valid: checkValidity(
+          event.target.value,
+          this.state.signupForm[inputName].validation
+        ),
+        touched: true
+      })
+    });
+    this.setState({ signupForm: updatedInputs });
+  };
   checkClickedHandler = e => {};
   render() {
     const checkBoxElementConfig = {
-      type: "checkbox"
+      type: 'checkbox'
     };
     const formElementsArray = [];
     for (let key in this.state.signupForm) {
@@ -85,6 +107,9 @@ class Signup extends Component {
         />
       </Aux>
     ));
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
     return (
       <div className={styles.Auth}>
         <Backward link="/" />
@@ -97,7 +122,7 @@ class Signup extends Component {
             <SocialAuth />
             <div className={styles.FormContent}>
               <div className={styles.Input}>
-                <form>
+                <form onSubmit={this.submitHandler}>
                   {form}
                   <div className={classes.CheckTerms}>
                     <Input
@@ -105,16 +130,16 @@ class Signup extends Component {
                       elementConfig={checkBoxElementConfig}
                       changed={e => this.checkClickedHandler(e)}
                     />
-                    I have read and accept{" "}
+                    I have read and accept{' '}
                     <NavLink to="#">Terms and conditions</NavLink>
                   </div>
-                  <Button>LOG IN</Button>
+                  <Button>SIGN UP</Button>
                 </form>
               </div>
             </div>
             <div className={classes.Actions}>
               <span>
-                Already have an account?{" "}
+                Already have an account?{' '}
                 <NavLink to="/login">
                   <strong>Log in</strong>
                 </NavLink>
@@ -127,4 +152,19 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+const maStateToProps = state => {
+  return {
+    loading: state.register.loading,
+    error: state.register.error,
+    isAuthenticated: state.register.token !== null,
+    authRedirectPath: state.register.authRedirectPath
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onRegister: (email, password) => dispatch(actions.register(email, password))
+  };
+};
+
+export default connect(maStateToProps, mapDispatchToProps)(Signup);
