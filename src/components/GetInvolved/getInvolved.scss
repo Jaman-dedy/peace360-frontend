@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+$main-color: rgb(62, 81, 95);
+$main-hover: rgb(36, 46, 53);
+$font-color: #555353;
+$primary-color: #54768b;
+$clean-blue: #e2e7eb;
+$white: #fafafa;
+$white-hover: #e2f8f8;
+$blue: #41afd1;
+$blue-hover: #a38933;
+$black: rgb(62, 81, 95);
+$grey: #cacfd1;
+$brighter: #cacfd1;
+.content {
+  margin: 3rem 0;
+}
+.get-container {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0px;
+  padding: 80px 0px;
+  height: 450px;
+}
+
+.box {
+  float: left;
+}
+.image-container {
+  background-color: $main-color;
+  height: 353px;
+  border: 1px $main-color solid;
+  border-bottom-right-radius: 6000px 500px;
+  img {
+    border-bottom-right-radius: 6000px 200px;
+  }
+}
+.title {
+  padding: 10px 0;
+  font-size: 45px;
+  font-weight: bold;
+}
+.center {
+  text-align: center;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.text {
+  padding: 10px 0;
+  font-size: 19px;
+}
+.white {
+  color: $white;
+}
+.blue {
+  color: $blue;
+}
+.black {
+  color: $black;
+}
+
+.font-color {
+  color: $font-color;
+}
+.main-color {
+  color: $main-color;
+}
+.primary-color {
+  color: $primary-color;
+}
+
+.text-card {
+  margin: 4rem;
+  align-content: center;
+  position: absolute;
+  .btn {
+    padding: 20px 0px;
+    a {
+      text-decoration: none;
+      padding: 13px;
+      font-size: 20px;
+      border-radius: 5px;
+      border: 2px $white solid;
+      background-color: $main-color;
+      color: $white;
+    }
+    a:hover {
+      cursor: pointer;
+      background-color: $main-hover;
+    }
+  }
+}
+.black-bg {
+  background-color: $black;
+}
+.blue-bg {
+  background-color: $blue;
+}
+.brand-new {
+  margin: 6rem 10rem;
+  align-items: left;
+  .brand {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 20px 60px 20px;
+  }
+}
+.getcontainer {
+  margin: 3rem 10rem;
+  align-items: left;
+  .card {
+    margin: 0px;
+    padding: 0px;
+
+    .card_icon {
+      font-size: 70px;
+      text-align: center;
+      padding: 20px;
+    }
+    .card_text {
+      padding: 0 30px;
+    }
+    .card_button {
+      padding: 20px;
+      a {
+        padding: 10px 25px;
+        text-decoration: none;
+        font-size: 18px;
+        border-radius: 5px;
+      }
+      a:hover {
+        background-color: $main-hover;
+      }
+      i:hover {
+        color: $main-hover;
+      }
+    }
+  }
+}
+
+.box-icon {
+  padding: 10px;
+  margin: 20px;
+  float: left;
+  width: 10%;
+  border-radius: 10px;
+  i {
+    padding: 0px !important;
+    font-size: 32px !important;
+  }
+  a:hover {
+    background-color: $main-hover;
+  }
+  i:hover {
+    color: $main-hover;
+  }
+}
+.box-icon:hover {
+  background-color: $main-hover;
+  i:hover {
+    color: $white;
+  }
+}

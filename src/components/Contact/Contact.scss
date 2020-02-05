@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+$main-color: rgb(62, 81, 95);
+$main-hover: rgb(36, 46, 53);
+$font-color: #555353;
+$primary-color: #54768b;
+$clean-blue: #e2e7eb;
+$white: #fafafa;
+$white-hover: #e2f8f8;
+$yellow: #d4af37;
+$yellow-hover: #a38933;
+$black: #1d1c1c;
+$grey: #cacfd1;
+$brighter: #cacfd1;
+.displayModal {
+  display: block;
+}
+.removeModal {
+  display: none;
+}
+.content {
+  margin: 3rem 0;
+}
+.container {
+  margin: 0px;
+  padding: 80px 0px;
+  height: 450px;
+  position: fixed;
+}
+.box {
+  width: 50%;
+  float: left;
+}
+.info {
+  background-color: $main-color;
+  height: 693px;
+  font-family: 'Open Sans', sans-serif;
+}
+.card {
+  padding: 240px 0px;
+}
+
+.image {
+  padding: 0;
+  img {
+    background-color: $clean-blue;
+    height: 693px;
+    width: 750px;
+    object-fit: cover;
+  }
+}
+.white {
+  color: $white;
+}
+
+.font-color {
+  color: $font-color;
+}
+.main-color {
+  color: $main-color;
+}
+.primary-color {
+  color: $primary-color;
+}
+
+.title {
+  padding: 10px 0;
+  font-size: 45px;
+  font-weight: bold;
+}
+.center {
+  text-align: center;
+}
+.text {
+  padding: 10px 0;
+  font-size: 19px;
+}
+
+.btn {
+  padding: 10px 0px;
+  button {
+    padding: 13px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px $white solid;
+    background-color: $main-color;
+    color: $white;
+  }
+  button:hover {
+    cursor: pointer;
+    background-color: $main-hover;
+    border: 2px $white solid;
+  }
+}
+.form {
+  fieldset {
+    margin: 5px;
+    border: 1px $grey solid;
+    border-radius: 6px;
+  }
+  legend {
+    color: $font-color;
+  }
+  input {
+    font-size: 15px;
+    border: white 1px solid;
+    width: 100%;
+    color: $font-color;
+  }
+  .row {
+    padding-top: 5px;
+  }
+  ::placeholder {
+    color: $brighter;
+  }
+  :-ms-input-placeholder {
+    color: $brighter;
+  }
+  ::-ms-input-placeholder {
+    color: $brighter;
+  }
+  textarea {
+    border: white 1px solid;
+    font-size: 15px;
+    color: $font-color;
+  }
+  .btn {
+    padding: 20px 0px;
+    button {
+      padding: 13px;
+      font-size: 20px;
+      border-radius: 5px;
+      border: 2px $main-color solid;
+      background-color: $main-color;
+      color: $white;
+    }
+    button:hover {
+      cursor: pointer;
+      background-color: $main-hover;
+    }
+  }
+}
+
+.close {
+  color: rgb(62, 81, 95);
+  float: right;
+  margin: 20px 14px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(36, 46, 53);
+  text-decoration: none;
+  cursor: pointer;
+}
+// 127,196, 213
