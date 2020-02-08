@@ -9,7 +9,7 @@ $white-hover: #e2f8f8;
 $blue: #41afd1;
 $blue-hover: #a38933;
 $black: rgb(62, 81, 95);
-$grey: #cacfd1;
+$grey: #a2a4a5;
 $brighter: #cacfd1;
 .singleConsultancy {
   font-family: 'Open Sans', sans-serif;
@@ -20,8 +20,16 @@ $brighter: #cacfd1;
     margin: 4rem;
     width: 90%;
     position: relative;
+    .back {
+      width: 2%;
+      margin: 1rem;
+      font-size: 30px;
+    }
+    .back i:hover {
+      color: $primary-color;
+    }
     .consultancy {
-      width: 80%;
+      width: 75%;
       margin: 1rem 0;
       .consult_image {
         width: 100%;
@@ -64,6 +72,9 @@ $brighter: #cacfd1;
             font-size: 20px;
           }
         }
+        .share:hover {
+          color: $primary-color;
+        }
       }
       .other_consults {
         i {
@@ -71,19 +82,62 @@ $brighter: #cacfd1;
           font-size: 20px;
         }
       }
+      .other_consults:hover {
+        color: $primary-color;
+      }
       .comments {
         .title {
           margin: 0rem;
           padding: 10px 0px;
-          font-size: 30px;
+          font-size: 22px;
           font-weight: bolder;
           cursor: pointer;
+        }
+        .title:hover {
+          color: $primary-color;
         }
         .noDisplay {
           display: none;
         }
         .displayDiv {
           display: block;
+        }
+        .comment {
+          padding: 20px 0;
+          height: 190px;
+          border-style: solid;
+          border-width: 1px 0 0px;
+          border-color: $clean-blue;
+          .box {
+            float: left;
+          }
+          .userDetails {
+            .image {
+              width: 10%;
+              img {
+                background-color: $blue;
+                width: 80px;
+                height: 90px;
+                border-radius: 50%;
+              }
+            }
+            .commentDetails {
+              width: 90%;
+              .username {
+                font-size: 20px;
+                font-weight: bolder;
+              }
+              span {
+                font-size: 16px;
+                color: $grey;
+                font-weight: normal;
+                padding: 0 20px;
+              }
+              .comment_desc {
+                padding: 20px 0;
+              }
+            }
+          }
         }
       }
     }
@@ -102,4 +156,7 @@ $brighter: #cacfd1;
       }
     }
   }
+}
+.division {
+  border-bottom: 1px solid $clean-blue;
 }

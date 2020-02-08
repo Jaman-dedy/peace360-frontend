@@ -63,6 +63,9 @@ $brighter: #cacfd1;
       float: right;
     }
   }
+  .read_more:hover {
+    background-color: $main-hover;
+  }
   .here {
     background-color: #000;
   }

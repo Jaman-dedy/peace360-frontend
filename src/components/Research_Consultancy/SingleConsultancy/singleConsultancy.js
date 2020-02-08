@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import './singleConsultancy.scss';
 import Toolbar from '../../Menu/Toolbar/Toolbar';
 import workImage from '../../../assets/images/frontpage.jpg';
+import avatar from '../../../assets/images/avatar.jpg';
 
 export default class SingleConsultancy extends Component {
   state = {
-    displayComment: 'noDisplay'
+    displayComment: false,
+    display: false
   };
   onDisplayComment = () => {
-    console.log(this.state.displayComment);
     this.setState({
-      displayComment: 'noDisplay' ? 'displayDiv' : 'noDisplay'
+      displayComment: !this.state.displayComment
+    });
+  };
+  onDisplayPreviousComment = () => {
+    const change = !this.state.display;
+    console.log('change', change, 'display', this.state.display);
+    this.setState({
+      display: change
     });
   };
   render() {
@@ -20,6 +29,12 @@ export default class SingleConsultancy extends Component {
           <Toolbar />
         </div>
         <div className='container font-color'>
+          <NavLink to='/consultResearch'>
+            <div className='back box'>
+              <i class='fas fa-chevron-left font-color'></i>
+            </div>
+          </NavLink>
+
           <div className='consultancy box'>
             <div className='consult_image'>
               <img src={workImage} alt='' />
@@ -58,36 +73,73 @@ export default class SingleConsultancy extends Component {
               <div className='title' onClick={this.onDisplayComment}>
                 Leave your comment
               </div>
-              <div className={this.state.displayComment}>
-                <div className='form'>
-                  <div className='row'>
-                    <div className='box'>
+              {this.state.displayComment ? (
+                <div>
+                  <div className='form'>
+                    <div className='row'>
+                      <div className='box'>
+                        <fieldset>
+                          <legend>Username</legend>
+                          <input type='text' placeholder='Bene' />
+                        </fieldset>
+                      </div>
+                      <div className='box'>
+                        <fieldset>
+                          <legend>Email address</legend>
+                          <input
+                            type='text'
+                            placeholder='example@example.com'
+                          />
+                        </fieldset>
+                      </div>
+                    </div>
+                    <div className='row'>
                       <fieldset>
-                        <legend>Username</legend>
-                        <input type='text' placeholder='Bene' />
+                        <legend>Comment</legend>
+                        <textarea
+                          name='textarea'
+                          id='textarea'
+                          cols='114'
+                          rows='7'
+                        ></textarea>
                       </fieldset>
                     </div>
-                    <div className='box'>
-                      <fieldset>
-                        <legend>Email address</legend>
-                        <input type='text' placeholder='example@example.com' />
-                      </fieldset>
+                    <div className='btn'>
+                      <button>Submit</button>
                     </div>
                   </div>
-                  <div className='row'>
-                    <fieldset>
-                      <legend>Comment</legend>
-                      <textarea
-                        name='textarea'
-                        id='textarea'
-                        cols='119'
-                        rows='7'
-                      ></textarea>
-                    </fieldset>
-                  </div>
-                  <div className='btn'>
-                    <button>Submit</button>
-                  </div>
+                </div>
+              ) : null}
+              <div className='comment'>
+                <div className='title' onClick={this.onDisplayPreviousComment}>
+                  Previous comments
+                </div>
+                <div>
+                  {this.state.display ? (
+                    <div className='userDetails'>
+                      <div className='image box'>
+                        <img src={avatar} alt='' />
+                      </div>
+                      <div className='commentDetails box'>
+                        <div className='username'>
+                          username
+                          <span> 20days ago</span>
+                        </div>
+                        <div className='comment_desc'>
+                          Suspendisse egestas fringilla mauris, ut molestie elit
+                          viverra vel. Praesent a aliquet quam. Donec convallis
+                          tempus scelerisque. Suspendisse vehicula sapien erat,
+                          porta tincidunt leo gravida eget. Nullam ultrices quam
+                          id ligula iaculis facilisis.
+                        </div>
+                        <div className='reactions'>
+                          <i class='fas fa-heart'></i>
+                          <span>100 Likes</span>
+                          <span> share</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>
