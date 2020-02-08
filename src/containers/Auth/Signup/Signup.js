@@ -16,6 +16,20 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 class Signup extends Component {
   state = {
     signupForm: {
+      username: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'username',
+          placeholder: 'User name'
+        },
+        value: '',
+        label: 'Username',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
       email: {
         elementType: 'input',
         elementConfig: {

@@ -5,7 +5,7 @@
   margin: 0;
   height: 51.25rem;
   display: grid;
-  grid-template-areas: "auth-left-side auth-right-side";
+  grid-template-areas: 'auth-left-side auth-right-side';
   grid-template-columns: 35% 65%;
   overflow: hidden;
 }
@@ -31,9 +31,10 @@
 }
 
 .Input {
-  padding-top: .5rem;
-  input[type="email"],
-  input[type="password"] {
+  padding-top: 0.5rem;
+  input[type='username'],
+  input[type='email'],
+  input[type='password'] {
     background-color: #374e5c0e;
     padding-left: 1rem;
     width: 95%;
@@ -47,23 +48,25 @@
       border-bottom: 1px solid #2e424e;
     }
   }
-  input[type="password"]:-webkit-autofill {
+  input[type='password']:-webkit-autofill {
     background-color: red !important;
   }
-  input[type="password"] {
-    margin-top: 1.6rem;
+  input[type='email'] {
+    margin-top: 0.5rem;
   }
-  input[type="checkbox"] {
+  input[type='password'] {
+    margin-top: 0.5rem;
+  }
+  input[type='checkbox'] {
     margin-left: -1rem;
   }
   button {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     width: 100%;
     height: 2.5rem;
     color: rgb(246, 243, 243);
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background-color: #395161;
     font-size: 0.9rem;
   }
 }
-
