@@ -15,7 +15,7 @@ const loginStart = (state, action) => {
 
 const loginSuccess = (state, action) => {
   return updatedObject(state, {
-    token: action.idToken,
+    token: action.token,
     userId: action.userId,
     error: null,
     loading: false
