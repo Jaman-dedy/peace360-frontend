@@ -44,7 +44,6 @@ export const login = (email, password) => {
     axiosOrders
       .post('users/login', loginData)
       .then(response => {
-        console.log('response', response);
         localStorage.setItem('token', response.data.token.generate);
         localStorage.setItem('userId', response.data.user._id);
         dispatch(

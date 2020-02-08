@@ -19,7 +19,7 @@ class Routes extends Component {
         <Route path="/" exact component={Home} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/singleArticle" component={SingleArticle} />
+        <Route path="/singleArticle" component= { SingleArticle} />
         <Route path="/profile" component={Profile} />
         <Route path="/aboutUs" component={AboutUs} />
         <Route path="/contact" component={Contact} />

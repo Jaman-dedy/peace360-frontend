@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classes from './AuthenticatedUser.module.scss';
 import userAvatar from '../../assets/images/avatar.jpg';
@@ -29,5 +30,7 @@ const authenticatedUser = props => (
     </div>
   </div>
 );
+
+
 
 export default authenticatedUser;
