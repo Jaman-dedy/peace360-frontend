@@ -14,14 +14,14 @@ const authenticatedUser = props => (
           {' '}
           <Link to="/profile">
             {' '}
-            <i class="fas fa-user"></i>
+            <i className="fas fa-user"></i>
             profile
           </Link>
         </li>
         <li>
           <Link to="/logout">
             {' '}
-            <i class="fas fa-sign-out-alt"></i>
+            <i className="fas fa-sign-out-alt"></i>
             logout
           </Link>
         </li>

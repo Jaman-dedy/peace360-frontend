@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Layout from '../../hoc/Layout/Layout';
 import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
@@ -11,10 +12,12 @@ import SocialShare from '../SocialShare/SocialShare';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import classes from './SingleArticle.module.scss';
 import articleImg from '../../assets/images/experience1.jpg';
+import AuthenticationAction from '../AuthenticationAction/AuthenticationAction';
 
-const singleArticle = () => (
+const singleArticle = props => (
   <Layout>
-    <AuthenticatedUser />
+    {props.isAuthenticated ? <AuthenticatedUser /> : <AuthenticationAction />}
+
     <div className={classes.SingleArticle}>
       <div className={classes.ArticleTitle}>
         React app structure by feature guidelines
@@ -92,4 +95,10 @@ const singleArticle = () => (
   </Layout>
 );
 
-export default singleArticle;
+const mapStateToprops = state => {
+  return {
+    isAuthenticated: state.register.token !== null || state.login.token !== null
+  };
+};
+
+export default connect(mapStateToprops)(singleArticle);

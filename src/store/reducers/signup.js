@@ -28,6 +28,9 @@ const registerFail = (state, action) => {
     loading: false
   });
 };
+const setAuthRedirectPath = (state, action) => {
+  return updatedObject(state, { authRedirectPath: action.path });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -37,6 +40,8 @@ const reducer = (state = initialState, action) => {
       return registerSuccess(state, action);
     case actionTypes.REGISTER_FAIL:
       return registerFail(state, action);
+    case actionTypes.SET_AUTH_REDIRECT_PATH:
+      return setAuthRedirectPath(state, action);
     default:
       return state;
   }

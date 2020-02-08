@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Aux from '../../../hoc/Aux/Aux';
 import Input from '../../../components/UI/Input/Input';
@@ -13,6 +13,7 @@ import Backward from '../../../components/Backward/Backward';
 import * as actions from '../../../store/actions/signup';
 import { updatedObject, checkValidity } from '../../../shared/utility';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import ErrorPage from '../../../components/UI/Error/ErrorPage';
 class Signup extends Component {
   state = {
     signupForm: {
@@ -25,7 +26,8 @@ class Signup extends Component {
         value: '',
         label: 'Username',
         validation: {
-          required: true
+          required: true,
+          minLength: 5
         },
         valid: false,
         touched: false
@@ -39,7 +41,8 @@ class Signup extends Component {
         value: '',
         label: 'Email',
         validation: {
-          required: true
+          required: true,
+          isEmail: true
         },
         valid: false,
         touched: false
@@ -74,11 +77,13 @@ class Signup extends Component {
         valid: false,
         touched: false
       }
-    }
+    },
+    closeError: false
   };
   submitHandler = event => {
     event.preventDefault();
     this.props.onRegister(
+      this.state.signupForm.username.value,
       this.state.signupForm.email.value,
       this.state.signupForm.password.value
     );
@@ -97,7 +102,26 @@ class Signup extends Component {
     this.setState({ signupForm: updatedInputs });
   };
   checkClickedHandler = e => {};
+  componentDidUpdate(prevProps) {
+    if (prevProps.error !== this.props.error) {
+      this.setState({ closeError: true });
+    }
+  }
+  componentDidMount() {
+    this.props.onSetAuthRedirect();
+  }
+  closeErrorHandler = e => {
+    if (this.state.closeError) {
+      this.setState(prevState => {
+        return { closeError: !prevState.closeError };
+      });
+    }
+  };
+
   render() {
+    const { error } = this.props;
+    let formBlock;
+    let disableButton = false;
     const checkBoxElementConfig = {
       type: 'checkbox'
     };
@@ -108,6 +132,13 @@ class Signup extends Component {
         config: this.state.signupForm[key]
       });
     }
+    formElementsArray.map(element => {
+      if (!element.config.valid) {
+        disableButton = true;
+      }
+      return disableButton;
+    });
+
     let form = formElementsArray.map(formElement => (
       <Aux key={formElement.id}>
         <Input
@@ -124,42 +155,54 @@ class Signup extends Component {
     if (this.props.loading) {
       form = <Spinner />;
     }
+    formBlock = (
+      <div className={styles.FormBlock}>
+        <SocialAuth />
+        <div className={styles.FormContent}>
+          <div className={styles.Input}>
+            <form onSubmit={this.submitHandler}>
+              {form}
+              <div className={classes.CheckTerms}>
+                <Input
+                  elementType="checkbox"
+                  elementConfig={checkBoxElementConfig}
+                  changed={e => this.checkClickedHandler(e)}
+                />
+                I have read and accept{' '}
+                <NavLink to="#">Terms and conditions</NavLink>
+              </div>
+              <Button disabled={disableButton}>SIGN UP</Button>
+            </form>
+          </div>
+        </div>
+        <div className={classes.Actions}>
+          <span>
+            Already have an account?{' '}
+            <NavLink to="/login">
+              <strong>Log in</strong>
+            </NavLink>
+          </span>
+        </div>
+      </div>
+    );
+    if (error && this.state.closeError) {
+      formBlock = <ErrorPage errorMessage={this.props.error[0].message} />;
+    }
+    let authRedirect = null;
+    if (this.props.isAuthenticated) {
+      authRedirect = <Redirect to={this.props.authRedirectPath} />;
+    }
+
     return (
-      <div className={styles.Auth}>
+      <div className={styles.Auth} onClick={this.closeErrorHandler}>
+        {authRedirect}
         <Backward link="/" />
         <LeftSide />
         <div className={styles.Block}>
           <div className={styles.Image}>
             <img src={AuthImg} alt="" />
           </div>
-          <div className={styles.FormBlock}>
-            <SocialAuth />
-            <div className={styles.FormContent}>
-              <div className={styles.Input}>
-                <form onSubmit={this.submitHandler}>
-                  {form}
-                  <div className={classes.CheckTerms}>
-                    <Input
-                      elementType="checkbox"
-                      elementConfig={checkBoxElementConfig}
-                      changed={e => this.checkClickedHandler(e)}
-                    />
-                    I have read and accept{' '}
-                    <NavLink to="#">Terms and conditions</NavLink>
-                  </div>
-                  <Button>SIGN UP</Button>
-                </form>
-              </div>
-            </div>
-            <div className={classes.Actions}>
-              <span>
-                Already have an account?{' '}
-                <NavLink to="/login">
-                  <strong>Log in</strong>
-                </NavLink>
-              </span>
-            </div>
-          </div>
+          {formBlock}
         </div>
       </div>
     );
@@ -177,7 +220,10 @@ const maStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRegister: (email, password) => dispatch(actions.register(email, password))
+    onRegister: (username, email, password) =>
+      dispatch(actions.register(username, email, password)),
+    onSetAuthRedirect: () =>
+      dispatch(actions.setAuthRedirectPath('/SingleArticle'))
   };
 };
 

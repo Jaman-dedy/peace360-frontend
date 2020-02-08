@@ -8,10 +8,11 @@ export const registerStart = () => {
   };
 };
 
-export const registerSuccess = (token, userId) => {
+export const registerSuccess = (username, token, userId) => {
   return {
     type: actionTypes.REGISTER_SUCCESS,
     token: token,
+    username: username,
     userId: userId
   };
 };
@@ -23,10 +24,18 @@ export const registerFail = error => {
   };
 };
 
-export const register = (email, password) => {
+export const setAuthRedirectPath = path => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
+  };
+};
+
+export const register = (username, email, password) => {
   return dispatch => {
     dispatch(registerStart());
     const registerData = {
+      username: username,
       email: email,
       password: password,
       returnSecureToken: true
@@ -38,6 +47,7 @@ export const register = (email, password) => {
         localStorage.setItem('userId', response.data.registeredUser._id);
         dispatch(
           registerSuccess(
+            response.data.username,
             response.data.token.generate,
             response.data.registeredUser._id
           )

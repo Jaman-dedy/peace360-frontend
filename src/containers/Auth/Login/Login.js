@@ -27,7 +27,8 @@ class Login extends Component {
         value: '',
         label: 'Email',
         validation: {
-          required: true
+          required: true,
+          isEmail: true
         },
         valid: false,
         touched: false
@@ -88,8 +89,9 @@ class Login extends Component {
     }
   };
   render() {
+    let disableButton = false;
+
     const { error } = this.props;
-    console.log('authRedirectPath', this.props.authRedirectPath);
     let formBlock;
     const formElementsArray = [];
     for (let key in this.state.loginForm) {
@@ -98,13 +100,16 @@ class Login extends Component {
         config: this.state.loginForm[key]
       });
     }
+    formElementsArray.map(element => {
+      if (!element.config.valid) {
+        disableButton = true;
+      }
+      return disableButton;
+    });
     let form = formElementsArray.map(formElement => (
       <Aux key={formElement.id}>
-        <label
-          className={[classes[formElement.id]].join(' ')}
-          htmlFor={formElement.id}
-        ></label>
         <Input
+          required
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
           value={formElement.config.value}
@@ -125,7 +130,7 @@ class Login extends Component {
           <div className={styles.Input}>
             <form onSubmit={this.submitHandler}>
               {form}
-              <Button>LOG IN</Button>
+              <Button disabled={disableButton}>LOG IN</Button>
             </form>
           </div>
         </div>
