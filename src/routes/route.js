@@ -8,6 +8,8 @@ import Profile from '../components/Profile/Profile';
 import AboutUs from '../components/AboutUs/AboutUs';
 import Contact from '../components/Contact/Contact';
 import GetInvolved from '../components/GetInvolved/GetInvolved';
+import Research_Consultancy from '../components/Research_Consultancy/Research_Consultancy';
+import singleConsultancy from "../components/Research_Consultancy/SingleConsultancy/singleConsultancy"
 
 class Routes extends Component {
   render() {
@@ -21,6 +23,11 @@ class Routes extends Component {
         <Route path='/aboutUs' component={AboutUs} />
         <Route path='/contact' component={Contact} />
         <Route path='/getInvolved' component={GetInvolved} />
+        <Route path='/consultResearch' component={Research_Consultancy} />
+        <Route
+          path='/singleConsultancy'
+          component={singleConsultancy}
+        />
       </Switch>
     );
     return <div>{routes}</div>;

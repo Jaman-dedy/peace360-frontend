@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+$main-color: rgb(62, 81, 95);
+$main-hover: rgb(36, 46, 53);
+$font-color: #555353;
+$primary-color: #54768b;
+$clean-blue: #e2e7eb;
+$white: #fafafa;
+$white-hover: #e2f8f8;
+$blue: #41afd1;
+$blue-hover: #a38933;
+$black: rgb(62, 81, 95);
+$grey: #a2a4a5;
+$brighter: #cacfd1;
+.singleConsultancy {
+  font-family: 'Open Sans', sans-serif;
+  .container {
+    margin: 3rem;
+    width: 90%;
+    position: relative;
+    .back {
+      width: 2%;
+      margin: 3rem 1rem;
+      font-size: 30px;
+    }
+    .back i:hover {
+      color: $primary-color;
+    }
+    .consultancy {
+      width: 75%;
+      margin: 3rem 0;
+      .consult_image {
+        width: 100%;
+        height: 500px;
+        background-color: #555353;
+        img {
+          width: 100%;
+          height: 500px;
+          object-fit: cover;
+        }
+      }
+      .consult_desc {
+        .consult_Title {
+          margin: 0rem;
+          padding: 10px 0px;
+          font-size: 30px;
+          font-weight: bolder;
+        }
+        .consult_author {
+          padding: 10px 0 20px 0;
+          border-bottom: 1px solid $clean-blue;
+          .author {
+            font-weight: bolder;
+          }
+        }
+        .consult_text {
+          text-align: justify;
+          padding: 20px 0;
+        }
+      }
+      .other {
+        padding: 20px 0;
+
+        border-style: solid;
+        border-width: 1px 0 1px;
+        border-color: $clean-blue;
+        .share {
+          i {
+            padding: 10px;
+            font-size: 20px;
+          }
+        }
+        .share:hover {
+          color: $primary-color;
+        }
+      }
+      .other_consults {
+        i {
+          padding: 10px;
+          font-size: 20px;
+        }
+      }
+      .other_consults:hover {
+        color: $primary-color;
+      }
+      .comments {
+        .title {
+          margin: 0rem;
+          padding: 10px 0px;
+          font-size: 22px;
+          font-weight: bolder;
+          cursor: pointer;
+        }
+        .title:hover {
+          color: $primary-color;
+        }
+        .noDisplay {
+          display: none;
+        }
+        .displayDiv {
+          display: block;
+        }
+        .comment {
+          padding: 20px 0;
+          height: 190px;
+          border-style: solid;
+          border-width: 1px 0 0px;
+          border-color: $clean-blue;
+          .box {
+            float: left;
+          }
+          .userDetails {
+            .image {
+              width: 10%;
+              img {
+                background-color: $blue;
+                width: 80px;
+                height: 90px;
+                border-radius: 50%;
+              }
+            }
+            .commentDetails {
+              width: 90%;
+              .username {
+                font-size: 20px;
+                font-weight: bolder;
+              }
+              span {
+                font-size: 16px;
+                color: $grey;
+                font-weight: normal;
+                padding: 0 20px;
+              }
+              .comment_desc {
+                padding: 20px 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    .clients {
+      width: 15%;
+      margin: 3rem 2rem;
+      .title {
+        margin: 0rem;
+        padding: 10px 0px;
+        font-size: 30px;
+        font-weight: bolder;
+        border-bottom: 1px solid $clean-blue;
+      }
+      .number {
+        padding: 10px 0px;
+      }
+    }
+  }
+}
+.division {
+  border-bottom: 1px solid $clean-blue;
+}
