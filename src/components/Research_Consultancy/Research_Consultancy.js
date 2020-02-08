@@ -3,7 +3,8 @@ import './Research_Consultancy.scss';
 import Toolbar from '../../components/Menu/Toolbar/Toolbar';
 import { NavLink } from 'react-router-dom';
 import workImage from '../../assets/images/frontpage.jpg';
-
+import secondWorkImage from '../../assets/images/secondImage.jpg';
+import thirdImage from '../../assets/images/research3.jpeg';
 class Research_Consultancy extends Component {
   state = {
     arrayList: [
@@ -14,13 +15,13 @@ class Research_Consultancy extends Component {
           ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       },
       {
-        image: workImage,
+        image: secondWorkImage,
         title: 'Title here',
         text:
           ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       },
       {
-        image: workImage,
+        image: thirdImage,
         title: 'Title here',
         text:
           ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
