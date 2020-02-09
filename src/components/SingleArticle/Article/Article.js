@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import Toolbar from '../../Menu/Toolbar/Toolbar';
 import TextareaAutoSize from 'react-textarea-autosize';
 import textConfig from '../../../helpers/textConfig.json';
@@ -23,7 +24,11 @@ class NewArticle extends Component {
             <Toolbar />
           </div>
           <div className='container'>
-            <div className='back box'>back</div>
+            <NavLink to='/SingleArticle'>
+              <div className='back box'>
+                <i class='fas fa-chevron-left font-color'></i>
+              </div>
+            </NavLink>
             <form>
               <div className='tab box'>
                 <div className='titleField'>
@@ -33,7 +38,9 @@ class NewArticle extends Component {
                   />
                 </div>
                 <div className='uploadImage'>
-                  <div className='chooseImage left font-color'>Choose cover Image</div>
+                  <div className='chooseImage left font-color'>
+                    Choose cover Image
+                  </div>
                   <input
                     type='file'
                     name='coverUrl'
@@ -53,7 +60,7 @@ class NewArticle extends Component {
                 </div>
 
                 <div className='btn'>
-                  <button>Submit</button>
+                  <button type='submit'>Submit</button>
                 </div>
               </div>
             </form>

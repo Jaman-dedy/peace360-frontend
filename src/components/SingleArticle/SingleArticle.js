@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../hoc/Layout/Layout';
 import Aux from '../../hoc/Aux/Aux';
+import CreateArticleLink from '../../components/SingleArticle/Article/CreateArticleLink';
 import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
 import Like from './FavoriteUser/Like/Like';

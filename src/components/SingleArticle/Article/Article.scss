@@ -30,7 +30,7 @@ $brighter: #cacfd1;
     .back {
       width: 3%;
       margin: 2%;
-      background-color: yellow;
+      font-size: 30px;
     }
     .back i:hover {
       color: $primary-color;
@@ -90,5 +90,23 @@ $brighter: #cacfd1;
         margin: 3rem 0;
       }
     }
+  }
+}
+.classLink {
+  margin: 8rem;
+  position: fixed;
+
+  .icon {
+    color: $grey;
+    font-size: 30px;
+    padding: 20px;
+    border: 1px solid $grey;
+    border-radius: 50px;
+    width: 28px;
+  }
+  .icon:hover {
+    color: $primary-color;
+    font-size: 30px;
+    border: 1px solid $primary-color;
   }
 }
