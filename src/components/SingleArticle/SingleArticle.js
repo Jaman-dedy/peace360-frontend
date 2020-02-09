@@ -101,4 +101,4 @@ const mapStateToprops = state => {
   };
 };
 
-export default connect(mapStateToprops)(singleArticle);
+export default connect(mapStateToprops, null)(singleArticle);

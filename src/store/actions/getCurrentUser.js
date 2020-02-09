@@ -22,14 +22,14 @@ export const fetchCurrentUserStart = () => {
   };
 };
 
-export const fetchCurrentUser = token => {
+export const fetchCurrentUser = () => {
   return async dispatch => {
     dispatch(fetchCurrentUserStart());
     try {
-      const response = await axiosOrders.get('auh');
-      console.log('res', response);
+      const response = await axiosOrders.get('auth');
+      dispatch(fetchCurrentUserSuccess(response.data.user));
     } catch ({ response }) {
-      console.log('response', response);
+      dispatch(fetchCurrentUserFail(response.data.error));
     }
   };
 };
