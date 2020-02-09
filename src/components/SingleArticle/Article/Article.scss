@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+$main-color: rgb(62, 81, 95);
+$main-hover: rgb(36, 46, 53);
+$font-color: #555353;
+$primary-color: #54768b;
+$clean-blue: #e2e7eb;
+$white: #fafafa;
+$white-hover: #e2f8f8;
+$blue: #41afd1;
+$blue-hover: #a38933;
+$black: rgb(62, 81, 95);
+$grey: #a2a4a5;
+$brighter: #cacfd1;
+.createArticle {
+  font-family: 'Open Sans', sans-serif;
+  .left {
+    float: left;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+  .menu {
+    margin: 3rem 0 !important;
+  }
+  .container {
+    margin: 3rem;
+    width: 100%;
+    position: relative;
+    .back {
+      width: 3%;
+      margin: 2%;
+      background-color: yellow;
+    }
+    .back i:hover {
+      color: $primary-color;
+    }
+    .tab {
+      width: 85%;
+
+      margin: 2% 1%;
+
+      ::placeholder {
+        color: $grey;
+        opacity: 1;
+      }
+
+      :-ms-input-placeholder {
+        color: $grey;
+      }
+
+      ::-ms-input-placeholder {
+        color: $grey;
+      }
+      .label {
+        width: 5%;
+        font-size: 20px;
+        color: $font-color;
+        padding: 22px 10px;
+      }
+      .textareaClass {
+        width: 88.6%;
+        font-size: 35px;
+        border-width: 0 0 0 1px;
+        border-color: $clean-blue;
+        padding: 20px;
+        color: $font-color;
+        min-height: 20px;
+      }
+      .uploadImage {
+        .chooseImage {
+          padding: 20px;
+          width: 15%;
+        }
+        .inputClass {
+          width: 77.6%;
+          font-size: 15px;
+          border-width: 0 0 0 1px;
+          border-color: $clean-blue;
+          padding: 20px;
+          color: $font-color;
+          min-height: 20px;
+          overflow: hidden;
+        }
+      }
+      .editor {
+        margin: 1rem 0;
+      }
+      .btn {
+        margin: 3rem 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "options": [
+    "inline",
+    "blockType",
+    "fontSize",
+    "textAlign",
+    "list",
+    "link",
+    "image",
+    "embedded",
+    "emoji",
+    "history"
+  ],
+  "inline": {
+    "inDropdown": false,
+    "options": ["bold", "italic", "underline"]
+  },
+  "textAlign": {
+    "inDropdown": true
+  },
+  "list": { "inDropdown": true },
+  "link": { "inDropdown": true }
+}
