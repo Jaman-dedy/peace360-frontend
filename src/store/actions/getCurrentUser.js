@@ -29,7 +29,7 @@ export const fetchCurrentUser = () => {
       const response = await axiosOrders.get('auth');
       dispatch(fetchCurrentUserSuccess(response.data.user));
     } catch ({ response }) {
-      dispatch(fetchCurrentUserFail(response.data.error));
+      dispatch(fetchCurrentUserFail(response.data.msg));
     }
   };
 };
