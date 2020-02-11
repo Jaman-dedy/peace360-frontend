@@ -14,7 +14,6 @@ class Contact extends Component {
     });
   };
   onRemoveModal = e => {
-    
     if (
       e.target.className === 'modal-content' ||
       e.target.className === 'close'

@@ -12,6 +12,7 @@ import Research_Consultancy from '../components/Research_Consultancy/Research_Co
 import singleConsultancy from '../components/Research_Consultancy/SingleConsultancy/singleConsultancy';
 import Logout from '../containers/Auth/Logout/Logout';
 import CreateArticle from '../components/SingleArticle/Article/Article';
+import EditProfile from "../components/Profile/EditProfile/EditProfile";
 class Routes extends Component {
   render() {
     let routes = (
@@ -28,6 +29,7 @@ class Routes extends Component {
         <Route path='/consultResearch' component={Research_Consultancy} />
         <Route path='/singleConsultancy' component={singleConsultancy} />
         <Route path='/createArticle' component={CreateArticle} />
+        <Route path='/editProfile' component={EditProfile}/>
       </Switch>
     );
     return <div>{routes}</div>;
