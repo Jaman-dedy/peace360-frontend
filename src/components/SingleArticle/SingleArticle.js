@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Layout from '../../hoc/Layout/Layout';
+import Aux from '../../hoc/Aux/Aux';
 import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
 import Like from './FavoriteUser/Like/Like';
@@ -11,85 +13,102 @@ import SocialShare from '../SocialShare/SocialShare';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import classes from './SingleArticle.module.scss';
 import articleImg from '../../assets/images/experience1.jpg';
+import AuthenticationAction from '../AuthenticationAction/AuthenticationAction';
 
-const singleArticle = () => (
-  <Layout>
-    <AuthenticatedUser />
-    <div className={classes.SingleArticle}>
-      <div className={classes.ArticleTitle}>
-        React app structure by feature guidelines
-      </div>
-      <div className={classes.ArticleSubTitle}>
-        React app structure by feature guidelines
-      </div>
-
-      <FollowUser />
-      <SocialShare />
-      <div className={classes.Content}>
-        <div className={classes.ArticleImage}>
-          <img src={articleImg} alt="" />
-        </div>
-        <div className={classes.Text}>
-          Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
-          Praesent a aliquet quam. Donec convallis tempus scelerisque.
-          Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
-          Nullam ultrices quam id ligula iaculis facilisis. Cras convallis massa
-          vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed lobortis
-          turpis ut nibh porttitor pretium porta in odio. Quisque faucibus porta
-          dolor sed facilisis. Etiam placerat felis nec augue efficitur, vel
-          mollis ipsum aliquam. Suspendisse egestas fringilla mauris, ut
-          molestie elit viverra vel. Praesent a aliquet quam. Donec convallis
-          tempus scelerisque. Suspendisse vehicula sapien erat, porta tincidunt
-          leo gravida eget. Nullam ultrices quam id ligula iaculis facilisis.
-          Cras convallis massa vel luctus tempor. Nullam pharetra sed nunc ac
-          bibendum. Sed lobortis turpis ut nibh porttitor pretium porta in odio.
-          Quisque faucibus porta dolor sed facilisis. Etiam placerat felis nec
-          augue efficitur, vel mollis ipsum aliquam. Suspendisse egestas
-          fringilla mauris, ut molestie elit viverra vel. Praesent a aliquet
-          quam. Donec convallis tempus scelerisque. Suspendisse vehicula sapien
-          erat, porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
-          iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
-          pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
-          pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
-          Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
-          Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
-          Praesent a aliquet quam. Donec convallis tempus scelerisque.
-          Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
-          Nullam ultrices quam id ligula iaculis facilisis. Cras convallis massa
-          vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed lobortis
-          turpis ut nibh porttitor pretium porta in odio. Quisque faucibus porta
-          dolor sed facilisis. Etiam placerat felis nec augue efficitur, vel
-          mollis ipsum aliquam. Suspendisse egestas fringilla mauris, ut
-          molestie elit viverra vel. Praesent a aliquet quam. Donec convallis
-          tempus scelerisque. Suspendisse vehicula sapien erat, porta tincidunt
-          leo gravida eget. Nullam ultrices quam id ligula iaculis facilisis.
-          Cras convallis massa vel luctus tempor. Nullam pharetra sed nunc ac
-          bibendum. Sed lobortis turpis ut nibh porttitor pretium porta in odio.
-          Quisque faucibus porta dolor sed facilisis. Etiam placerat felis nec
-          augue efficitur, vel mollis ipsum aliquam. Suspendisse egestas
-          fringilla mauris, ut molestie elit viverra vel. Praesent a aliquet
-          quam. Donec convallis tempus scelerisque. Suspendisse vehicula sapien
-          erat, porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
-          iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
-          pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
-          pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
-          Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
-        </div>
-      </div>
-      <Tag />
-      <Tag />
-      <Tag />
-
-      <div className={classes.Favorite}>
-        Rate & like this article
-        <Like />
-        <Rate />
-      </div>
-      <RelatedArticle />
+const singleArticle = props => {
+  const comments = (
+    <Aux>
       <CommentForm />
       <Comments />
-    </div>
-  </Layout>
-);
+    </Aux>
+  );
 
-export default singleArticle;
+  return (
+    <Layout>
+      {props.isAuthenticated ? <AuthenticatedUser /> : <AuthenticationAction />}
+
+      <div className={classes.SingleArticle}>
+        <div className={classes.ArticleTitle}>
+          React app structure by feature guidelines
+        </div>
+        <div className={classes.ArticleSubTitle}>
+          React app structure by feature guidelines
+        </div>
+
+        <FollowUser />
+        <SocialShare />
+        <div className={classes.Content}>
+          <div className={classes.ArticleImage}>
+            <img src={articleImg} alt="" />
+          </div>
+          <div className={classes.Text}>
+            Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
+            Praesent a aliquet quam. Donec convallis tempus scelerisque.
+            Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
+            Nullam ultrices quam id ligula iaculis facilisis. Cras convallis
+            massa vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed
+            lobortis turpis ut nibh porttitor pretium porta in odio. Quisque
+            faucibus porta dolor sed facilisis. Etiam placerat felis nec augue
+            efficitur, vel mollis ipsum aliquam. Suspendisse egestas fringilla
+            mauris, ut molestie elit viverra vel. Praesent a aliquet quam. Donec
+            convallis tempus scelerisque. Suspendisse vehicula sapien erat,
+            porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
+            iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
+            pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
+            pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
+            Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
+            Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
+            Praesent a aliquet quam. Donec convallis tempus scelerisque.
+            Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
+            Nullam ultrices quam id ligula iaculis facilisis. Cras convallis
+            massa vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed
+            lobortis turpis ut nibh porttitor pretium porta in odio. Quisque
+            faucibus porta dolor sed facilisis. Etiam placerat felis nec augue
+            efficitur, vel mollis ipsum aliquam. Suspendisse egestas fringilla
+            mauris, ut molestie elit viverra vel. Praesent a aliquet quam. Donec
+            convallis tempus scelerisque. Suspendisse vehicula sapien erat,
+            porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
+            iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
+            pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
+            pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
+            Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
+            Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
+            Praesent a aliquet quam. Donec convallis tempus scelerisque.
+            Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
+            Nullam ultrices quam id ligula iaculis facilisis. Cras convallis
+            massa vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed
+            lobortis turpis ut nibh porttitor pretium porta in odio. Quisque
+            faucibus porta dolor sed facilisis. Etiam placerat felis nec augue
+            efficitur, vel mollis ipsum aliquam. Suspendisse egestas fringilla
+            mauris, ut molestie elit viverra vel. Praesent a aliquet quam. Donec
+            convallis tempus scelerisque. Suspendisse vehicula sapien erat,
+            porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
+            iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
+            pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
+            pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
+            Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
+          </div>
+        </div>
+        <Tag />
+        <Tag />
+        <Tag />
+
+        <div className={classes.Favorite}>
+          Rate & like this article
+          <Like />
+          <Rate />
+        </div>
+        <RelatedArticle />
+        {props.isAuthenticated ? comments : null}
+      </div>
+    </Layout>
+  );
+};
+
+const mapStateToprops = state => {
+  return {
+    isAuthenticated: state.register.token !== null || state.login.token !== null
+  };
+};
+
+export default connect(mapStateToprops, null)(singleArticle);

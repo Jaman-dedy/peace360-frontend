@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Aux from '../../../../hoc/Aux/Aux';
 import './Rate.scss';
 
 class Rate extends Component {
   render() {
-    return (
+    const form = (
       <div className="rate">
         <form>
           <fieldset className="rating">
@@ -91,6 +93,13 @@ class Rate extends Component {
         </form>
       </div>
     );
+    return <Aux>{this.props.isAuthenticated ? form : null}</Aux>;
   }
 }
-export default Rate;
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.login.token !== null || state.login.token !== null
+  };
+};
+export default connect(mapStateToProps, null)(Rate);

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import classes from './FollowUser.module.scss';
+import * as actions from '../../../store/actions/index';
 import userAvatar from '../../../assets/images/avatar.jpg';
 
 class FollowUser extends Component {
@@ -7,13 +10,19 @@ class FollowUser extends Component {
     isFollowed: true
   };
   switchFavoriteUserHandle = () => {
+    if (!this.props.isAuthenticated) {
+      this.props.onSetRedirectPath();
+    }
     this.setState(prevState => {
       return { isFollowed: !prevState.isFollowed };
     });
   };
   render() {
+    const redirectPath = <Redirect to={this.props.redirectPath} />;
+
     return (
       <div className={classes.FollowUser}>
+        {redirectPath}
         <div className={classes.Avatar}>
           <img src={userAvatar} alt="" />
         </div>
@@ -32,4 +41,21 @@ class FollowUser extends Component {
   }
 }
 
-export default FollowUser;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser,
+    loading: state.currentUser.loading,
+    isAuthenticated:
+      state.login.token !== null || state.register.token !== null,
+    redirectPath:
+      state.login.authRedirectPath || state.register.authRedirectPath
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login'))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FollowUser);
