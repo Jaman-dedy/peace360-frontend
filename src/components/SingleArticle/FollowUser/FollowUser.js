@@ -47,7 +47,8 @@ const mapStateToProps = state => {
     loading: state.currentUser.loading,
     isAuthenticated:
       state.login.token !== null || state.register.token !== null,
-    redirectPath: state.login.authRedirectPath
+    redirectPath:
+      state.login.authRedirectPath || state.register.authRedirectPath
   };
 };
 
