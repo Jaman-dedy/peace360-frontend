@@ -66,6 +66,45 @@ $brighter: #cacfd1;
       .editIcon:hover {
         background-color: $primary-color;
       }
+      fieldset {
+        padding: 0 10px 5px 10px;
+      }
+      .more-about-user {
+        padding: 30px 10px 5px 10px;
+      }
+      fieldset {
+        .social {
+          .link input {
+            width: 92% !important;
+            padding: 5px 10px;
+            background-color: darkseagreen;
+          }
+        }
+        .row {
+          overflow: hidden;
+
+          textarea {
+            background-color: rgb(233, 231, 231);
+            padding: 10px;
+            margin: 0 150px 0 0;
+            width: 92%;
+          }
+          input {
+            width: 82%;
+            padding: 5px 10px;
+
+            background-color: rgb(233, 231, 231);
+          }
+          .time_box {
+            float: left;
+            width: 30%;
+            padding: 10px 0;
+            input {
+              width: 90%;
+            }
+          }
+        }
+      }
     }
   }
 }
