@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Categories from '../../components/Categories/Categories';
+import * as actions from '../../store/actions/index';
 import ArticleSliders from '../../components/ArticleSliders/ArticleSliders';
 import UpComingEvent from '../../components/UpComingEvent/UpComingEvent';
 import Statistics from '../../components/Statistics/Statistics';
@@ -8,9 +9,21 @@ import VisionMission from '../../components/VisionMission/VisionMission';
 import AuthenticationAction from '../../components/AuthenticationAction/AuthenticationAction';
 import Layout from '../../hoc/Layout/Layout';
 import AuthenticatedUser from '../../components/AuthenticatedUser/AuthenticatedUser';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.onFetchCategory();
+  }
   render() {
+    let fetchedCategories = null;
+    const { category } = this.props.categories;
+
+    if (!category.length) {
+      fetchedCategories = <Spinner />;
+    }
+    fetchedCategories = <Categories categories={category} />;
+
     return (
       <Layout>
         {this.props.isAuthenticated ? (
@@ -20,7 +33,7 @@ class Home extends Component {
         )}
         <ArticleSliders />
         <UpComingEvent />
-        <Categories />
+        {fetchedCategories}
         <Statistics />
         <VisionMission />
       </Layout>
@@ -30,7 +43,16 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.register.token !== null || state.login.token !== null
+    isAuthenticated:
+      state.register.token !== null || state.login.token !== null,
+    loading: state.fetchCategories.loading,
+    error: state.fetchCategories.error,
+    categories: state.fetchCategories
   };
 };
-export default connect(mapStateToProps, null)(Home);
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchCategory: () => dispatch(actions.fetchCategory())
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

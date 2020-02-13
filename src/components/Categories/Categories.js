@@ -1,15 +1,29 @@
-import React from "react";
-import Category from "./Category/Category";
-import CategoryPagination from "./Category/Pagination/CategoryPagination";
-import classes from "./Categories.module.scss";
+import React from 'react';
+import Category from './Category/Category';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
-const categories = props => (
-  <div className={classes.Categories}>
-    <Category />
-    <Category />
-    <Category />
-    <CategoryPagination />
-  </div>
-);
+import CategoryPagination from './Category/Pagination/CategoryPagination';
+import classes from './Categories.module.scss';
+
+const categories = props => {
+  let foundCategories = null;
+  const { pageInfo } = props.categories;
+  const category = props.categories.data;
+
+  if (!category) {
+    foundCategories = <Spinner />;
+  } else {
+    foundCategories = category.map(fetchedCategory => {
+      return <Category key={fetchedCategory._id} category={fetchedCategory} />;
+    });
+  }
+
+  return (
+    <div className={classes.Categories}>
+      {foundCategories}
+      <CategoryPagination pagination={pageInfo} />
+    </div>
+  );
+};
 
 export default categories;

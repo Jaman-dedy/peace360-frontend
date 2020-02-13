@@ -11,6 +11,7 @@ class Article extends Component {
     this.props.onSetRedirectPath();
   }
   render() {
+    console.log('this.props', this.props);
     return (
       <NavLink to={this.props.redirectUrl}>
         <div className={classes.Article}>

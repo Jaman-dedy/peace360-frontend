@@ -1,6 +1,6 @@
-import React from "react";
-import classes from "./CategoryPagination.module.scss";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import classes from './CategoryPagination.module.scss';
+import { NavLink } from 'react-router-dom';
 
 const categoryPagination = props => (
   <div className={classes.CategoryPagination}>
