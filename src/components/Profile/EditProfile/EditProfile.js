@@ -1,21 +1,50 @@
 import React, { Component } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
 import './EditProfile.scss';
 import Layout from '../../Menu/Toolbar/Toolbar';
 import avatar from '../../../assets/images/avatar.jpg';
+import UserExperience from './UserExperience';
 import { NavLink } from 'react-router-dom';
+import MoreAboutUser from './MoreAboutUser';
+import UserEducation from './UserEducation';
+import UserSocial from './UserSocials';
 class EditProfile extends Component {
   state = {
-    displayMore: true,
-    displayExperience: true,
-    displayEducation: true,
-    displaySocial: true
+    displayMore: false,
+    displayExperience: false,
+    displayEducation: false,
+    displaySocial: false
   };
-  onDisplayMore = () => {};
-  onDisplayExperience = () => {};
-  onDisplayEducation = () => {};
-  onDisplaySocial = () => {};
+  onDisplayMore = () => {
+    let changes = this.state.displayMore;
+    this.setState({
+      displayMore: !changes
+    });
+  };
+  onDisplayExperience = () => {
+    let changes = this.state.displayExperience;
+    this.setState({
+      displayExperience: !changes
+    });
+  };
+  onDisplayEducation = () => {
+    let changes = this.state.displayEducation;
+    this.setState({
+      displayEducation: !changes
+    });
+  };
+  onDisplaySocial = () => {
+    let changes = this.state.displaySocial;
+    this.setState({
+      displaySocial: !changes
+    });
+  };
   render() {
+    const {
+      displayMore,
+      displayExperience,
+      displayEducation,
+      displaySocial
+    } = this.state;
     return (
       <div>
         <div className='editContainer'>
@@ -66,162 +95,54 @@ class EditProfile extends Component {
                     >
                       More about you
                     </div>
-                    <div className='row'>
-                      <div className='box'>
-                        <fieldset>
-                          <legend>Company</legend>
-                          <input type='text' placeholder='Bene' />
-                        </fieldset>
-                      </div>
-                      <div className='box'>
-                        <fieldset>
-                          <legend> Website</legend>
-                          <input
-                            type='text'
-                            placeholder='example@example.com'
-                          />
-                        </fieldset>
-                      </div>
-                    </div>
-                    <div className='row'>
-                      <div className='box'>
-                        <fieldset>
-                          <legend>Address</legend>
-                          <input type='text' placeholder='Bene' />
-                        </fieldset>
-                      </div>
-                      <div className='box'>
-                        <fieldset>
-                          <legend>Skills</legend>
-                          <input
-                            type='text'
-                            placeholder='example@example.com'
-                          />
-                        </fieldset>
-                      </div>
-                    </div>
-                    <div className='row'>
-                      <fieldset>
-                        <legend>Your bio</legend>
-                        <TextareaAutosize style={{ width: '100%' }} />
-                      </fieldset>
-                    </div>
+                    {displayMore ? (
+                      <MoreAboutUser />
+                    ) : (
+                      <div className='diviser'></div>
+                    )}
+
                     <div className='row font-color'>
-                      <fieldset>
-                        <legend>Your experience</legend>
-                        <div className='row'>
-                          <div className='box'>
-                            <label htmlFor='position'>Position</label>
-                            <input type='text' placeholder='Your position' />
-                          </div>
-                          <div className='box'>
-                            <label htmlFor='company'>Company</label>
-                            <input type='text' placeholder='Your position' />
-                          </div>
+                      <div>
+                        <div
+                          className='more-about-user'
+                          onClick={this.onDisplayExperience}
+                        >
+                          Your Experience
                         </div>
-                        <div className='row'>
-                          <div className='box'>
-                            <label htmlFor='Address'>Address</label>
-                            <input type='text' placeholder='Your position' />
-                          </div>
-                          <div className='box'>
-                            <label htmlFor='company'>Company</label>
-                            <input type='text' placeholder='Your position' />
-                          </div>
-                        </div>
-                        <div className='row'>
-                          <div className='time_box'>
-                            <label htmlFor='Address'>From</label>
-                            <input type='date' placeholder='Your position' />
-                          </div>
-                          <div className='time_box'>
-                            <label htmlFor='company'>To</label>
-                            <input type='date' placeholder='Your position' />
-                          </div>
-                          <div className='time_box'>
-                            <label htmlFor='company'>Now</label>
-                            <input type='radio' placeholder='Your position' />
-                          </div>
-                        </div>
-                        <div className='row text_area'>
-                          <label htmlFor='company'>Job Description</label>
-                          <TextareaAutosize />
-                        </div>
-                      </fieldset>
+                        {displayExperience ? (
+                          <UserExperience />
+                        ) : (
+                          <div className='diviser'></div>
+                        )}
+                      </div>
                     </div>
 
                     <div className='row font-color'>
-                      <fieldset>
-                        <legend>Your Education</legend>
-                        <div className='row'>
-                          <div className='box'>
-                            <label htmlFor='school'>School</label>
-                            <input type='text' placeholder='School' />
-                          </div>
-                          <div className='box'>
-                            <label htmlFor='degree'>Degree</label>
-                            <input type='text' placeholder='Your degree' />
-                          </div>
-                        </div>
-                        <div className='row'>
-                          <div className='box'>
-                            <label htmlFor='Address'>Address</label>
-                            <input type='text' placeholder='Your position' />
-                          </div>
-                          <div className='box'>
-                            <label htmlFor='company'>Company</label>
-                            <input type='text' placeholder='Your position' />
-                          </div>
-                        </div>
-                        <div className='row'>
-                          <div className='time_box'>
-                            <label htmlFor='Address'>From</label>
-                            <input type='date' placeholder='Your position' />
-                          </div>
-                          <div className='time_box'>
-                            <label htmlFor='company'>To</label>
-                            <input type='date' placeholder='Your position' />
-                          </div>
-                          <div className='time_box'>
-                            <label htmlFor='company'>Now</label>
-                            <input type='radio' placeholder='Your position' />
-                          </div>
-                        </div>
-                        <div className='row text_area'>
-                          <label htmlFor='company'>School Description</label>
-                          <TextareaAutosize />
-                        </div>
-                      </fieldset>
+                      <div
+                        className='more-about-user'
+                        onClick={this.onDisplayEducation}
+                      >
+                        Your Education
+                      </div>
+                      {displayEducation ? (
+                        <UserEducation />
+                      ) : (
+                        <div className='diviser'></div>
+                      )}
                     </div>
+
                     <div className='row font-color'>
-                      <fieldset>
-                        <legend>Social media</legend>
-                        <div className='row social'>
-                          <label htmlFor='linkedin'>Youtube</label>
-                          <input type='checkbox' />
-                          <input type='text' className='link' />
-                        </div>
-                        <div className='row social'>
-                          <label htmlFor='twitter'>Twitter</label>
-                          <input type='checkbox' />
-                          <input type='text' className='link' />
-                        </div>
-                        <div className='row social'>
-                          <label htmlFor='facebook'>Facebook</label>
-                          <input type='checkbox' />
-                          <input type='text' className='link' />
-                        </div>
-                        <div className='row social'>
-                          <label htmlFor='Linkedin'>Linkedin</label>
-                          <input type='checkbox' />
-                          <input type='text' className='link' />
-                        </div>
-                        <div className='row social'>
-                          <label htmlFor='Instagram'>Instagram</label>
-                          <input type='checkbox' />
-                          <input type='text' className='link' />
-                        </div>
-                      </fieldset>
+                      <div
+                        className='more-about-user'
+                        onClick={this.onDisplaySocial}
+                      >
+                        Social Life
+                      </div>
+                      {displaySocial ? (
+                        <UserSocial />
+                      ) : (
+                        <div className='diviser'></div>
+                      )}
                     </div>
                     <div className='btn'>
                       <button>Submit</button>

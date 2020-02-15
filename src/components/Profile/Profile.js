@@ -6,7 +6,7 @@ import classes from './Profile.module.scss';
 import './Profile.scss';
 import postImg from '../../assets/images/experience1.jpg';
 import Avatar from '../../assets/images/avatar.jpg';
-import EditProfile from './EditProfile/EditProfile';
+import EditLink from './EditProfile/EditProfileLink'
 
 const profile = () => {
   const handleShowTabs = (event, tabName) => {
@@ -83,6 +83,9 @@ const profile = () => {
             <h3>ABOUT ME</h3>
           </span>
           <div className={classes.ProfileTab}>
+            <div>
+              <EditLink/>
+            </div>
             <span>
               <h3>Emanuel Bush</h3>
             </span>
