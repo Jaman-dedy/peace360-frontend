@@ -6,6 +6,7 @@ import classes from './Profile.module.scss';
 import './Profile.scss';
 import postImg from '../../assets/images/experience1.jpg';
 import Avatar from '../../assets/images/avatar.jpg';
+import EditLink from './EditProfile/EditProfileLink'
 
 const profile = () => {
   const handleShowTabs = (event, tabName) => {
@@ -23,34 +24,35 @@ const profile = () => {
   };
   return (
     <Layout>
+      <div></div>
       <div className={classes.Profile}>
         <div className={classes.Tab}>
           <button
-            className="tabLinks"
+            className='tabLinks'
             onClick={e => handleShowTabs(e, 'Profile')}
           >
             Profile
           </button>
           <button
-            className="tabLinks"
+            className='tabLinks'
             onClick={e => handleShowTabs(e, 'Posts')}
           >
             Posts
           </button>
           <button
-            className="tabLinks"
+            className='tabLinks'
             onClick={e => handleShowTabs(e, 'Likes')}
           >
             Likes
           </button>
           <button
-            className="tabLinks"
+            className='tabLinks'
             onClick={e => handleShowTabs(e, 'Followers')}
           >
             Followers
           </button>
           <button
-            className="tabLinks"
+            className='tabLinks'
             onClick={e => handleShowTabs(e, 'Following')}
           >
             Following
@@ -59,28 +61,31 @@ const profile = () => {
         <div className={classes.FollowMe}>
           <h2>Follow me on</h2>
           <div className={classes.SocialMedia}>
-            <Link to="#">
-              <i className="fab fa-facebook"></i>
+            <Link to='#'>
+              <i className='fab fa-facebook'></i>
             </Link>
-            <Link to="#">
-              <i className="fab fa-twitter"></i>
+            <Link to='#'>
+              <i className='fab fa-twitter'></i>
             </Link>
-            <Link to="#">
-              <i className="fab fa-instagram"></i>
+            <Link to='#'>
+              <i className='fab fa-instagram'></i>
             </Link>
-            <Link to="#">
-              <i className="fab fa-linkedin"></i>
+            <Link to='#'>
+              <i className='fab fa-linkedin'></i>
             </Link>
-            <Link to="#">
-              <i className="fab fa-youtube"></i>
+            <Link to='#'>
+              <i className='fab fa-youtube'></i>
             </Link>
           </div>
         </div>
-        <div id="Profile" className="tabContent">
+        <div id='Profile' className='tabContent'>
           <span>
             <h3>ABOUT ME</h3>
           </span>
           <div className={classes.ProfileTab}>
+            <div>
+              <EditLink/>
+            </div>
             <span>
               <h3>Emanuel Bush</h3>
             </span>
@@ -105,17 +110,17 @@ const profile = () => {
             </span>
           </div>
         </div>
-        <div id="Posts" className="tabContent">
+        <div id='Posts' className='tabContent'>
           <span>
             <h3>MY POSTS</h3>
           </span>
           <div className={classes.ProfileTab}>
             <div className={classes.Posts}>
               {' '}
-              <Link to="/singleArticle">
+              <Link to='/singleArticle'>
                 <div className={classes.MyPosts}>
                   <div>
-                    <img src={postImg} alt="" />
+                    <img src={postImg} alt='' />
                   </div>
                   <div className={classes.PostTitle}>
                     Peace is a stress-free state of security and calmness
@@ -128,10 +133,10 @@ const profile = () => {
             </div>
             <div className={classes.Posts}>
               {' '}
-              <Link to="/singleArticle">
+              <Link to='/singleArticle'>
                 <div className={classes.MyPosts}>
                   <div>
-                    <img src={postImg} alt="" />
+                    <img src={postImg} alt='' />
                   </div>
                   <div className={classes.PostTitle}>
                     Peace is a stress-free state of security and calmness
@@ -144,17 +149,17 @@ const profile = () => {
             </div>
           </div>
         </div>
-        <div id="Likes" className="tabContent">
+        <div id='Likes' className='tabContent'>
           <span>
             <h3>MY LIKES</h3>
           </span>
           <div className={classes.ProfileTab}>
             <div className={classes.Posts}>
               {' '}
-              <Link to="/singleArticle">
+              <Link to='/singleArticle'>
                 <div className={classes.MyPosts}>
                   <div>
-                    <img src={postImg} alt="" />
+                    <img src={postImg} alt='' />
                   </div>
                   <div className={classes.PostTitle}>
                     Peace is a stress-free state of security and calmness
@@ -167,10 +172,10 @@ const profile = () => {
             </div>
             <div className={classes.Posts}>
               {' '}
-              <Link to="/singleArticle">
+              <Link to='/singleArticle'>
                 <div className={classes.MyPosts}>
                   <div>
-                    <img src={postImg} alt="" />
+                    <img src={postImg} alt='' />
                   </div>
                   <div className={classes.PostTitle}>
                     Peace is a stress-free state of security and calmness
@@ -183,56 +188,56 @@ const profile = () => {
             </div>
           </div>
         </div>
-        <div id="Followers" className="tabContent">
+        <div id='Followers' className='tabContent'>
           <span>
             <h3>MY FOLLOWERS</h3>
           </span>
           <div className={classes.ProfileTab}>
             <div className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={Avatar} alt="" />
+                <img src={Avatar} alt='' />
               </div>
               <div className={classes.Name}>Emanuel Bush</div>
               <div className={classes.Follow}>Follow</div>
             </div>
             <div className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={Avatar} alt="" />
+                <img src={Avatar} alt='' />
               </div>
               <div className={classes.Name}>Emanuel Bush</div>
               <div className={classes.Follow}>Follow</div>
             </div>
             <div className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={Avatar} alt="" />
+                <img src={Avatar} alt='' />
               </div>
               <div className={classes.Name}>Emanuel Bush</div>
               <div className={classes.Follow}>Follow</div>
             </div>
           </div>
         </div>
-        <div id="Following" className="tabContent">
+        <div id='Following' className='tabContent'>
           <span>
             <h3>MY FOLLOWINGS</h3>
           </span>
           <div className={classes.ProfileTab}>
             <div className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={Avatar} alt="" />
+                <img src={Avatar} alt='' />
               </div>
               <div className={classes.Name}>Emanuel Bush</div>
               <div className={classes.UnFollow}>UnFollow</div>
             </div>
             <div className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={Avatar} alt="" />
+                <img src={Avatar} alt='' />
               </div>
               <div className={classes.Name}>Emanuel Bush</div>
               <div className={classes.UnFollow}>UnFollow</div>
             </div>
             <div className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={Avatar} alt="" />
+                <img src={Avatar} alt='' />
               </div>
               <div className={classes.Name}>Emanuel Bush</div>
               <div className={classes.UnFollow}>UnFollow</div>
