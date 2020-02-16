@@ -56,7 +56,7 @@ class Research_Consultancy extends Component {
               </NavLink>
             </div>
           ))}
-          <div className='here'></div>
+          
         </div>
       </div>
     );
