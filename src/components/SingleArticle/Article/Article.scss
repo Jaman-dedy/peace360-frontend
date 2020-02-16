@@ -11,6 +11,7 @@ $blue-hover: #a38933;
 $black: rgb(62, 81, 95);
 $grey: #a2a4a5;
 $brighter: #cacfd1;
+
 .createArticle {
   font-family: 'Open Sans', sans-serif;
   .left {
@@ -20,6 +21,7 @@ $brighter: #cacfd1;
   .text-right {
     text-align: right;
   }
+
   .menu {
     margin: 3rem 0 !important;
   }
@@ -93,20 +95,18 @@ $brighter: #cacfd1;
   }
 }
 .classLink {
-  margin: 8rem;
+  margin: 10rem 9rem;
   position: fixed;
 
   .icon {
     color: $grey;
-    font-size: 30px;
-    padding: 20px;
+    font-size: 20px;
+    padding: 8px;
     border: 1px solid $grey;
-    border-radius: 50px;
-    width: 28px;
+    border-radius: 50%;
   }
   .icon:hover {
     color: $primary-color;
-    font-size: 30px;
     border: 1px solid $primary-color;
   }
 }

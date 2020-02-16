@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import './Article/Article.scss';
 import Layout from '../../hoc/Layout/Layout';
 import Aux from '../../hoc/Aux/Aux';
 import CreateArticleLink from '../../components/SingleArticle/Article/CreateArticleLink';
@@ -28,6 +30,8 @@ const singleArticle = props => {
     <Layout>
       {props.isAuthenticated ? <AuthenticatedUser /> : <AuthenticationAction />}
 
+      <CreateArticleLink className='ArticleLink' />
+
       <div className={classes.SingleArticle}>
         <div className={classes.ArticleTitle}>
           React app structure by feature guidelines
@@ -40,7 +44,7 @@ const singleArticle = props => {
         <SocialShare />
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
-            <img src={articleImg} alt="" />
+            <img src={articleImg} alt='' />
           </div>
           <div className={classes.Text}>
             Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
