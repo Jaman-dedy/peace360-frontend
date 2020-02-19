@@ -54,7 +54,7 @@ class EditProfile extends Component {
           <div className='editContent'>
             <NavLink to='/profile'>
               <div className='boxContent back'>
-                <i class='fas fa-chevron-left'></i>
+                <i className='fas fa-chevron-left'></i>
               </div>
             </NavLink>
 
@@ -67,7 +67,7 @@ class EditProfile extends Component {
                       <div className='image_container'>
                         <img src={avatar} alt='' className='boxContent' />
                         <div className='editIcon font-color '>
-                          <i class='fas fa-pencil-alt'></i>
+                          <i className='fas fa-pencil-alt'></i>
                         </div>
                       </div>
                     </div>
