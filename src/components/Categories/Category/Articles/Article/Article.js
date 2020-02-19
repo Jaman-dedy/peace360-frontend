@@ -11,16 +11,14 @@ class Article extends Component {
     this.props.onSetRedirectPath();
   }
   render() {
-    console.log('this.props', this.props);
+    const { article } = this.props;
     return (
       <NavLink to={this.props.redirectUrl}>
         <div className={classes.Article}>
           <div>
             <img src={experienceImg} alt="experience" />
           </div>
-          <div className={classes.Title}>
-            Peace is a stress-free state of security and calmness
-          </div>
+          <div className={classes.Title}>{article.title}</div>
           <div className={classes.Details}>
             EmaBush 2 days ago | &#128338; 4 min to read
           </div>

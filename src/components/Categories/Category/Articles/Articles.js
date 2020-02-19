@@ -5,7 +5,7 @@ import classes from './Articles.module.scss';
 const articles = props => {
   const { articles } = props;
   const foundArticle = articles.map(fArticles => {
-    return <Article key={fArticles._id} article={articles} />;
+    return <Article key={fArticles._id} article={fArticles} />;
   });
   return <div className={classes.Articles}>{foundArticle}</div>;
 };
