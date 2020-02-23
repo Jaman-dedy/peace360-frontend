@@ -8,8 +8,7 @@ import classes from './Categories.module.scss';
 const categories = props => {
   let foundCategories = null;
   const { pageInfo } = props.categories;
-  const category = props.categories.displayCategories;
-
+  const category = props.categories.categories;
   if (!category) {
     foundCategories = <Spinner />;
   } else {

@@ -7,7 +7,11 @@ const articles = props => {
   const foundArticle = articles.map(fArticles => {
     return <Article key={fArticles._id} article={fArticles} />;
   });
-  return <div className={classes.Articles}>{foundArticle}</div>;
+  return (
+    <div id={'articles' + props.id} className={classes.Articles}>
+      {foundArticle}
+    </div>
+  );
 };
 
 export default articles;

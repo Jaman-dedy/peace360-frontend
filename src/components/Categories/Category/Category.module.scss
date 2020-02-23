@@ -1,10 +1,10 @@
 .Category {
   display: grid;
-  grid-template-areas: "experience experience mostSeen";
+  grid-template-areas: 'experience experience experience experience  mostSeen';
   grid-gap: 1.3rem;
 }
 .Title {
-  font-family: "M PLUS 1p", sans-serif;
+  font-family: 'M PLUS 1p', sans-serif;
   font-size: 1.2rem;
   border-bottom: solid 1.5px #5a55541f;
   padding-bottom: 1rem;

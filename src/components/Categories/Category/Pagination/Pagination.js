@@ -1,16 +1,16 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import classes from "./Pagination.module.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import classes from './Pagination.module.scss';
 
 const pagination = props => (
   <div className={classes.Pagination}>
-    <NavLink to="#">
+    <Link to="#" onClick={props.scrollToLeft}>
       <span>&#10094;</span>
-    </NavLink>{" "}
+    </Link>{' '}
     &nbsp; | &nbsp;
-    <NavLink to="#">
+    <Link to="#" onClick={props.scrollToRight}>
       <span>&#10095;</span>
-    </NavLink>
+    </Link>
   </div>
 );
 
