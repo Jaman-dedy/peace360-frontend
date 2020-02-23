@@ -22,11 +22,14 @@ export const fetchCategoryStart = () => {
   };
 };
 
-export const fetchCategory = () => {
+export const fetchCategory = page => {
+  let defaultPage = page ? page : 1;
   return async dispatch => {
     dispatch(fetchCategoryStart());
     try {
-      const response = await axiosOrders.get('category/getAll?page=1');
+      const response = await axiosOrders.get(
+        `category/getAll?page=${defaultPage}`
+      );
       dispatch(fetchCategorySuccess(response.data));
     } catch ({ response }) {
       dispatch(fetchCategoryFail(response.data.message));
