@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Toolbar from '../../Menu/Toolbar/Toolbar';
 import TextareaAutoSize from 'react-textarea-autosize';
 import textConfig from '../../../helpers/textConfig.json';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import Input from '../../../components/UI/Input/Input';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';

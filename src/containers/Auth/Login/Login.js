@@ -76,6 +76,7 @@ class Login extends Component {
   };
   submitHandler = event => {
     event.preventDefault();
+   
     this.props.onLogin(
       this.state.loginForm.email.value,
       this.state.loginForm.password.value
@@ -138,7 +139,7 @@ class Login extends Component {
           <span>Forgot your password?</span>
           <span>
             Don't have an account?{' '}
-            <NavLink to="/signup">
+            <NavLink to='/signup'>
               <strong>Sign up</strong>
             </NavLink>
           </span>
@@ -155,11 +156,11 @@ class Login extends Component {
     return (
       <div className={styles.Auth} onClick={this.closeErrorHandler}>
         {authRedirect}
-        <Backward link="/" />
+        <Backward link='/' />
         <LeftSide />
         <div className={styles.Block}>
           <div className={classes.Image}>
-            <img src={AuthImg} alt="" />
+            <img src={AuthImg} alt='' />
           </div>
           {formBlock}
         </div>

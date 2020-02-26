@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import './Article/Article.scss';
 import Layout from '../../hoc/Layout/Layout';
 import Aux from '../../hoc/Aux/Aux';

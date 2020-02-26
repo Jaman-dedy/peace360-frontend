@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
 import Aux from '../../hoc/Aux/Aux';
 import classes from './AuthenticatedUser.module.scss';
-import userAvatar from '../../assets/images/avatar.jpg';
 
 class AuthenticatedUser extends Component {
   componentWillMount() {
@@ -15,23 +14,31 @@ class AuthenticatedUser extends Component {
     const { user } = this.props.currentUser;
     const currentUser = (
       <div className={classes.User}>
-        <Link to="/profile">
-          <img src={user.avatar} alt="" />
+        <Link to='/profile'>
+          <img src={user.avatar} alt='' />
         </Link>
         <div className={classes.Actions}>
           <ol>
             <li>
               {' '}
-              <Link to="/profile">
+              <Link to='/profile'>
                 {' '}
-                <i className="fas fa-user"></i>
+                <i className='fas fa-user'></i>
                 profile
               </Link>
             </li>
             <li>
-              <Link to="/logout">
+              {' '}
+              <Link to='/newCategory'>
                 {' '}
-                <i className="fas fa-sign-out-alt"></i>
+                <i class='fas fa-list'></i>
+                Categories
+              </Link>
+            </li>
+            <li>
+              <Link to='/logout'>
+                {' '}
+                <i className='fas fa-sign-out-alt'></i>
                 logout
               </Link>
             </li>
@@ -39,7 +46,7 @@ class AuthenticatedUser extends Component {
         </div>
       </div>
     );
-    const redirectPath = <Redirect to="/" />;
+    const redirectPath = <Redirect to='/' />;
     return <Aux>{this.props.error ? redirectPath : currentUser}</Aux>;
   }
 }
