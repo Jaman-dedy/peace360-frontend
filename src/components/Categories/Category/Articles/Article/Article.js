@@ -10,7 +10,9 @@ import experienceImg from '../../../../../assets/images/peace-in-africa.jpg';
 class Article extends Component {
   componentDidMount() {
     this.props.onSetRedirectPath();
+    // this.props.setArticleSlidersProps(this.props.article);
   }
+
   render() {
     const { article } = this.props;
     const { user } = article;

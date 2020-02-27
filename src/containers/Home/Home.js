@@ -17,10 +17,16 @@ class Home extends Component {
   }
   render() {
     let fetchedCategories = null;
+    let articleSliders = null;
     const { category } = this.props.categories;
+    const { categories } = category;
 
     if (!category.length) {
       fetchedCategories = <Spinner />;
+      articleSliders = <Spinner />;
+    }
+    if (categories !== undefined) {
+      articleSliders = <ArticleSliders articles={categories[0].articles} />;
     }
     fetchedCategories = <Categories categories={category} />;
 
@@ -31,8 +37,8 @@ class Home extends Component {
         ) : (
           <AuthenticationAction />
         )}
-        <ArticleSliders />
-        <UpComingEvent />
+        {articleSliders}
+        {/* <UpComingEvent /> */}
         {fetchedCategories}
         <Statistics />
         <VisionMission />
