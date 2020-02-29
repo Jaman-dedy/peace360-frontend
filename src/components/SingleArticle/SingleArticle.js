@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './Article/Article.scss';
@@ -9,111 +9,104 @@ import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
 import Like from './FavoriteUser/Like/Like';
 import Rate from './FavoriteUser/Rate/Rate';
-import RelatedArticle from './RelatedArticles/RelatedArticles';
+// import RelatedArticle from './RelatedArticles/RelatedArticles';
 import CommentForm from '../../containers/CommentForm/CommentForm';
 import Comments from '../Comments/Comments';
 import SocialShare from '../SocialShare/SocialShare';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import classes from './SingleArticle.module.scss';
-import articleImg from '../../assets/images/experience1.jpg';
+import articleImg from '../../assets/images/peace-in-africa.jpg';
 import AuthenticationAction from '../AuthenticationAction/AuthenticationAction';
+import * as actions from '../../store/actions/index';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
-const singleArticle = props => {
-  const comments = (
-    <Aux>
-      <CommentForm />
-      <Comments />
-    </Aux>
-  );
+class SingleArticle extends Component {
+  componentWillMount() {
+    const {
+      location: { state }
+    } = this.props;
+    if (state) {
+      const { articleId } = state;
+      this.props.onFetchSingleArticle(articleId);
+    }
+  }
+  render() {
+    const { article = {} } = this.props;
+    let coverPhoto = null;
+    let tags = null;
+    let displaySingleArticle = null;
 
-  return (
-    <Layout>
-      {props.isAuthenticated ? <AuthenticatedUser /> : <AuthenticationAction />}
-
-      <CreateArticleLink className='ArticleLink' />
-
-      <div className={classes.SingleArticle}>
-        <div className={classes.ArticleTitle}>
-          React app structure by feature guidelines
-        </div>
-        <div className={classes.ArticleSubTitle}>
-          React app structure by feature guidelines
-        </div>
-
-        <FollowUser />
-        <SocialShare />
+    if (!article) {
+      displaySingleArticle = <Spinner />;
+    } else {
+      tags = article.tags;
+      coverPhoto = article.coverPhoto ? article.coverPhoto : articleImg;
+      displaySingleArticle = (
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
-            <img src={articleImg} alt='' />
+            <img src={coverPhoto} alt="" />
           </div>
-          <div className={classes.Text}>
-            Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
-            Praesent a aliquet quam. Donec convallis tempus scelerisque.
-            Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
-            Nullam ultrices quam id ligula iaculis facilisis. Cras convallis
-            massa vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed
-            lobortis turpis ut nibh porttitor pretium porta in odio. Quisque
-            faucibus porta dolor sed facilisis. Etiam placerat felis nec augue
-            efficitur, vel mollis ipsum aliquam. Suspendisse egestas fringilla
-            mauris, ut molestie elit viverra vel. Praesent a aliquet quam. Donec
-            convallis tempus scelerisque. Suspendisse vehicula sapien erat,
-            porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
-            iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
-            pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
-            pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
-            Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
-            Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
-            Praesent a aliquet quam. Donec convallis tempus scelerisque.
-            Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
-            Nullam ultrices quam id ligula iaculis facilisis. Cras convallis
-            massa vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed
-            lobortis turpis ut nibh porttitor pretium porta in odio. Quisque
-            faucibus porta dolor sed facilisis. Etiam placerat felis nec augue
-            efficitur, vel mollis ipsum aliquam. Suspendisse egestas fringilla
-            mauris, ut molestie elit viverra vel. Praesent a aliquet quam. Donec
-            convallis tempus scelerisque. Suspendisse vehicula sapien erat,
-            porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
-            iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
-            pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
-            pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
-            Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
-            Suspendisse egestas fringilla mauris, ut molestie elit viverra vel.
-            Praesent a aliquet quam. Donec convallis tempus scelerisque.
-            Suspendisse vehicula sapien erat, porta tincidunt leo gravida eget.
-            Nullam ultrices quam id ligula iaculis facilisis. Cras convallis
-            massa vel luctus tempor. Nullam pharetra sed nunc ac bibendum. Sed
-            lobortis turpis ut nibh porttitor pretium porta in odio. Quisque
-            faucibus porta dolor sed facilisis. Etiam placerat felis nec augue
-            efficitur, vel mollis ipsum aliquam. Suspendisse egestas fringilla
-            mauris, ut molestie elit viverra vel. Praesent a aliquet quam. Donec
-            convallis tempus scelerisque. Suspendisse vehicula sapien erat,
-            porta tincidunt leo gravida eget. Nullam ultrices quam id ligula
-            iaculis facilisis. Cras convallis massa vel luctus tempor. Nullam
-            pharetra sed nunc ac bibendum. Sed lobortis turpis ut nibh porttitor
-            pretium porta in odio. Quisque faucibus porta dolor sed facilisis.
-            Etiam placerat felis nec augue efficitur, vel mollis ipsum aliquam.
+          <div className={classes.Text}>{article.text}</div>
+        </div>
+      );
+    }
+
+    const comments = (
+      <Aux>
+        <CommentForm articleId={article && article._id} />
+        <Comments />
+      </Aux>
+    );
+    return (
+      <Layout>
+        {this.props.isAuthenticated ? (
+          <AuthenticatedUser />
+        ) : (
+          <AuthenticationAction />
+        )}
+
+        <div className={classes.SingleArticle}>
+          <div className={classes.ArticleTitle}>{article && article.title}</div>
+          <div className={classes.ArticleSubTitle}>
+            {article && article.Subtitle}
           </div>
-        </div>
-        <Tag />
-        <Tag />
-        <Tag />
 
-        <div className={classes.Favorite}>
-          Rate & like this article
-          <Like />
-          <Rate />
-        </div>
-        <RelatedArticle />
-        {props.isAuthenticated ? comments : null}
-      </div>
-    </Layout>
-  );
-};
+          <FollowUser />
+          <SocialShare />
+          {displaySingleArticle}
+          {tags &&
+            tags.map((tag, index) => {
+              return <Tag key={index} tag={tag} />;
+            })}
 
-const mapStateToprops = state => {
+          <div className={classes.Favorite}>
+            Rate & like this article
+            <Like />
+            <Rate />
+          </div>
+          {/* <RelatedArticle /> */}
+          {this.props.isAuthenticated ? comments : null}
+        </div>
+      </Layout>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => {
   return {
-    isAuthenticated: state.register.token !== null || state.login.token !== null
+    onFetchSingleArticle: articleId =>
+      dispatch(actions.fetchSingleArticle(articleId))
   };
 };
 
-export default connect(mapStateToprops, null)(singleArticle);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated:
+      state.register.token !== null || state.login.token !== null,
+    loading: state.fetchSingleArticle.loading,
+    error: state.fetchSingleArticle.error,
+    article: state.fetchSingleArticle.article
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleArticle);

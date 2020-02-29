@@ -8,7 +8,6 @@ import './styles.scss';
 import sliderCoverImg from '../../../assets/images/peace-in-africa.jpg';
 class ArticleSlider extends Component {
   render() {
-    console.log('this.props', this.props);
     const { articles } = this.props;
     return (
       <Aux>

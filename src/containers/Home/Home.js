@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Categories from '../../components/Categories/Categories';
 import * as actions from '../../store/actions/index';
 import ArticleSliders from '../../components/ArticleSliders/ArticleSliders';
-import UpComingEvent from '../../components/UpComingEvent/UpComingEvent';
+// import UpComingEvent from '../../components/UpComingEvent/UpComingEvent';
 import Statistics from '../../components/Statistics/Statistics';
 import VisionMission from '../../components/VisionMission/VisionMission';
 import AuthenticationAction from '../../components/AuthenticationAction/AuthenticationAction';
@@ -23,7 +23,7 @@ class Home extends Component {
 
     if (!category.length) {
       fetchedCategories = <Spinner />;
-      articleSliders = <Spinner />;
+      // articleSliders = <Spinner />;
     }
     if (categories !== undefined) {
       articleSliders = <ArticleSliders articles={categories[0].articles} />;

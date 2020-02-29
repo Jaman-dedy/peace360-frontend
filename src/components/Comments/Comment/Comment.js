@@ -17,9 +17,9 @@ const comment = props => (
       vehicula sapien erat, porta tincidunt leo gravida eget. Nullam ultrices
       quam id ligula iaculis facilisis.
     </div>
-    <div className={classes.Like}>
+    {/* <div className={classes.Like}>
       <Like />
-    </div>
+    </div> */}
   </div>
 );
 export default comment;

@@ -32,8 +32,7 @@ export const fetchCategory = page => {
       );
       dispatch(fetchCategorySuccess(response.data));
     } catch ({ response }) {
-      console.log('response', response);
-      // dispatch(fetchCategoryFail(response.data.message));
+      dispatch(fetchCategoryFail(response.data));
     }
   };
 };

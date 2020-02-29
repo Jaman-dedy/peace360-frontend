@@ -3,12 +3,9 @@ import Aux from '../../../hoc/Aux/Aux';
 import Articles from './Articles/Articles';
 import MostViewArticles from './MostViewArticles/MostViewArticles';
 import Pagination from './Pagination/Pagination';
-import ArticleSliders from '../../ArticleSliders/ArticleSliders';
 import classes from './Category.module.scss';
 
 class Category extends Component {
- 
- 
   scrollToLeftHandler(id) {
     const articleId = `articles${id}`;
     document.getElementById(articleId).scrollLeft += 40;

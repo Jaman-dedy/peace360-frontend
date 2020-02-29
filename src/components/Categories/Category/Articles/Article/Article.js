@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import classes from './Article.module.scss';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../../../store/actions/index';
 import experienceImg from '../../../../../assets/images/peace-in-africa.jpg';
@@ -10,19 +10,31 @@ import experienceImg from '../../../../../assets/images/peace-in-africa.jpg';
 class Article extends Component {
   componentDidMount() {
     this.props.onSetRedirectPath();
-    // this.props.setArticleSlidersProps(this.props.article);
   }
 
+  setRedirectUrl = articleId => {
+    this.props.onSetRedirectPath(articleId);
+  };
+
   render() {
-    const { article } = this.props;
-    const { user } = article;
+    const { article = {} } = this.props;
+    const { user = {} } = article;
+    const { _id: articleId } = article;
     const timeAgo = moment(article.date).fromNow();
     const { coverPhoto } = article;
     const articlePhotoCover = coverPhoto ? coverPhoto : experienceImg;
 
-    // console.log('article', article);
     return (
-      <NavLink to={this.props.redirectUrl}>
+      <Link
+        // to={this.props.redirectUrl}
+        to={{
+          pathname: this.props.redirectUrl,
+          search: '?id = articleId',
+          hash: '#hash',
+          state: { articleId }
+        }}
+        onClick={() => this.setRedirectUrl(articleId)}
+      >
         <div className={classes.Article}>
           <div className={classes.CoverPhoto}>
             <img src={articlePhotoCover} alt="experience" />
@@ -32,7 +44,7 @@ class Article extends Component {
             {user.username}, {timeAgo} | &#128338; 4 min to read
           </div>
         </div>
-      </NavLink>
+      </Link>
     );
   }
 }
@@ -46,7 +58,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSetRedirectPath: () =>
-      dispatch(actions.setAuthRedirectPath('/SingleArticle'))
+      dispatch(actions.setAuthRedirectPath('/SingleArticle/'))
   };
 };
 
