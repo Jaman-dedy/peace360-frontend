@@ -32,6 +32,8 @@ class SingleArticle extends Component {
   }
   render() {
     const { article = {} } = this.props;
+    let comments;
+
     let coverPhoto = null;
     let tags = null;
     let displaySingleArticle = null;
@@ -41,6 +43,8 @@ class SingleArticle extends Component {
     } else {
       tags = article.tags;
       coverPhoto = article.coverPhoto ? article.coverPhoto : articleImg;
+
+      comments = article.comments;
       displaySingleArticle = (
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
@@ -51,10 +55,10 @@ class SingleArticle extends Component {
       );
     }
 
-    const comments = (
+    const displayComments = (
       <Aux>
         <CommentForm articleId={article && article._id} />
-        <Comments />
+        <Comments comments={comments} />
       </Aux>
     );
     return (
@@ -85,7 +89,7 @@ class SingleArticle extends Component {
             <Rate />
           </div>
           {/* <RelatedArticle /> */}
-          {this.props.isAuthenticated ? comments : null}
+          {this.props.isAuthenticated ? displayComments : null}
         </div>
       </Layout>
     );
