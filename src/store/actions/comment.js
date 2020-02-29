@@ -32,11 +32,9 @@ export const postComment = (text, articleId) => {
     axiosOrders
       .post(`comment/${articleId}`, commentData)
       .then(response => {
-        console.log('response', response);
         dispatch(postCommentSuccess(response.data.comment));
       })
       .catch(({ response }) => {
-        console.log('response', response);
         dispatch(postCommentFail(response.data.errors));
       });
   };

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import moment from 'moment';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import classes from './CommentForm.module.scss';
 import * as actions from '../../store/actions/index';
 import { updatedObject, checkValidity } from '../../shared/utility';
 import Aux from '../../hoc/Aux/Aux';
+import userAvatar from '../../assets/images/avatar.jpg';
 
 class CommentForm extends Component {
   state = {
@@ -23,7 +26,8 @@ class CommentForm extends Component {
         touched: false
       }
     },
-    formIsValid: false
+    formIsValid: false,
+    instantComment: []
   };
   inputChangedHandler = (event, inputName) => {
     const updatedInputs = updatedObject(this.state.commentForm, {
@@ -40,6 +44,13 @@ class CommentForm extends Component {
   };
 
   submitCommentHandler = (e, articleId) => {
+    this.setState({
+      instantComment: [
+        ...this.state.instantComment,
+        this.state.commentForm.comment.value
+      ]
+    });
+
     e.preventDefault();
     this.props.onSubmitComment(this.state.commentForm.comment.value, articleId);
 
@@ -48,17 +59,39 @@ class CommentForm extends Component {
         value: ''
       })
     });
-    console.log('updatedText', updatedText);
     this.setState({ commentForm: updatedText });
   };
 
   render() {
+    let instantCommentThread = null;
+    const { comment } = this.props;
     const { articleId } = this.props;
     let idArticle;
 
     if (articleId) {
       idArticle = articleId;
     }
+
+    if (!this.state.instantComment.length) {
+      instantCommentThread = '';
+    } else {
+      const sortArray = _.reverse(this.state.instantComment);
+      instantCommentThread = sortArray.map((instComment, index) => {
+        return (
+          <div key={index} className={classes.Comment}>
+            <div className={classes.Avatar}>
+              <img src={comment.avatar ? comment.avatar : userAvatar} alt="" />
+            </div>
+            <div className={classes.Details}>
+              <strong>{comment.name}</strong>{' '}
+              <span>{moment(comment.date).fromNow()}</span>
+            </div>
+            <div className={classes.Text}>{instComment}</div>
+          </div>
+        );
+      });
+    }
+
     let form = (
       <Aux>
         <Input
@@ -70,24 +103,28 @@ class CommentForm extends Component {
           touched={this.state.commentForm.comment.touched}
           changed={e => this.inputChangedHandler(e, 'comment')}
         />
+
         <Button>COMMENT</Button>
       </Aux>
     );
     return (
-      <div className={classes.CommentForm}>
-        {' '}
-        <h4>What do you think about this article?</h4>
-        <form onSubmit={e => this.submitCommentHandler(e, idArticle)}>
-          {form}
-        </form>
-      </div>
+      <Aux>
+        <div className={classes.CommentForm}>
+          {' '}
+          <h4>What do you think about this article?</h4>
+          <form onSubmit={e => this.submitCommentHandler(e, idArticle)}>
+            {form}
+          </form>
+        </div>
+        {instantCommentThread}
+      </Aux>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    comment: state.postComment,
+    comment: state.postComment.comment,
     loading: state.PostComment,
     error: state.PostComment
   };
