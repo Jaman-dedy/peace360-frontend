@@ -74,6 +74,8 @@ class SingleArticle extends Component {
           <AuthenticationAction />
         )}
 
+        <CreateArticleLink className="ArticleLink" />
+
         <div className={classes.SingleArticle}>
           <div className={classes.ArticleTitle}>{article && article.title}</div>
           <div className={classes.ArticleSubTitle}>
