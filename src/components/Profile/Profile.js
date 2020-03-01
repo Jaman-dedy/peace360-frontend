@@ -8,7 +8,7 @@ import './Profile.scss';
 import postImg from '../../assets/images/experience1.jpg';
 import Avatar from '../../assets/images/avatar.jpg';
 import EditLink from './EditProfile/EditProfileLink';
-import { fetchProfileUser } from '../../store/actions';
+import { fetchProfileUser, fetchCurrentUser } from '../../store/actions';
 import { connect } from 'react-redux';
 
 class Profile extends Component {
@@ -25,14 +25,17 @@ class Profile extends Component {
     document.getElementById(tabName).style.display = 'block';
     event.currentTarget.className += ' active';
   };
-  componentDidMount() {
-    this.props.getProfile();
-  }
+
+  componentDidMount = () => {
+    this.props.getUser(user => {
+      this.props.getProfile(user._id);
+    });
+  };
 
   render() {
     const { error, profile } = this.props;
-    const { skills} = profile
-    console.log(profile);
+    const { skills } = profile;
+
     return (
       <Layout>
         <div className={classes.Profile}>
@@ -110,14 +113,12 @@ class Profile extends Component {
               <span className={classes.Details}>Rwanda Kigali</span>
               <span className={classes.Details}>www.me.resume</span>
               <span className={classes.Bio}>
-                <p>
-                  {profile.bio}
-                </p>
+                <p>{profile.bio}</p>
               </span>
               <span className={classes.Skills}>
-                {skills.map((obj, key) => 
-                  (<i key={key}> {obj}</i>)
-                )}
+                {skills.map((obj, key) => (
+                  <i key={key}> {obj}</i>
+                ))}
               </span>
             </div>
           </div>
@@ -262,14 +263,15 @@ class Profile extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getProfile: () => dispatch(fetchProfileUser())
+  getProfile: id => dispatch(fetchProfileUser(id)),
+  getUser: cb => dispatch(fetchCurrentUser(cb))
 });
 const mapStateToProps = state => {
   return {
     error: state.userProfile.error,
     loading: state.userProfile.loading,
     profile: state.userProfile.profile,
-    isAuthenticated: state.register.token !== null || state.login.token !== null
+    current_user: state.currentUser.user
   };
 };
 
