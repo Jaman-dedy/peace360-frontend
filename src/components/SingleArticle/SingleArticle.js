@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import './Article/Article.scss';
 import Layout from '../../hoc/Layout/Layout';
 import Aux from '../../hoc/Aux/Aux';
@@ -9,7 +8,6 @@ import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
 import Like from './FavoriteUser/Like/Like';
 import Rate from './FavoriteUser/Rate/Rate';
-// import RelatedArticle from './RelatedArticles/RelatedArticles';
 import CommentForm from '../../containers/CommentForm/CommentForm';
 import Comments from '../Comments/Comments';
 import SocialShare from '../SocialShare/SocialShare';

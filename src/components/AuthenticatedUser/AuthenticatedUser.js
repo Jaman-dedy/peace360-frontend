@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
 import Aux from '../../hoc/Aux/Aux';
 import classes from './AuthenticatedUser.module.scss';
-import userAvatar from '../../assets/images/avatar.jpg';
 
 class AuthenticatedUser extends Component {
   componentWillMount() {
