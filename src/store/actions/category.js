@@ -32,7 +32,7 @@ export const fetchCategory = page => {
       );
       dispatch(fetchCategorySuccess(response.data));
     } catch ({ response }) {
-      dispatch(fetchCategoryFail(response.data));
+      dispatch(fetchCategoryFail(response));
     }
   };
 };
