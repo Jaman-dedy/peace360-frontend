@@ -20,13 +20,17 @@ class FollowUser extends Component {
   render() {
     const redirectPath = <Redirect to={this.props.redirectPath} />;
 
+    const { user = {} } = this.props;
+
     return (
       <div className={classes.FollowUser}>
         {redirectPath}
         <div className={classes.Avatar}>
-          <img src={userAvatar} alt="" />
+          <img src={user ? user.avatar : userAvatar} alt="" />
         </div>
-        <div className={classes.UserName}>Emanuel Bush</div>
+        <div className={classes.UserName}>
+          {user ? user.username : 'Peace Activist'}
+        </div>
         <div
           className={
             this.state.isFollowed ? classes.FollowBox : classes.UnFollowBox

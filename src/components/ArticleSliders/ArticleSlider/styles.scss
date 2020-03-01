@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:300,400,700,900");
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
 
 .wrapper {
   max-width: 1335px;
@@ -22,7 +22,7 @@
 }
 
 .slide::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 100%;
@@ -45,7 +45,7 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
+  background: url('http://svgshare.com/i/41_.svg') no-repeat center center /
     16px;
   width: 32px;
   height: 32px;
@@ -55,7 +55,7 @@
 
 .previousButton:hover,
 .nextButton:hover {
-  background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
+  background: url('http://svgshare.com/i/41_.svg') no-repeat center center /
     16px;
 }
 
@@ -76,4 +76,3 @@
 .nextButton:hover {
   right: -10px;
 }
-

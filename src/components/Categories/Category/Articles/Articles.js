@@ -1,15 +1,19 @@
-import React from "react";
-import Article from "./Article/Article";
-import classes from "./Articles.module.scss";
+import React, { Component } from 'react';
+import Article from './Article/Article';
+import classes from './Articles.module.scss';
 
-const articles = props => (
-  <div className={classes.Articles}>
-    <Article />
+class Articles extends Component {
+  render() {
+    const { articles } = this.props;
+    const foundArticle = articles.map(fArticles => {
+      return <Article key={fArticles._id} article={fArticles} />;
+    });
+    return (
+      <div id={'articles' + this.props.id} className={classes.Articles}>
+        {foundArticle}
+      </div>
+    );
+  }
+}
 
-    <Article />
-
-    <Article />
-  </div>
-);
-
-export default articles;
+export default Articles;

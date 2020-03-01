@@ -1,8 +1,13 @@
 .Articles {
   grid-area: experience;
   display: grid;
-  grid-template-columns: auto auto auto;
   grid-column-gap: 1.3rem;
+
+  grid-template-columns: repeat(auto-fill, minmax(auto, auto));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(auto, auto);
+  overflow-x: hidden;
+
   a {
     text-decoration: none;
   }

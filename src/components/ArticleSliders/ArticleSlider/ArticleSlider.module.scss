@@ -54,10 +54,10 @@
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    button {
-      -webkit-transition-delay: 0s;
-      transition-delay: 0s;
-    }
+    // button {
+    //   -webkit-transition-delay: 0s;
+    //   transition-delay: 0s;
+    // }
     h1 {
       color: #fff;
       font-weight: 500;
@@ -124,5 +124,6 @@
     cursor: pointer;
     color: #ffffff;
     background-color: #50748b;
+    transform: scale(1.2, 1.2) !important;
   }
 }

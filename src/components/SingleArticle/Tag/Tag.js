@@ -3,7 +3,7 @@ import classes from './Tag.module.scss';
 
 const tag = props => (
   <div className={classes.Tag}>
-    <div>peaceMaker360</div>
+    <div>{props.tag}</div>
   </div>
 );
 

@@ -9,6 +9,7 @@ import userAvatar from '../../assets/images/avatar.jpg';
 class AuthenticatedUser extends Component {
   componentWillMount() {
     this.props.onGetUser();
+    this.props.onCheckAuthState();
   }
   render() {
     const { user } = this.props.currentUser;
@@ -53,7 +54,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetUser: () => dispatch(actions.fetchCurrentUser())
+    onGetUser: () => dispatch(actions.fetchCurrentUser()),
+    onCheckAuthState: () => dispatch(actions.loginCheckState())
   };
 };
 
