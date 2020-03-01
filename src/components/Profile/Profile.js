@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
 import Layout from '../../hoc/Layout/Layout';
 import classes from './Profile.module.scss';
 import './Profile.scss';
@@ -35,7 +34,6 @@ class Profile extends Component {
   render() {
     const { error, profile } = this.props;
     const { skills } = profile;
-
     return (
       <Layout>
         <div className={classes.Profile}>
