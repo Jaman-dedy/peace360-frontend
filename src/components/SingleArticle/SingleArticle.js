@@ -32,6 +32,11 @@ class SingleArticle extends Component {
   }
   render() {
     const { article = {} } = this.props;
+    let user;
+    if (article) {
+      user = article.user;
+    }
+
     let comments;
 
     let coverPhoto = null;
@@ -75,7 +80,7 @@ class SingleArticle extends Component {
             {article && article.Subtitle}
           </div>
 
-          <FollowUser />
+          <FollowUser user={user} />
           <SocialShare />
           {displaySingleArticle}
           {tags &&
