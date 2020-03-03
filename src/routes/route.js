@@ -15,7 +15,8 @@ import Logout from '../containers/Auth/Logout/Logout';
 import CreateArticle from '../components/SingleArticle/Article/Article';
 import EditProfile from '../components/Profile/EditProfile/EditProfile';
 import * as actions from '../store/actions/index';
-import CreateCategory from '../components/Categories/CategoryList/NewCategory';
+import AllCategories from '../components/Categories/CategoryList/allCategories';
+import SingleCategory from '../components/Categories/CategoryList/oneCategory.js/singleCategory';
 class Routes extends Component {
   componentDidMount() {
     this.props.onAuthCheckState();
@@ -36,7 +37,11 @@ class Routes extends Component {
         <Route path='/singleConsultancy' component={singleConsultancy} />
         <Route path='/createArticle' component={CreateArticle} />
         <Route path='/editProfile' component={EditProfile} />
-        <Route path='/newCategory' component={CreateCategory}/>
+        <Route path='/categories' component={AllCategories} />
+        <Route
+          path='/singleCategory/:title'
+          component={SingleCategory}
+        />
       </Switch>
     );
     return <div>{routes}</div>;

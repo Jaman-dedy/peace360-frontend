@@ -1,4 +1,5 @@
 import axiosOrders from '../../axios/axios-orders';
+import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
@@ -26,7 +27,7 @@ export const fetchCategories = () => {
   return async dispatch => {
     dispatch(fetchCategoriesStart());
     try {
-      const response = await axiosOrders.get('/category/getAll');
+      const response = await axiosOrders.get('category/getAllCategories');
       dispatch(fetchCategoriesSuccess(response.data));
     } catch ({ response }) {
       dispatch(fetchCategoriesFail(response));
@@ -58,7 +59,7 @@ export const createCategory = (body = {}) => {
   return async dispatch => {
     dispatch(createCategoryStart());
     try {
-      const response = await axiosOrders.post('/category/create', body);
+      const response = await axiosOrders.post('category/create', body);
       dispatch(createCategorySuccess(response.data));
     } catch ({ response }) {
       dispatch(createCategoryFail(response));
@@ -91,7 +92,7 @@ export const deleteCategory = categoryTitle => {
     dispatch(deleteCategoryStart());
     try {
       const response = await axiosOrders.delete(
-        `/category/delete/${categoryTitle}`
+        `category/delete/${categoryTitle}`
       );
       dispatch(deleteCategorySuccess(response.data));
     } catch ({ response }) {
@@ -120,17 +121,57 @@ export const updateCategoryStart = () => {
   };
 };
 
-export const updateCategory = (categoryTitle, body) => {
+export const updateCategory = (categoryChange, cb) => {
   return async dispatch => {
     dispatch(updateCategoryStart());
     try {
-      const response = await axiosOrders.patch(
-        `/category/update/${categoryTitle}`,
-        body
+      const response = await axiosOrders.put(
+        `/category/update/${categoryChange.title_}`,
+        categoryChange.body
       );
-      dispatch(updateCategorySuccess({ categoryTitle: categoryTitle,response: response.data }))
+      cb(response.data);
+      dispatch(
+        updateCategorySuccess({
+          response: response
+        })
+      );
     } catch ({ response }) {
       dispatch(updateCategoryFail(response));
+    }
+  };
+};
+
+export const getOneCategorySuccess = (payload = {}) => {
+  return {
+    type: actionTypes.GET_ONE_CATEGORY_SUCCESS,
+    payload
+  };
+};
+
+export const getOneCategoryFail = error => {
+  return {
+    type: actionTypes.GET_ONE_CATEGORY_FAIL,
+    error: error
+  };
+};
+
+export const getOneCategoryStart = () => {
+  return {
+    type: actionTypes.GET_ONE_CATEGORY_START
+  };
+};
+
+export const getOneCategory = (categoryTitle, cb) => {
+  return async dispatch => {
+    dispatch(getOneCategoryStart());
+    try {
+      const response = await axiosOrders.get(
+        `category/getOne/${categoryTitle}`
+      );
+      cb(response.data);
+      dispatch(getOneCategorySuccess(response));
+    } catch ({ response }) {
+      dispatch(getOneCategoryFail(response));
     }
   };
 };

@@ -5,10 +5,9 @@ import TextareaAutoSize from 'react-textarea-autosize';
 import textConfig from '../../../helpers/textConfig.json';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
-import Input from '../../../components/UI/Input/Input';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './Article.scss';
-import Aux from '../../../hoc/Aux/Aux';
+
 
 class NewArticle extends Component {
   state = {
@@ -69,7 +68,6 @@ class NewArticle extends Component {
                     placeholder=" Title"
                   />
                 </div>
-
                 <div className="editor font-color">
                   <Editor
                     toolbar={textConfig}

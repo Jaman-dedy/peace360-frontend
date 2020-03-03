@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import './categorylist.scss';
 import Layout from '../../Menu/Toolbar/Toolbar';
 import Modal from '../../UI/Modal/Modal';
+import Spinner from '../../UI/Spinner/Spinner';
 import {
   fetchCategories,
   createCategory,
   deleteCategory,
-  updateCategory
+  updateCategory,
+  getOneCategory
 } from '../../../store/actions/categories';
 import { fetchCurrentUser } from '../../../store/actions/getCurrentUser';
 class CreateCategory extends Component {
@@ -16,8 +18,8 @@ class CreateCategory extends Component {
     categoryTitle: '',
     description: '',
     errors: '',
-    update: false,
-    title: ''
+    title: '',
+    errorDisplay: 'errorDisplay'
   };
 
   onDisplayModal = () => {
@@ -37,6 +39,16 @@ class CreateCategory extends Component {
       });
     }
   };
+  onRemoveError = e => {
+    if (
+      e.target.className === 'modal-content' ||
+      e.target.className === 'close_error'
+    ) {
+      this.setState({
+        errorDisplay: 'noErrorDisplay'
+      });
+    }
+  };
 
   onChangeCategoryTitle = e => {
     const { value } = e.target;
@@ -49,26 +61,12 @@ class CreateCategory extends Component {
 
   onSubmitCategory = () => {
     const {
-      state: { description, categoryTitle, title, update },
-      props: { createNewCategory, updateOneCategory }
+      state: { description, categoryTitle },
+      props: { createNewCategory }
     } = this;
-    update
-      ? updateOneCategory(title, { categoryTitle, description }).then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 5000);
-          this.setState({ update: false });
-        })
-      : createNewCategory({ description, categoryTitle }).then(() => {
-          this.setState({ modal: 'removeModal', update: false });
-        });
-  };
 
-  onUpdate = title => {
-    this.setState({
-      modal: 'displayModal',
-      update: true,
-      title: title
+    createNewCategory({ description, categoryTitle }).then(() => {
+      this.setState({ modal: 'removeModal', update: false });
     });
   };
 
@@ -76,15 +74,23 @@ class CreateCategory extends Component {
     this.props.deleteOneCategory(categoryTitle);
   };
 
+  onGetCategory = categTitle => {
+    window.location.href = `/singleCategory/${categTitle}`;
+    this.props.getCategory(categTitle);
+  };
+
   componentDidMount() {
     const { fetchCurrent_user } = this.props;
+    if (localStorage.token === undefined) {
+      window.location.replace('/');
+    }
     fetchCurrent_user();
     this.props.getCategories();
   }
 
   render() {
-    const { categories, error } = this.props;
-    const { categoryTitle, description, update } = this.state;
+    const { categories, loading, error } = this.props;
+    const { categoryTitle, description } = this.state;
     return (
       <div>
         <div className='categories'>
@@ -95,15 +101,11 @@ class CreateCategory extends Component {
             <div className={this.state.modal}>
               <div onClick={this.onRemoveModal}>
                 <Modal>
-                  {error ? <div className='danger'>{error.data.errors[0].message}</div> : null}
-
                   <span className='close' onClick={this.onRemoveModal}>
                     &times;
                   </span>
 
-                  <div className='title main-color'>
-                    {update ? 'Update Category' : 'New category'}
-                  </div>
+                  <div className='title main-color'>New category</div>
                   <div className='form'>
                     <div className='row'>
                       <div className=''>
@@ -139,52 +141,66 @@ class CreateCategory extends Component {
                 </Modal>
               </div>
             </div>
-
-            <div className='title font-color'>
-              Categories list{' '}
-              <span
-                className='createCategory right '
-                onClick={this.onDisplayModal}
-              >
-                <i className='fas fa-plus'></i>
-              </span>
-            </div>
-
-            {categories.length === 0 ? (
-              <div>No categories</div>
+            {loading ? (
+              <div>
+                <Spinner />
+              </div>
             ) : (
-              <div className='list '>
-                <div className='list_title font-color'>
-                  <div className='list_row id'>No</div>
-                  <div className='list_row name'>Category name</div>
-                  <div className='list_row desc'>Description</div>
+              <div>
+                <div className='title font-color'>
+                  Categories list{' '}
+                  <span
+                    className='createCategory right '
+                    onClick={this.onDisplayModal}
+                  >
+                    <i className='fas fa-plus'></i>
+                  </span>
                 </div>
+                <div>
+                  {categories.length === 0 ? (
+                    <div>No categories</div>
+                  ) : (
+                    <div className='list '>
+                      <div className='list_title font-color'>
+                        <div className='list_row id'>No</div>
+                        <div className='list_row name'>Category name</div>
+                        <div className='list_row desc'>Description</div>
+                      </div>
 
-                {categories.map((object, key) => (
-                  <div key={key} className='font-color'>
-                    <div>
-                      <div className='list_row id' id={object.id}>
-                        {key + 1}
-                      </div>
-                      <div className='list_row name' id={object.id}>
-                        {object.categoryTitle}
-                      </div>
-                      <div className='list_row desc'>
-                        {object.description}
-                        <span className='menu_list'>
-                          <i
-                            className='fas fa-trash'
-                            onClick={() => this.onDelete(object.categoryTitle)}
-                          ></i>
-                          <i
-                            className='fas fa-pen'
-                            onClick={() => this.onUpdate(object.categoryTitle)}
-                          ></i>
-                        </span>
-                      </div>
+                      {categories.map((object, key) => (
+                        <div key={key} className='font-color'>
+                          <div>
+                            <div className='list_row id' id={object.id}>
+                              {key + 1}
+                            </div>
+                            <div className='list_row name' id={object.id}>
+                              {object.categoryTitle}
+                            </div>
+                            <div className='list_row desc'>
+                              {object.description
+                                ? object.description
+                                : 'no description of this category'}
+                              <span className='menu_list'>
+                                <i
+                                  className='fas fa-trash'
+                                  onClick={() =>
+                                    this.onDelete(object.categoryTitle)
+                                  }
+                                ></i>
+                                <i
+                                  className='far fa-eye'
+                                  onClick={() =>
+                                    this.onGetCategory(object.categoryTitle)
+                                  }
+                                ></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                ))}
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -198,7 +214,8 @@ const mapDispatchToProps = dispatch => ({
   createNewCategory: body => dispatch(createCategory(body)),
   deleteOneCategory: categTitle => dispatch(deleteCategory(categTitle)),
   fetchCurrent_user: () => dispatch(fetchCurrentUser()),
-  updateOneCategory: (title, body) => dispatch(updateCategory(title, body))
+  updateOneCategory: (title, body) => dispatch(updateCategory(title, body)),
+  getCategory: title => dispatch(getOneCategory(title))
 });
 
 const mapStateToProps = state => {
@@ -207,7 +224,10 @@ const mapStateToProps = state => {
     error: state.categories.error,
     loading: state.categories.loading,
     categories: state.categories.categories,
-    category: state.categories.category
+    category: state.categories.category,
+    authError: state.currentUser.error,
+    logged_in: state.login,
+    categ: state.categories.category
   };
 };
 

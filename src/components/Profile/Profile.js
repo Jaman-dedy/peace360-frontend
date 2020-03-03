@@ -90,26 +90,28 @@ class Profile extends Component {
                   Following
                 </button>
               </div>
-              <div className={classes.FollowMe}>
-                <h2>Follow me on</h2>
-                <div className={classes.SocialMedia}>
-                  <Link to={profile.social ? profile.social.facebook : '#'}>
-                    <i className='fab fa-facebook'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.twitter : '#'}>
-                    <i className='fab fa-twitter'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.instagram : '#'}>
-                    <i className='fab fa-instagram'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.linkedin : '#'}>
-                    <i className='fab fa-linkedin'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.youtube : '#'}>
-                    <i className='fab fa-youtube'></i>
-                  </Link>
+              {profile.social ? (
+                <div className={classes.FollowMe}>
+                  <h2>Follow me on</h2>
+                  <div className={classes.SocialMedia}>
+                    <Link to={`web.facebook.com/${profile.social.facebook}`}>
+                      <i className='fab fa-facebook'></i>
+                    </Link>
+                    <Link to={`twitter.com/${profile.social.twitter}`}>
+                      <i className='fab fa-twitter'></i>
+                    </Link>
+                    <Link to={`instagram.com/${profile.social.instagram}`}>
+                      <i className='fab fa-instagram'></i>
+                    </Link>
+                    <Link to={`linkedin.com/in/${profile.social.linkedin}`}>
+                      <i className='fab fa-linkedin'></i>
+                    </Link>
+                    <Link to={`youtube.com/${profile.social.youtube}`}>
+                      <i className='fab fa-youtube'></i>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              ) : null}
               <div id='Profile' className='tabContent'>
                 <span>
                   <h3>ABOUT ME</h3>

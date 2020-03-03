@@ -29,7 +29,7 @@ class AuthenticatedUser extends Component {
             </li>
             <li>
               {' '}
-              <Link to='/newCategory'>
+              <Link to='/categories'>
                 {' '}
                 <i class='fas fa-list'></i>
                 Categories
@@ -46,7 +46,7 @@ class AuthenticatedUser extends Component {
         </div>
       </div>
     );
-    const redirectPath = <Redirect to='/' />;
+    const redirectPath = <Redirect to='/login' />;
     return <Aux>{this.props.error ? redirectPath : currentUser}</Aux>;
   }
 }
