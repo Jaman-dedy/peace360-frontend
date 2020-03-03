@@ -54,7 +54,9 @@ class CreateCategory extends Component {
     } = this;
     update
       ? updateOneCategory(title, { categoryTitle, description }).then(() => {
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload();
+          }, 5000);
           this.setState({ update: false });
         })
       : createNewCategory({ description, categoryTitle }).then(() => {
@@ -81,8 +83,7 @@ class CreateCategory extends Component {
   }
 
   render() {
-    const { categories } = this.props;
-
+    const { categories, error } = this.props;
     const { categoryTitle, description, update } = this.state;
     return (
       <div>
@@ -94,6 +95,8 @@ class CreateCategory extends Component {
             <div className={this.state.modal}>
               <div onClick={this.onRemoveModal}>
                 <Modal>
+                  {error ? <div className='danger'>{error.data.errors[0].message}</div> : null}
+
                   <span className='close' onClick={this.onRemoveModal}>
                     &times;
                   </span>
@@ -154,6 +157,7 @@ class CreateCategory extends Component {
                 <div className='list_title font-color'>
                   <div className='list_row id'>No</div>
                   <div className='list_row name'>Category name</div>
+                  <div className='list_row desc'>Description</div>
                 </div>
 
                 {categories.map((object, key) => (
@@ -164,6 +168,9 @@ class CreateCategory extends Component {
                       </div>
                       <div className='list_row name' id={object.id}>
                         {object.categoryTitle}
+                      </div>
+                      <div className='list_row desc'>
+                        {object.description}
                         <span className='menu_list'>
                           <i
                             className='fas fa-trash'

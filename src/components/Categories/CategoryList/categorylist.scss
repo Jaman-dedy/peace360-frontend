@@ -16,6 +16,12 @@ $brighter: #cacfd1;
   .menu {
     margin-top: 3rem;
   }
+  .danger {
+    background-color: #f85a5a;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+  }
   .category_card {
     width: 70%;
     float: left;
@@ -35,7 +41,12 @@ $brighter: #cacfd1;
     border-bottom: $clean-blue 1px solid;
   }
   .name {
-    width: 81%;
+    width: 21%;
+    padding: 1% 2%;
+    border-bottom: $clean-blue 1px solid;
+  }
+  .desc {
+    width: 50%;
     padding: 1% 2%;
     border-bottom: $clean-blue 1px solid;
   }
