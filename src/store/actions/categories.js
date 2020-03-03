@@ -29,7 +29,7 @@ export const fetchCategories = () => {
       const response = await axiosOrders.get('/category/getAll');
       dispatch(fetchCategoriesSuccess(response.data));
     } catch ({ response }) {
-      dispatch(fetchCategoriesFail(response.data));
+      dispatch(fetchCategoriesFail(response));
     }
   };
 };
