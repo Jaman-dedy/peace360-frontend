@@ -1,18 +1,66 @@
 import React, { Component } from 'react';
 import './EditProfile.scss';
+import { connect } from 'react-redux';
 import Layout from '../../Menu/Toolbar/Toolbar';
 import avatar from '../../../assets/images/avatar.jpg';
-import UserExperience from './UserExperience';
 import { NavLink } from 'react-router-dom';
-import MoreAboutUser from './MoreAboutUser';
-import UserEducation from './UserEducation';
-import UserSocial from './UserSocials';
+import TextareaAutosize from 'react-textarea-autosize';
+import {
+  fetchProfileUser,
+  createOrEditProfileUser
+} from '../../../store/actions/Userprofile';
+
 class EditProfile extends Component {
   state = {
     displayMore: false,
     displayExperience: false,
     displayEducation: false,
-    displaySocial: false
+    displaySocial: false,
+    utube: false,
+    twitter: false,
+    facebook: false,
+    linkedin: false,
+    instagram: false,
+    utubeValue: '',
+    twitterValue: '',
+    facebookValue: '',
+    linkedinValue: '',
+    instagramValue: '',
+    company: '',
+    website: '',
+    address: '',
+    skills: '',
+    bio: ''
+  };
+  onCheckUTube = () => {
+    let change = this.state.utube;
+    this.setState({
+      utube: !change
+    });
+  };
+  onCheckTwitter = () => {
+    let change = this.state.twitter;
+    this.setState({
+      twitter: !change
+    });
+  };
+  onCheckFacebook = () => {
+    let change = this.state.facebook;
+    this.setState({
+      facebook: !change
+    });
+  };
+  onCheckLinkedIn = () => {
+    let change = this.state.linkedin;
+    this.setState({
+      linkedin: !change
+    });
+  };
+  onCheckInstagram = () => {
+    let change = this.state.instagram;
+    this.setState({
+      instagram: !change
+    });
   };
   onDisplayMore = () => {
     let changes = this.state.displayMore;
@@ -38,13 +86,61 @@ class EditProfile extends Component {
       displaySocial: !changes
     });
   };
+  getUserInfo = e => {
+    const { name, value } = e.target;
+
+    this.setState({
+      [name]: value
+    });
+  };
+  onSubmitInfo = () => {
+    const { createOrEditProfile } = this.props;
+    const {
+      company,
+      website,
+      address,
+      skills,
+      bio,
+      utubeValue,
+      twitterValue,
+      facebookValue,
+      linkedinValue,
+      instagramValue
+    } = this.state;
+    createOrEditProfile({
+      company,
+      website,
+      location: address,
+      skills,
+      bio,
+      youtube: utubeValue,
+      facebook: facebookValue,
+      twitter: twitterValue,
+      instagram: instagramValue,
+      linkedin: linkedinValue
+    });
+  };
   render() {
     const {
       displayMore,
-      displayExperience,
-      displayEducation,
-      displaySocial
+      displaySocial,
+      utube,
+      twitter,
+      facebook,
+      linkedin,
+      instagram,
+      company,
+      website,
+      address,
+      skills,
+      bio,
+      utubeValue,
+      twitterValue,
+      facebookValue,
+      linkedinValue,
+      instagramValue
     } = this.state;
+
     return (
       <div>
         <div className='editContainer'>
@@ -54,7 +150,7 @@ class EditProfile extends Component {
           <div className='editContent'>
             <NavLink to='/profile'>
               <div className='boxContent back'>
-                <i class='fas fa-chevron-left'></i>
+                <i className='fas fa-chevron-left'></i>
               </div>
             </NavLink>
 
@@ -66,27 +162,6 @@ class EditProfile extends Component {
                     <div className='row image'>
                       <div className='image_container'>
                         <img src={avatar} alt='' className='boxContent' />
-                        <div className='editIcon font-color '>
-                          <i class='fas fa-pencil-alt'></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div className='diviser'></div>
-                    <div className='row'>
-                      <div className='box'>
-                        <fieldset>
-                          <legend>Username</legend>
-                          <input type='text' placeholder='Bene' />
-                        </fieldset>
-                      </div>
-                      <div className='box'>
-                        <fieldset>
-                          <legend>Email address</legend>
-                          <input
-                            type='text'
-                            placeholder='example@example.com'
-                          />
-                        </fieldset>
                       </div>
                     </div>
                     <div
@@ -96,40 +171,75 @@ class EditProfile extends Component {
                       More about you
                     </div>
                     {displayMore ? (
-                      <MoreAboutUser />
+                      <div>
+                        <div className='row'>
+                          <div className='box'>
+                            <fieldset>
+                              <legend>Company</legend>
+                              <input
+                                type='text'
+                                placeholder='Enter your Company'
+                                name='company'
+                                value={company}
+                                onChange={this.getUserInfo}
+                              />
+                            </fieldset>
+                          </div>
+                          <div className='box'>
+                            <fieldset>
+                              <legend> Website</legend>
+                              <input
+                                type='text'
+                                placeholder='Enter your website'
+                                name='website'
+                                value={website}
+                                onChange={this.getUserInfo}
+                              />
+                            </fieldset>
+                          </div>
+                        </div>
+                        <div className='row'>
+                          <div className='box'>
+                            <fieldset>
+                              <legend>Address</legend>
+                              <input
+                                type='text'
+                                placeholder='Enter your address'
+                                name='address'
+                                value={address}
+                                onChange={this.getUserInfo}
+                              />
+                            </fieldset>
+                          </div>
+                          <div className='box'>
+                            <fieldset>
+                              <legend>Skills</legend>
+                              <input
+                                type='text'
+                                placeholder='Enter your Skills'
+                                name='skills'
+                                value={skills}
+                                onChange={this.getUserInfo}
+                              />
+                            </fieldset>
+                          </div>
+                        </div>
+                        <div className='row'>
+                          <fieldset>
+                            <legend>Your bio</legend>
+                            <TextareaAutosize
+                              style={{ width: '100%' }}
+                              placeholder='Enter your Bio'
+                              name='bio'
+                              value={bio}
+                              onChange={this.getUserInfo}
+                            />
+                          </fieldset>
+                        </div>
+                      </div>
                     ) : (
                       <div className='diviser'></div>
                     )}
-
-                    <div className='row font-color'>
-                      <div>
-                        <div
-                          className='more-about-user'
-                          onClick={this.onDisplayExperience}
-                        >
-                          Your Experience
-                        </div>
-                        {displayExperience ? (
-                          <UserExperience />
-                        ) : (
-                          <div className='diviser'></div>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className='row font-color'>
-                      <div
-                        className='more-about-user'
-                        onClick={this.onDisplayEducation}
-                      >
-                        Your Education
-                      </div>
-                      {displayEducation ? (
-                        <UserEducation />
-                      ) : (
-                        <div className='diviser'></div>
-                      )}
-                    </div>
 
                     <div className='row font-color'>
                       <div
@@ -139,13 +249,118 @@ class EditProfile extends Component {
                         Social Life
                       </div>
                       {displaySocial ? (
-                        <UserSocial />
+                        <div>
+                          <fieldset>
+                            <legend>Social media</legend>
+                            <div className='row social'>
+                              <label htmlFor='linkedin'>Youtube</label>
+                              <input
+                                type='checkbox'
+                                checked={utube}
+                                onClick={this.onCheckUTube}
+                              />
+                              {utube ? (
+                                <div>
+                                  <input
+                                    type='text'
+                                    className='link'
+                                    placeholder='Enter your Youtube channel'
+                                    name='utubeValue'
+                                    value={utubeValue}
+                                    onChange={this.getUserInfo}
+                                  />
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className='row social'>
+                              <label htmlFor='twitter'>Twitter</label>
+                              <input
+                                type='checkbox'
+                                checked={twitter}
+                                onClick={this.onCheckTwitter}
+                              />
+                              {twitter ? (
+                                <div>
+                                  <input
+                                    type='text'
+                                    className='link'
+                                    placeholder='Enter your Twitter username'
+                                    name='twitterValue'
+                                    value={twitterValue}
+                                    onChange={this.getUserInfo}
+                                  />
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className='row social'>
+                              <label htmlFor='facebook'>Facebook</label>
+                              <input
+                                type='checkbox'
+                                checked={facebook}
+                                onClick={this.onCheckFacebook}
+                              />
+                              {facebook ? (
+                                <div>
+                                  <input
+                                    type='text'
+                                    className='link'
+                                    placeholder='Enter your Facebook username'
+                                    name='facebookValue'
+                                    value={facebookValue}
+                                    onChange={this.getUserInfo}
+                                  />
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className='row social'>
+                              <label htmlFor='Linkedin'>Linkedin</label>
+                              <input
+                                type='checkbox'
+                                checked={linkedin}
+                                onClick={this.onCheckLinkedIn}
+                              />
+                              {linkedin ? (
+                                <div>
+                                  <input
+                                    type='text'
+                                    className='link'
+                                    placeholder='Enter your LinkedIn username'
+                                    name='linkedinValue'
+                                    value={linkedinValue}
+                                    onChange={this.getUserInfo}
+                                  />
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className='row social'>
+                              <label htmlFor='Instagram'>Instagram</label>
+                              <input
+                                type='checkbox'
+                                checked={instagram}
+                                onClick={this.onCheckInstagram}
+                              />
+
+                              {instagram ? (
+                                <div>
+                                  <input
+                                    type='text'
+                                    className='link'
+                                    placeholder='Enter your Instagram username'
+                                    name='instagramValue'
+                                    value={instagramValue}
+                                    onChange={this.getUserInfo}
+                                  />
+                                </div>
+                              ) : null}
+                            </div>
+                          </fieldset>
+                        </div>
                       ) : (
                         <div className='diviser'></div>
                       )}
                     </div>
-                    <div className='btn'>
-                      <button>Submit</button>
+                    <div className='submitButton' onClick={this.onSubmitInfo}>
+                      Submit
                     </div>
                   </div>
                 </form>
@@ -157,5 +372,19 @@ class EditProfile extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => ({
+  getProfile: id => dispatch(fetchProfileUser(id)),
+  createOrEditProfile: body => dispatch(createOrEditProfileUser(body))
+});
+const mapStateToProps = state => {
+  return {
+    error: state.userProfile.error,
+    loading: state.userProfile.loading,
+    profile: state.userProfile.profile,
+    isAuthenticated:
+      state.register.token !== null || state.login.token !== null,
+    newUser: state.currentUser.user
+  };
+};
 
-export default EditProfile;
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

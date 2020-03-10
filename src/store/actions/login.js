@@ -46,6 +46,7 @@ export const login = (email, password) => {
       .then(response => {
         localStorage.setItem('token', response.data.token.generate);
         localStorage.setItem('userId', response.data.user._id);
+        localStorage.setItem('user', response.data);
         dispatch(
           loginSuccess(response.data.token.generate, response.data.user._id)
         );

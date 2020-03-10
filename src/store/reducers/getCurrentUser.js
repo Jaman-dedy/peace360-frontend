@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { updatedObject } from '../../shared/utility';
 
 const initialState = {
-  user: [],
+  user: {},
   error: null,
   loading: false
 };

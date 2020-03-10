@@ -7,7 +7,7 @@ class EditLink extends Component {
     return (
       <NavLink to='/editProfile'>
         <div className='editProfileLink'>
-          <i class='fas fa-pencil-alt'></i>
+          <i className='fas fa-pencil-alt'></i>
         </div>
       </NavLink>
     );
