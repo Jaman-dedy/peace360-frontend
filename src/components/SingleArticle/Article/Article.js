@@ -53,10 +53,10 @@ class NewArticle extends Component {
           <div className='menu'>
             <Toolbar />
           </div>
-          <div className='container'>
-            <NavLink to='/SingleArticle'>
-              <div className='back box'>
-                <i class='fas fa-chevron-left font-color'></i>
+          <div className="container">
+            <NavLink to="/SingleArticle">
+              <div className="back box">
+                <i className="fas fa-chevron-left font-color"></i>
               </div>
             </NavLink>
             <form>
