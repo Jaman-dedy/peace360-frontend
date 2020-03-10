@@ -29,7 +29,7 @@ export const fetchProfileUser = id => {
       const response = await axiosOrders.get(`profile/${id}`);
       dispatch(fetchProfileUserSuccess(response.data.profile));
     } catch ({ response }) {
-      dispatch(fetchProfileUserFail(response.data.msg));
+      dispatch(fetchProfileUserFail(response));
     }
   };
 };
@@ -61,7 +61,7 @@ export const createOrEditProfileUser = (body = {}) => {
       const response = await axiosOrders.post(`profile/`, body);
       dispatch(createOrEditProfileUserSuccess(response.data.profile));
     } catch ({ response }) {
-      dispatch(createOrEditProfileUserFail(response.data.msg));
+      dispatch(createOrEditProfileUserFail(response));
     }
   };
 };
