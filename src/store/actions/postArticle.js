@@ -24,23 +24,22 @@ export const postArticleFail = error => {
 };
 
 export const postArticle = (title, body) => {
-  console.log('title and body', title, body);
   return dispatch => {
     dispatch(postArticleStart());
     const articleData = {
       title: title,
       text: body,
-      categoryId: '5e4feb534af0730004460691'
+      categoryId: '5e685434736b58000440957e'
     };
+    console.log('articleData', articleData);
     axiosOrders
       .post('article', articleData)
       .then(response => {
-        // dispatch(postArticleSuccess(response.data));
-        console.log('response.data', response.data);
+        dispatch(postArticleSuccess(response.data));
       })
       .catch(({ response }) => {
-        // dispatch(postArticleFail(response.data.errors));
-        console.log('response.data', response.data);
+        console.log('response', response);
+        dispatch(postArticleFail(response.data.errors));
       });
   };
 };

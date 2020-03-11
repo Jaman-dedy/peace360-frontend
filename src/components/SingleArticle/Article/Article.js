@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { stateToHTML } from 'draft-js-export-html';
 import Toolbar from '../../Menu/Toolbar/Toolbar';
 import TextareaAutoSize from 'react-textarea-autosize';
 import textConfig from '../../../helpers/textConfig.json';
@@ -7,42 +9,25 @@ import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './Article.scss';
+import * as actions from '../../../store/actions/index';
 
 class NewArticle extends Component {
   state = {
     editorState: EditorState.createEmpty(),
-    articleForm: {
-      title: {
-        elementType: 'textarea',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'Title'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      article: {
-        elementType: 'textarea',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'Body of the article...'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      }
-    },
-    formIsValid: false
+    formIsValid: false,
+    title: ''
   };
   onEditorStateChange = editorState => {
     this.setState({ editorState });
+  };
+  inputTitleChangeHandler = event => {
+    this.setState({ title: event.target.value });
+  };
+  submitArticleHandler = event => {
+    event.preventDefault();
+    const body = stateToHTML(this.state.editorState.getCurrentContent());
+    this.props.onPostArticle(this.state.title, body);
+    this.setState({ editorState: '', title: '' });
   };
   render() {
     const { editorState } = this.state;
@@ -59,12 +44,22 @@ class NewArticle extends Component {
                 <i className="fas fa-chevron-left font-color"></i>
               </div>
             </NavLink>
-            <form>
-              <div className='tab box'>
-                <div className='titleField'>
+            <form
+              onSubmit={e =>
+                this.submitArticleHandler(
+                  e,
+                  this.state.title,
+                  this.state.editorState
+                )
+              }
+            >
+              <div className="tab box">
+                <div className="titleField">
                   <TextareaAutoSize
-                    className='textareaClass'
-                    placeholder=' Title'
+                    className="textareaClass"
+                    placeholder=" Title"
+                    value={this.state.title}
+                    onChange={e => this.inputTitleChangeHandler(e)}
                   />
                 </div>
                 <div className='editor font-color'>
@@ -88,4 +83,10 @@ class NewArticle extends Component {
   }
 }
 
-export default NewArticle;
+const mapDispatchToProps = dispatch => {
+  return {
+    onPostArticle: (title, body) => dispatch(actions.postArticle(title, body))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(NewArticle);
