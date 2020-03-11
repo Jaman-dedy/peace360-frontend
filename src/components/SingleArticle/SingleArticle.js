@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2
+} from 'react-html-parser';
 import './Article/Article.scss';
 import Layout from '../../hoc/Layout/Layout';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
@@ -53,7 +59,7 @@ class SingleArticle extends Component {
           <div className={classes.ArticleImage}>
             <img src={coverPhoto} alt='' />
           </div>
-          <div className={classes.Text}>{article.text}</div>
+          <div className={classes.Text}>{ReactHtmlParser(article.text)}</div>
         </div>
       );
     }

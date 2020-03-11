@@ -67,6 +67,15 @@ $brighter: #cacfd1;
         color: $font-color;
         min-height: 20px;
       }
+      .subTitle {
+        width: 88.6%;
+        font-size: 20px;
+        border-width: 0 0 0 1px;
+        border-color: $clean-blue;
+        padding: 18px;
+        color: $font-color;
+        min-height: 18px;
+      }
       .uploadImage {
         .chooseImage {
           padding: 20px;

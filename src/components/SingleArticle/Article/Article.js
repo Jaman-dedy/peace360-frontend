@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { stateToHTML } from 'draft-js-export-html';
+
 import Toolbar from '../../Menu/Toolbar/Toolbar';
 import TextareaAutoSize from 'react-textarea-autosize';
 import textConfig from '../../../helpers/textConfig.json';
@@ -15,27 +16,33 @@ class NewArticle extends Component {
   state = {
     editorState: EditorState.createEmpty(),
     formIsValid: false,
-    title: ''
+    title: '',
+    subtitle: '',
+    redirect: '/createArticle',
   };
-  onEditorStateChange = editorState => {
+  onEditorStateChange = (editorState) => {
     this.setState({ editorState });
   };
-  inputTitleChangeHandler = event => {
+  inputTitleChangeHandler = (event) => {
     this.setState({ title: event.target.value });
   };
-  submitArticleHandler = event => {
+  inputSubTitleChangeHandler = (event) => {
+    this.setState({ subtitle: event.target.value });
+  };
+  submitArticleHandler = (event) => {
     event.preventDefault();
     const body = stateToHTML(this.state.editorState.getCurrentContent());
-    this.props.onPostArticle(this.state.title, body);
-    this.setState({ editorState: '', title: '' });
+    this.props.onPostArticle(this.state.title, this.state.subtitle, body);
+    this.setState({ editorState: '', title: '', redirect: '' });
   };
   render() {
     const { editorState } = this.state;
 
     return (
       <div>
-        <div className='createArticle'>
-          <div className='menu'>
+        <Redirect to={this.state.redirect} />
+        <div className="createArticle">
+          <div className="menu">
             <Toolbar />
           </div>
           <div className="container">
@@ -45,7 +52,7 @@ class NewArticle extends Component {
               </div>
             </NavLink>
             <form
-              onSubmit={e =>
+              onSubmit={(e) =>
                 this.submitArticleHandler(
                   e,
                   this.state.title,
@@ -59,20 +66,29 @@ class NewArticle extends Component {
                     className="textareaClass"
                     placeholder=" Title"
                     value={this.state.title}
-                    onChange={e => this.inputTitleChangeHandler(e)}
+                    onChange={(e) => this.inputTitleChangeHandler(e)}
                   />
                 </div>
-                <div className='editor font-color'>
+                <div className="subTitleField">
+                  <TextareaAutoSize
+                    className="subTitle"
+                    placeholder=" SubTitle"
+                    value={this.state.Subtitle}
+                    onChange={(e) => this.inputSubTitleChangeHandler(e)}
+                  />
+                </div>
+
+                <div className="editor font-color">
                   <Editor
                     toolbar={textConfig}
                     editorState={editorState}
                     onEditorStateChange={this.onEditorStateChange}
-                    placeholder='Body of the article...'
+                    placeholder="Body of the article..."
                   />
                 </div>
 
-                <div className='btn'>
-                  <button type='submit'>Submit</button>
+                <div className="btn">
+                  <button type="submit">Submit</button>
                 </div>
               </div>
             </form>
@@ -83,9 +99,9 @@ class NewArticle extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onPostArticle: (title, body) => dispatch(actions.postArticle(title, body))
+    onPostArticle: (title, body) => dispatch(actions.postArticle(title, body)),
   };
 };
 
