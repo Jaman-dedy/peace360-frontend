@@ -2,6 +2,7 @@
 $main-color: rgb(62, 81, 95);
 $main-hover: rgb(36, 46, 53);
 $font-color: #555353;
+$font-color2: #555353bb;
 $primary-color: #54768b;
 $clean-blue: #e2e7eb;
 $white: #fafafa;
@@ -75,6 +76,14 @@ $brighter: #cacfd1;
         padding: 18px;
         color: $font-color;
         min-height: 18px;
+      }
+      .tags {
+        margin-top: 10px;
+        width: 40%;
+        font-size: 20px;
+        border-width: 0 0 0 1px;
+
+        color: $font-color2;
       }
       .uploadImage {
         .chooseImage {

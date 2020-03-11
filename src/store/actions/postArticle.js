@@ -23,12 +23,14 @@ export const postArticleFail = error => {
   };
 };
 
-export const postArticle = (title, body) => {
+export const postArticle = (title, subtitle, body, tags) => {
   return dispatch => {
     dispatch(postArticleStart());
     const articleData = {
       title: title,
+      subTitle: subtitle,
       text: body,
+      tags: tags,
       categoryId: '5e685434736b58000440957e'
     };
     console.log('articleData', articleData);

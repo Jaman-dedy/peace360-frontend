@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { stateToHTML } from 'draft-js-export-html';
+import Select from 'react-select';
 
 import Toolbar from '../../Menu/Toolbar/Toolbar';
 import TextareaAutoSize from 'react-textarea-autosize';
@@ -12,6 +13,44 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './Article.scss';
 import * as actions from '../../../store/actions/index';
 
+const options = [
+  { value: 'peace', label: 'peace' },
+  { value: 'Youth and peace', label: 'Youth and peace' },
+  { value: 'Sustainability', label: 'Sustainability' },
+  { value: 'modern societies', label: 'modern societies' }
+];
+
+const customStyles = {
+  control: () => ({
+    fontSize: 15
+  }),
+  dropdownIndicator: (provided, state) => {
+    const opacity = 0;
+    return { ...provided, opacity };
+  },
+  indicatorSeparator: (provided, state) => {
+    const opacity = 0;
+    return { ...provided, opacity };
+  },
+  clearIndicator: (provided, state) => {
+    const opacity = 0;
+    return { ...provided, opacity };
+  },
+  menuList: (provided, state) => {
+    const width = '170px';
+    const fontSize = '15px';
+    return { ...provided, width, fontSize };
+  },
+  menu: (provided, state) => {
+    const width = '170px';
+    const fontSize = '15px';
+    return { ...provided, width, fontSize };
+  },
+  container: (provided, state) => {
+    const paddingTop = '10px';
+    return { ...provided, paddingTop };
+  }
+};
 class NewArticle extends Component {
   state = {
     editorState: EditorState.createEmpty(),
@@ -29,13 +68,23 @@ class NewArticle extends Component {
   inputSubTitleChangeHandler = (event) => {
     this.setState({ subtitle: event.target.value });
   };
-  submitArticleHandler = (event) => {
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
+  submitArticleHandler = event => {
     event.preventDefault();
     const body = stateToHTML(this.state.editorState.getCurrentContent());
-    this.props.onPostArticle(this.state.title, this.state.subtitle, body);
+    this.props.onPostArticle(
+      this.state.title,
+      this.state.subtitle,
+      body,
+      this.state.selectedOption
+    );
     this.setState({ editorState: '', title: '', redirect: '' });
   };
   render() {
+    const { selectedOption } = this.state;
     const { editorState } = this.state;
 
     return (
@@ -77,6 +126,17 @@ class NewArticle extends Component {
                     onChange={(e) => this.inputSubTitleChangeHandler(e)}
                   />
                 </div>
+                <div className="tags">
+                  <label htmlFor="">Add a tag</label>
+                  <Select
+                    value={selectedOption}
+                    onChange={this.handleChange}
+                    options={options}
+                    isMulti
+                    isSearchable
+                    styles={customStyles}
+                  />
+                </div>
 
                 <div className="editor font-color">
                   <Editor
@@ -101,7 +161,8 @@ class NewArticle extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPostArticle: (title, body) => dispatch(actions.postArticle(title, body)),
+    onPostArticle: (title, subtile, body, tags) =>
+      dispatch(actions.postArticle(title, subtile, body, tags))
   };
 };
 
