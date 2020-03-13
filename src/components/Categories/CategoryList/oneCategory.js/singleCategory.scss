@@ -12,6 +12,9 @@ $black: rgb(62, 81, 95);
 $grey: #cacfd1;
 $brighter: #cacfd1;
 $danger: #f76767;
+.singleCategory:hover {
+  cursor: default;
+}
 .singleCategory {
   font-family: 'Open Sans', sans-serif;
   .menu {
@@ -22,7 +25,7 @@ $danger: #f76767;
     margin: -2% 1% 0 10%;
     float: left;
   }
-  .backerrornotexist{
+  .backerrornotexist {
     margin: 8% 1% 0 10%;
   }
   .back {
@@ -41,7 +44,6 @@ $danger: #f76767;
   }
   .errorNotExist {
     margin: 8% 10%;
-  
   }
   .errorexis {
     margin: -2% 20%;
@@ -51,9 +53,9 @@ $danger: #f76767;
     padding: 2%;
     width: 60%;
 
-    -webkit-box-shadow: 7px 11px 30px 0px rgba(163, 161, 163, 1);
-    -moz-box-shadow: 7px 11px 30px 0px rgba(163, 161, 163, 1);
-    box-shadow: 7px 11px 30px 0px rgba(163, 161, 163, 1);
+    -webkit-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+    -moz-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+    box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
     .category_title {
       font-size: 22px;
       color: $font-color;
@@ -70,6 +72,7 @@ $danger: #f76767;
     }
     .editCategory:hover {
       color: $primary-color;
+      cursor: pointer;
     }
     .description {
       padding: 1% 0;

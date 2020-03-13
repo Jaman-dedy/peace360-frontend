@@ -89,7 +89,7 @@ class CreateCategory extends Component {
   }
 
   render() {
-    const { categories, loading, error } = this.props;
+    const { categories, loading } = this.props;
     const { categoryTitle, description } = this.state;
     return (
       <div>

@@ -28,7 +28,7 @@ class Profile extends Component {
 
   componentDidMount = () => {
     this.props.getUser(user => {
-      this.props.getProfile(user._id);
+      this.props.getProfile(user._id, cd => {});
     });
   };
 
@@ -94,21 +94,31 @@ class Profile extends Component {
                 <div className={classes.FollowMe}>
                   <h2>Follow me on</h2>
                   <div className={classes.SocialMedia}>
-                    <Link to={`web.facebook.com/${profile.social.facebook}`}>
-                      <i className='fab fa-facebook'></i>
-                    </Link>
-                    <Link to={`twitter.com/${profile.social.twitter}`}>
-                      <i className='fab fa-twitter'></i>
-                    </Link>
-                    <Link to={`instagram.com/${profile.social.instagram}`}>
-                      <i className='fab fa-instagram'></i>
-                    </Link>
-                    <Link to={`linkedin.com/in/${profile.social.linkedin}`}>
-                      <i className='fab fa-linkedin'></i>
-                    </Link>
-                    <Link to={`youtube.com/${profile.social.youtube}`}>
-                      <i className='fab fa-youtube'></i>
-                    </Link>
+                    {profile.social.facebook ? (
+                      <Link to={`web.facebook.com/${profile.social.facebook}`}>
+                        <i className='fab fa-facebook'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.twitter ? (
+                      <Link to={`twitter.com/${profile.social.twitter}`}>
+                        <i className='fab fa-twitter'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.instagram ? (
+                      <Link to={`instagram.com/${profile.social.instagram}`}>
+                        <i className='fab fa-instagram'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.linkedin ? (
+                      <Link to={`linkedin.com/in/${profile.social.linkedin}`}>
+                        <i className='fab fa-linkedin'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.youtube ? (
+                      <Link to={`youtube.com/${profile.social.youtube}`}>
+                        <i className='fab fa-youtube'></i>
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
               ) : null}
@@ -281,7 +291,7 @@ class Profile extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getProfile: id => dispatch(fetchProfileUser(id)),
+  getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
   getUser: cb => dispatch(fetchCurrentUser(cb))
 });
 const mapStateToProps = state => {

@@ -22,11 +22,12 @@ export const fetchProfileUserStart = () => {
   };
 };
 
-export const fetchProfileUser = id => {
+export const fetchProfileUser = (id, cb) => {
   return async dispatch => {
     dispatch(fetchProfileUserStart());
     try {
       const response = await axiosOrders.get(`profile/${id}`);
+      cb(response.data);
       dispatch(fetchProfileUserSuccess(response.data.profile));
     } catch ({ response }) {
       dispatch(fetchProfileUserFail(response));
@@ -54,11 +55,12 @@ export const createOrEditProfileUserStart = () => {
   };
 };
 
-export const createOrEditProfileUser = (body = {}) => {
+export const createOrEditProfileUser = (body = {}, cd) => {
   return async dispatch => {
     dispatch(createOrEditProfileUserStart());
     try {
       const response = await axiosOrders.post(`profile/`, body);
+      cd(response);
       dispatch(createOrEditProfileUserSuccess(response.data.profile));
     } catch ({ response }) {
       dispatch(createOrEditProfileUserFail(response));

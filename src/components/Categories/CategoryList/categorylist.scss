@@ -22,7 +22,7 @@ $brighter: #cacfd1;
     font-size: 20px;
     padding: 10px;
   }
-  .noErrorDisplay{
+  .noErrorDisplay {
     display: none;
     .close_error {
       float: right;
@@ -84,6 +84,7 @@ $brighter: #cacfd1;
       color: $primary-color;
       padding: 0px 8px;
       border-radius: 50%;
+      cursor: pointer;
     }
   }
   .newCategory {
@@ -106,4 +107,7 @@ $brighter: #cacfd1;
       color: $primary-color;
     }
   }
+}
+.categories:hover {
+  cursor: default;
 }

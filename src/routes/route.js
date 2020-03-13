@@ -39,7 +39,7 @@ class Routes extends Component {
         <Route path='/editProfile' component={EditProfile} />
         <Route path='/categories' component={AllCategories} />
         <Route
-          path='/singleCategory/:title'
+          path='/singleCategory/:category_Title'
           component={SingleCategory}
         />
       </Switch>

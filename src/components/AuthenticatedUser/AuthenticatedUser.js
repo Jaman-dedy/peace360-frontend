@@ -31,7 +31,7 @@ class AuthenticatedUser extends Component {
               {' '}
               <Link to='/categories'>
                 {' '}
-                <i class='fas fa-list'></i>
+                <i className='fas fa-list'></i>
                 Categories
               </Link>
             </li>

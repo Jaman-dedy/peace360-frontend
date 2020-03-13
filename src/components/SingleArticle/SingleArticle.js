@@ -8,7 +8,6 @@ import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
 import Like from './FavoriteUser/Like/Like';
 import Rate from './FavoriteUser/Rate/Rate';
-// import RelatedArticle from './RelatedArticles/RelatedArticles';
 import CommentForm from '../../containers/CommentForm/CommentForm';
 import Comments from '../Comments/Comments';
 import SocialShare from '../SocialShare/SocialShare';
@@ -52,7 +51,7 @@ class SingleArticle extends Component {
       displaySingleArticle = (
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
-            <img src={coverPhoto} alt="" />
+            <img src={coverPhoto} alt='' />
           </div>
           <div className={classes.Text}>{article.text}</div>
         </div>
@@ -73,7 +72,7 @@ class SingleArticle extends Component {
           <AuthenticationAction />
         )}
 
-        <CreateArticleLink className="ArticleLink" />
+        <CreateArticleLink className='ArticleLink' />
 
         <div className={classes.SingleArticle}>
           <div className={classes.ArticleTitle}>{article && article.title}</div>

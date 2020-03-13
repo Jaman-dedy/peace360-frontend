@@ -17,6 +17,21 @@ $brighter: #cacfd1;
   float: right;
   margin-top: 20px;
 }
+.error {
+  display: block;
+}
+.no-error {
+  display: none;
+}
+.times {
+  font-size: 28px;
+  color: $font-color;
+}
+.times:hover {
+  color: $primary-color;
+  cursor: pointer;
+}
+
 .editProfileLink:hover,
 .editProfileLink:focus {
   color: $primary-color;
@@ -32,6 +47,7 @@ $brighter: #cacfd1;
     color: white;
   }
   .submitButton:hover {
+    cursor: pointer;
     background-color: $main-hover;
   }
   font-family: 'Open Sans', sans-serif;
