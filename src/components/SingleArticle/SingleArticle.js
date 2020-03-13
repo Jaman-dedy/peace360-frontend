@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import './Article/Article.scss';
 import Layout from '../../hoc/Layout/Layout';
 import Aux from '../../hoc/Aux/Aux';
@@ -52,7 +53,7 @@ class SingleArticle extends Component {
       displaySingleArticle = (
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
-            <img src={coverPhoto} alt="" />
+            <img src={coverPhoto} alt='' />
           </div>
           <div className={classes.Text}>{article.text}</div>
         </div>
@@ -73,7 +74,7 @@ class SingleArticle extends Component {
           <AuthenticationAction />
         )}
 
-        <CreateArticleLink className="ArticleLink" />
+        <CreateArticleLink className='ArticleLink' />
 
         <div className={classes.SingleArticle}>
           <div className={classes.ArticleTitle}>{article && article.title}</div>

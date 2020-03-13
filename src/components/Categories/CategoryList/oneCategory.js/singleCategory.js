@@ -50,12 +50,12 @@ class SingleCategory extends Component {
   };
   onSubmitCategory = () => {
     const {
-      state: { desc, category_Title },
+      state: { desc, category_Title, title },
       props: { updateOneCategory }
     } = this;
 
     const categoryChange = {
-      title_: this.props.match.params.title,
+      title_: title,
       body: { categoryTitle: category_Title, description: desc }
     };
     updateOneCategory(categoryChange, cb => {
@@ -75,13 +75,18 @@ class SingleCategory extends Component {
       backerr: 'backerrornotexist'
     });
   };
-  componentDidMount = () => {
+  componentWillMount = () => {
     const {
-      getCategory,
       match: {
-        params: { title }
+        params: { category_Title }
       }
     } = this.props;
+    this.setState({ title: category_Title });
+  };
+  componentDidMount = () => {
+    const { getCategory } = this.props;
+    const { title } = this.state;
+
     getCategory(title, data => {
       const newDate = new Date(data.data.date);
       this.setState({
