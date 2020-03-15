@@ -300,7 +300,8 @@ const mapStateToProps = state => {
     loading: state.userProfile.loading,
     profile: state.userProfile.profile,
     profileLoading: state.userProfile.loading,
-    current_user: state.currentUser.user
+    current_user: state.currentUser.user,
+    isAuthenticated: state.login.token
   };
 };
 
