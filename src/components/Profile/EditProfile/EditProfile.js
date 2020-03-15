@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import './EditProfile.scss';
 import { connect } from 'react-redux';
@@ -5,7 +6,6 @@ import Layout from '../../Menu/Toolbar/Toolbar';
 import avatar from '../../../assets/images/avatar.jpg';
 import { NavLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
-import Modal from '../../UI/Modal/Modal';
 import {
   fetchProfileUser,
   createOrEditProfileUser
@@ -34,38 +34,64 @@ class EditProfile extends Component {
     address: '',
     skills: '',
     bio: '',
-    error: '',
-    displayError: 'no-error'
+    displayError: 'error'
   };
   onCheckUTube = () => {
     let change = this.state.utube;
     this.setState({
       utube: !change
     });
+    if (!this.state.utube) {
+      this.setState({
+        utubeValue: ''
+      });
+    }
   };
+
   onCheckTwitter = () => {
     let change = this.state.twitter;
     this.setState({
       twitter: !change
     });
+    if (!this.state.twitter) {
+      this.setState({
+        twitterValue: ''
+      });
+    }
   };
+
   onCheckFacebook = () => {
     let change = this.state.facebook;
     this.setState({
       facebook: !change
     });
+    if (!this.state.facebook) {
+      this.setState({
+        facebookValue: ''
+      });
+    }
   };
   onCheckLinkedIn = () => {
     let change = this.state.linkedin;
     this.setState({
       linkedin: !change
     });
+    if (!this.state.linkedin) {
+      this.setState({
+        linkedinValue: ''
+      });
+    }
   };
   onCheckInstagram = () => {
     let change = this.state.instagram;
     this.setState({
       instagram: !change
     });
+    if (!this.state.instagram) {
+      this.setState({
+        instagramValue: ''
+      });
+    }
   };
   onDisplayMore = () => {
     let changes = this.state.displayMore;
@@ -99,6 +125,7 @@ class EditProfile extends Component {
   };
   onSubmitInfo = () => {
     const { createOrEditProfile } = this.props;
+    let utubeV, twitterV, facebookV, linkedinV, instagramV;
     const {
       company,
       website,
@@ -109,8 +136,19 @@ class EditProfile extends Component {
       twitterValue,
       facebookValue,
       linkedinValue,
-      instagramValue
+      instagramValue,
+      utube,
+      twitter,
+      facebook,
+      linkedin,
+      instagram
     } = this.state;
+
+    !utube ? (utubeV = '') : (utubeV = utubeValue);
+    !twitter ? (twitterV = '') : (twitterV = twitterValue);
+    !facebook ? (facebookV = '') : (facebookV = facebookValue);
+    !linkedin ? (linkedinV = '') : (linkedinV = linkedinValue);
+    !instagram ? (instagramV = '') : (instagramV = instagramValue);
 
     createOrEditProfile(
       {
@@ -119,29 +157,38 @@ class EditProfile extends Component {
         location: address,
         skills,
         bio,
-        youtube: utubeValue,
-        facebook: facebookValue,
-        twitter: twitterValue,
-        instagram: instagramValue,
-        linkedin: linkedinValue
+        youtube: utubeV,
+        facebook: facebookV,
+        twitter: twitterV,
+        instagram: instagramV,
+        linkedin: linkedinV
       },
       cd => {
-        if (cd.status === 200) {
+        if (cd.status) {
           window.location.href = '/profile';
         } else {
           this.setState({ error: 'Something is wrong, please retry' });
         }
       }
     );
-   
   };
   onCloseError = () => {
     this.setState({ displayError: 'no-error' });
   };
+  componentWillUpdate = prevProps => {
+    !prevProps.isAuthenticated ? (window.location.href = '/login') : null;
+  };
   componentDidMount = () => {
     this.props.getUser(user => {
       this.props.getProfile(user._id, data => {
-        const { company, website, location, bio, skills } = data.profile;
+        const {
+          company,
+          website,
+          location,
+          bio,
+          skills,
+          social
+        } = data.profile;
         this.setState({
           company,
           website,
@@ -149,6 +196,38 @@ class EditProfile extends Component {
           bio,
           skills
         });
+        if (social) {
+          if (social.youtube) {
+            this.setState({
+              utube: true,
+              utubeValue: social.youtube
+            });
+          }
+          if (social.twitter) {
+            this.setState({
+              twitter: true,
+              twitterValue: social.twitter
+            });
+          }
+          if (social.facebook) {
+            this.setState({
+              facebook: true,
+              facebookValue: social.facebook
+            });
+          }
+          if (social.linkedin) {
+            this.setState({
+              linkedin: true,
+              linkedinValue: social.linkedin
+            });
+          }
+          if (social.instagram) {
+            this.setState({
+              instagram: true,
+              instagramValue: social.instagram
+            });
+          }
+        }
       });
     });
   };
@@ -170,10 +249,13 @@ class EditProfile extends Component {
       twitterValue,
       facebookValue,
       linkedinValue,
-      instagramValue,
-      error
+      instagramValue
     } = this.state;
-    const { loading, getUserLoading } = this.props;
+    const {
+      loading,
+      getUserLoading,
+      errorProfile,
+    } = this.props;
 
     return (
       <div>
@@ -189,16 +271,22 @@ class EditProfile extends Component {
             </NavLink>
 
             <div className='edit_container boxContent'>
-              <div className={error ? 'error' : 'no-error'}>
-                <Modal>
-                  {error}
-                  <span className='times' onClick={this.onCloseError}>
-                    &times;
-                  </span>
-                </Modal>
-              </div>
               <div className=''>
+                <div
+                  className={
+                    errorProfile
+                      ? `errordisplay ${this.state.displayError}`
+                      : `errordisplay no-error`
+                  }
+                >
+                  <span onClick={this.onCloseError}>&times;</span>
+                  <div className='textError'>
+                    There is something wrong, please try to edit your profile,
+                    or go back to profile
+                  </div>
+                </div>
                 <div className='title main-color center'>Edit your Profile</div>
+
                 <form action=''>
                   <div className='form'>
                     <div className='row image'>
@@ -306,7 +394,7 @@ class EditProfile extends Component {
                                   <input
                                     type='checkbox'
                                     checked={utube}
-                                    onClick={this.onCheckUTube}
+                                    onChange={this.onCheckUTube}
                                   />
                                   {utube ? (
                                     <div>
@@ -326,7 +414,7 @@ class EditProfile extends Component {
                                   <input
                                     type='checkbox'
                                     checked={twitter}
-                                    onClick={this.onCheckTwitter}
+                                    onChange={this.onCheckTwitter}
                                   />
                                   {twitter ? (
                                     <div>
@@ -346,7 +434,7 @@ class EditProfile extends Component {
                                   <input
                                     type='checkbox'
                                     checked={facebook}
-                                    onClick={this.onCheckFacebook}
+                                    onChange={this.onCheckFacebook}
                                   />
                                   {facebook ? (
                                     <div>
@@ -366,7 +454,7 @@ class EditProfile extends Component {
                                   <input
                                     type='checkbox'
                                     checked={linkedin}
-                                    onClick={this.onCheckLinkedIn}
+                                    onChange={this.onCheckLinkedIn}
                                   />
                                   {linkedin ? (
                                     <div>
@@ -386,7 +474,7 @@ class EditProfile extends Component {
                                   <input
                                     type='checkbox'
                                     checked={instagram}
-                                    onClick={this.onCheckInstagram}
+                                    onChange={this.onCheckInstagram}
                                   />
 
                                   {instagram ? (
@@ -433,7 +521,7 @@ const mapDispatchToProps = dispatch => ({
 });
 const mapStateToProps = state => {
   return {
-    error: state.userProfile.error,
+    errorProfile: state.userProfile.error,
     loading: state.userProfile.loading,
     current_profile: state.userProfile.profile,
     isAuthenticated:

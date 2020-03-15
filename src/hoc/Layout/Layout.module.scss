@@ -2,3 +2,47 @@
   margin: 3rem 11rem;
   margin-bottom: 7rem;
 }
+
+@media screen and (max-width: 550px) {
+  .Container {
+    margin: 2rem 0rem;
+    .Content {
+      float: left;
+      width: 90%;
+      margin: 3rem 5%;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) and (min-width: 550px) {
+  .Container {
+    margin: 2rem 0rem;
+    .Content {
+      float: left;
+      width: 80%;
+      margin: 3rem 10%;
+    }
+  }
+}
+
+@media screen and (max-width: 1020px) and (min-width: 750px) {
+  .Container {
+    margin: 2rem 0rem;
+    .Content {
+      float: left;
+      width: 74%;
+      margin: 3rem 13%;
+    }
+  }
+}
+
+@media screen and (max-width: 1820px) and (min-width: 1020px) {
+  .Container {
+    margin: 2rem 0rem;
+    .Content {
+      float: left;
+      width: 74%;
+      margin: 3rem 13%;
+    }
+  }
+}

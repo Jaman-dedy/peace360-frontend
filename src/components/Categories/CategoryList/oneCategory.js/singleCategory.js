@@ -3,6 +3,7 @@ import Layout from '../../../Menu/Toolbar/Toolbar';
 import { connect } from 'react-redux';
 import './singleCategory.scss';
 import Modal from '../../../UI/Modal/Modal';
+import TextareaAutosize from 'react-textarea-autosize';
 import Spinner from '../../../UI/Spinner/Spinner';
 import {
   getOneCategory,
@@ -90,7 +91,9 @@ class SingleCategory extends Component {
     getCategory(title, data => {
       const newDate = new Date(data.data.date);
       this.setState({
-        date: newDate.toISOString().substring(0, 10)
+        date: newDate.toISOString().substring(0, 10),
+        desc: data.data.description,
+        category_Title: data.data.categoryTitle
       });
     });
   };
@@ -138,14 +141,14 @@ class SingleCategory extends Component {
                       <div className='row'>
                         <fieldset>
                           <legend>Description</legend>
-                          <textarea
+                          <TextareaAutosize
+                            style={{ width: '100%' }}
                             name='desc'
                             id='textarea'
-                            cols='119'
-                            rows='7'
+                            placeholder='Description'
                             value={desc}
                             onChange={this.onChangeInput}
-                          ></textarea>
+                          />
                         </fieldset>
                       </div>
                       <div className='btn'>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './categorylist.scss';
 import Layout from '../../Menu/Toolbar/Toolbar';
 import Modal from '../../UI/Modal/Modal';
+import TextareaAutosize from 'react-textarea-autosize';
 import Spinner from '../../UI/Spinner/Spinner';
 import {
   fetchCategories,
@@ -120,18 +121,18 @@ class CreateCategory extends Component {
                           />
                         </fieldset>
                       </div>
-                    </div>
-                    <div className='row'>
+                    </div>{' '}
+                    <div className='row textareaAutosize'>
                       <fieldset>
                         <legend>Description</legend>
-                        <textarea
+                        <TextareaAutosize
+                          placeholder=' Category description'
                           name='description'
                           id='textarea'
-                          cols='119'
-                          rows='7'
+                          style={{ width: '100%' }}
                           value={description}
                           onChange={this.onChangeCategoryDescription}
-                        ></textarea>
+                        />
                       </fieldset>
                     </div>
                     <div className='btn'>

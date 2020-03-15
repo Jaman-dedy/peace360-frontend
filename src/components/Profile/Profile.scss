@@ -1,8 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+$main-color: rgb(62, 81, 95);
+$main-hover: rgb(36, 46, 53);
+$font-color: #555353;
+$primary-color: #54768b;
+$clean-blue: #e2e7eb;
+$white: #fafafa;
+$white-hover: #e2f8f8;
+$blue: #41afd1;
+$blue-hover: #a38933;
+$black: rgb(62, 81, 95);
+$grey: #a2a4a5;
+$brighter: #cacfd1;
+$danger: #f76060;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
 .tabContent {
   display: none;
   padding: 6px 12px;
   -webkit-animation: fadeEffect 1s;
   animation: fadeEffect 2s;
+  span {
+    color: $font-color;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .tabContent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 2s;
+    span {
+      h3 {
+        font-size: 1rem;
+        color: $font-color;
+      }
+    }
+  }
 }
 @-webkit-keyframes fadeEffect {
   from {

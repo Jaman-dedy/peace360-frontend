@@ -1,6 +1,38 @@
 .MenuItems {
   color: #5a5554;
   margin-left: 15.3rem;
-  font-family: "M PLUS 1p", sans-serif;
-  font-size: 1rem;
+  font-family: 'M PLUS 1p', sans-serif;
+  font-size: 16px;
+}
+
+@media (max-width: 750px) {
+  .MenuItems {
+    display: none;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 900px) {
+  .MenuItems {
+    color: #5a5554;
+    margin: -1rem 0rem;
+    font-family: 'M PLUS 1p', sans-serif;
+    font-size: 13px;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1020px) {
+  .MenuItems {
+    color: #5a5554;
+    margin: -1rem 0 0 7rem;
+    font-family: 'M PLUS 1p', sans-serif;
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 1020px) and (max-width: 1199px) {
+  .MenuItems {
+    color: #5a5554;
+    margin: -1rem 0 0 10rem;
+    font-family: 'M PLUS 1p', sans-serif;
+    font-size: 14px;
+  }
 }

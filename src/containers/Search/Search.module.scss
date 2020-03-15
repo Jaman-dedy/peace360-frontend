@@ -9,11 +9,61 @@
   button {
     border: none;
   }
-  input[type="text"] {
+  input[type='text'] {
     border: none;
-    font-family: "M PLUS 1p", sans-serif;
+    font-family: 'M PLUS 1p', sans-serif;
     height: 2rem;
     width: 13rem;
     border-bottom: 1px rgba(0, 0, 0, 0.157) solid;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .Search {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1020px) {
+  .Search {
+    padding-right: 2rem;
+    margin-top: -1.9rem;
+    i {
+      color: #5a5554c9;
+      font-size: 1rem;
+      background-color: #fff;
+    }
+    button {
+      border: none;
+    }
+    input[type='text'] {
+      border: none;
+      font-family: 'M PLUS 1p', sans-serif;
+      height: 2rem;
+      width: 8rem;
+      border-bottom: 1px rgba(0, 0, 0, 0.157) solid;
+    }
+  }
+}
+
+@media screen and (min-width: 1020px) and (max-width: 1199px) {
+  .Search {
+    padding-right: 2rem;
+    margin-top: -1.9rem;
+    i {
+      color: #5a5554c9;
+      font-size: 1rem;
+      background-color: #fff;
+    }
+    button {
+      border: none;
+    }
+    input[type='text'] {
+      border: none;
+      font-family: 'M PLUS 1p', sans-serif;
+      height: 2rem;
+      width: 8rem;
+      border-bottom: 1px rgba(0, 0, 0, 0.157) solid;
+    }
   }
 }

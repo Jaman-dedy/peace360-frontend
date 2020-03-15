@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+$main-color: rgb(62, 81, 95);
+$main-hover: rgb(36, 46, 53);
+$font-color: #555353;
+$primary-color: #54768b;
+$clean-blue: #e2e7eb;
+$white: #fafafa;
+$white-hover: #e2f8f8;
+$blue: #41afd1;
+$blue-hover: #a38933;
+$black: rgb(62, 81, 95);
+$grey: #a2a4a5;
+$brighter: #cacfd1;
+$danger: #f76060;
+
+@media screen and (max-width: 750px) {
+  .menu_list {
+    margin: -3% 20px;
+    .dropdownMenu {
+      i {
+        float: right;
+        font-size: 25px;
+        color: $font-color;
+      }
+      i:hover {
+        color: $primary-color;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .menu_list {
+    display: none;
+  }
+}
