@@ -76,7 +76,12 @@ class SingleCategory extends Component {
     });
   };
   componentWillMount = () => {
-    this.setState({ title: 'category_Title' });
+    const {
+      match: {
+        params: { category_Title }
+      }
+    } = this.props;
+    this.setState({ title: category_Title });
   };
   componentDidMount = () => {
     const { getCategory } = this.props;
