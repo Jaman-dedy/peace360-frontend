@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2
-} from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 import './Article/Article.scss';
 import Layout from '../../hoc/Layout/Layout';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
@@ -35,6 +31,7 @@ class SingleArticle extends Component {
     }
   }
   render() {
+    let createArticleLink = '';
     const { article = {} } = this.props;
     let user;
     if (article) {
@@ -54,6 +51,10 @@ class SingleArticle extends Component {
       coverPhoto = article.coverPhoto ? article.coverPhoto : articleImg;
 
       comments = article.comments;
+      createArticleLink = this.props.isAuthenticated
+        ? '/createArticle'
+        : '/login';
+
       displaySingleArticle = (
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
@@ -72,13 +73,15 @@ class SingleArticle extends Component {
     );
     return (
       <Layout>
+        {console.log('this.props.isAuthenticated', this.props.isAuthenticated)}
+        {console.log('createArticleLink', createArticleLink)}
         {this.props.isAuthenticated ? (
           <AuthenticatedUser />
         ) : (
           <AuthenticationAction />
         )}
 
-        <CreateArticleLink className='ArticleLink' />
+        <CreateArticleLink link={createArticleLink} className="ArticleLink" />
 
         <div className={classes.SingleArticle}>
           <div className={classes.ArticleTitle}>{article && article.title}</div>

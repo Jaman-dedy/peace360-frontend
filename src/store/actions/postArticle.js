@@ -30,17 +30,15 @@ export const postArticle = (title, subtitle, body, tags) => {
       title: title,
       subTitle: subtitle,
       text: body,
-      tags: tags,
-      categoryId: '5e685434736b58000440957e'
+      // tags: tags,
+      categoryId: '5e6d2e4bb6531f0004a8d947'
     };
-    console.log('articleData', articleData);
     axiosOrders
       .post('article', articleData)
       .then(response => {
         dispatch(postArticleSuccess(response.data));
       })
       .catch(({ response }) => {
-        console.log('response', response);
         dispatch(postArticleFail(response.data.errors));
       });
   };
