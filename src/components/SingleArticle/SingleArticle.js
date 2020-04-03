@@ -73,8 +73,6 @@ class SingleArticle extends Component {
     );
     return (
       <Layout>
-        {console.log('this.props.isAuthenticated', this.props.isAuthenticated)}
-        {console.log('createArticleLink', createArticleLink)}
         {this.props.isAuthenticated ? (
           <AuthenticatedUser />
         ) : (
@@ -89,7 +87,7 @@ class SingleArticle extends Component {
             {article && article.Subtitle}
           </div>
 
-          <FollowUser user={user} />
+          <FollowUser user={user} articleId={article && article._id} />
           <SocialShare />
           {displaySingleArticle}
           {tags &&

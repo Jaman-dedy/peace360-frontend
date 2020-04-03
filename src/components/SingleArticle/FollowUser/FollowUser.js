@@ -9,18 +9,37 @@ class FollowUser extends Component {
   state = {
     isFollowed: true
   };
-  switchFavoriteUserHandle = () => {
+  switchFavoriteUserHandle = articleId => {
     if (!this.props.isAuthenticated) {
       this.props.onSetRedirectPath();
     }
     this.setState(prevState => {
       return { isFollowed: !prevState.isFollowed };
     });
+
+    this.props.onFollowUser(articleId);
+    console.log('articleId', articleId);
   };
+
   render() {
     const redirectPath = <Redirect to={this.props.redirectPath} />;
-
+    const { articleId = {} } = this.props;
     const { user = {} } = this.props;
+    const { currentUser = {} } = this.props;
+    console.log('currentUser', currentUser);
+    const followBox =
+      user.id !== currentUser.user._id ? (
+        <div
+          className={
+            this.state.isFollowed ? classes.FollowBox : classes.UnFollowBox
+          }
+          onClick={e => this.switchFavoriteUserHandle(articleId)}
+        >
+          {this.state.isFollowed ? 'Follow' : 'UnFollow'}
+        </div>
+      ) : (
+        ''
+      );
 
     return (
       <div className={classes.FollowUser}>
@@ -31,14 +50,7 @@ class FollowUser extends Component {
         <div className={classes.UserName}>
           {user ? user.username : 'Peace Activist'}
         </div>
-        <div
-          className={
-            this.state.isFollowed ? classes.FollowBox : classes.UnFollowBox
-          }
-          onClick={this.switchFavoriteUserHandle}
-        >
-          {this.state.isFollowed ? 'Follow' : 'UnFollow'}
-        </div>
+        {followBox}
         <div className={classes.Details}>Dec 25, 6 min read</div>
       </div>
     );
@@ -52,13 +64,15 @@ const mapStateToProps = state => {
     isAuthenticated:
       state.login.token !== null || state.register.token !== null,
     redirectPath:
-      state.login.authRedirectPath || state.register.authRedirectPath
+      state.login.authRedirectPath || state.register.authRedirectPath,
+    errorOnFollow: state.followUser.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login'))
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login')),
+    onFollowUser: articleId => dispatch(actions.followUser(articleId))
   };
 };
 

@@ -8,6 +8,8 @@ import postCommentReducer from './comment';
 import userProfile from './userProfile';
 import categories from './categories';
 import postArticleReducer from './postArticle';
+import followUserReducer from './followUser';
+import myFollowersReducer from './getFollowers';
 
 //@ create root reducer
 
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   userProfile,
   categories: categories,
   postArticle: postArticleReducer,
+  followUser: followUserReducer,
+  myFollowers: myFollowersReducer,
 });
 
 export default rootReducer;
