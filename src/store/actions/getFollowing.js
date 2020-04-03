@@ -5,7 +5,7 @@ import * as actionTypes from './actionTypes';
 export const fetchMyFollowingSuccess = (following) => {
   return {
     type: actionTypes.FETCH_FOLLOWING_SUCCESS,
-    following: following,
+    followings: following,
   };
 };
 
@@ -27,11 +27,9 @@ export const fetchMyFollowing = () => {
     dispatch(fetchMyFollowingStart());
     try {
       const response = await axiosOrders.get('users/followings');
-      //   dispatch(fetchMyFollowingSuccess(response.data.user));
-      console.log('object', response.data);
+      dispatch(fetchMyFollowingSuccess(response.data));
     } catch ({ response }) {
-      //   dispatch(fetchMyFollowingFail(response.data.msg));
-      console.log('response.data', response.data);
+      dispatch(fetchMyFollowingFail(response.data));
     }
   };
 };

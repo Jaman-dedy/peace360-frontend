@@ -27,11 +27,10 @@ export const fetchMyFollowers = () => {
     dispatch(fetchMyFollowersStart());
     try {
       const response = await axiosOrders.get('users/followers');
-      //   dispatch(fetchMyFollowersSuccess(response.data.user));
+      dispatch(fetchMyFollowersSuccess(response.data));
       console.log('object', response.data);
     } catch ({ response }) {
-      //   dispatch(fetchMyFollowersFail(response.data.msg));
-      console.log('response.data', response.data);
+      dispatch(fetchMyFollowersFail(response.data));
     }
   };
 };

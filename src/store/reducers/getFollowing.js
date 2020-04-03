@@ -2,24 +2,24 @@ import * as actionTypes from '../actions/actionTypes';
 import { updatedObject } from '../../shared/utility';
 
 const initialState = {
-  followers: [],
+  followings: [],
   error: null,
   loading: false,
 };
 
-const fetchMyFollowersStart = (state, action) => {
+const fetchMyFollowingStart = (state, action) => {
   return updatedObject(state, { error: null, loading: true });
 };
 
-const fetchMyFollowersSuccess = (state, action) => {
+const fetchMyFollowingSuccess = (state, action) => {
   return updatedObject(state, {
-    followers: action.followers,
+    followings: action.followings,
     error: null,
     loading: false,
   });
 };
 
-const fetchMyFollowersFail = (state, action) => {
+const fetchMyFollowingFail = (state, action) => {
   return updatedObject(state, {
     error: action.error,
     loading: false,
@@ -28,12 +28,12 @@ const fetchMyFollowersFail = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_FOLLOWERS_START:
-      return fetchMyFollowersStart(state, action);
-    case actionTypes.FETCH_FOLLOWERS_FAIL:
-      return fetchMyFollowersFail(state, action);
-    case actionTypes.FETCH_FOLLOWERS_SUCCESS:
-      return fetchMyFollowersSuccess(state, action);
+    case actionTypes.FETCH_FOLLOWING_START:
+      return fetchMyFollowingStart(state, action);
+    case actionTypes.FETCH_FOLLOWING_FAIL:
+      return fetchMyFollowingFail(state, action);
+    case actionTypes.FETCH_FOLLOWING_SUCCESS:
+      return fetchMyFollowingSuccess(state, action);
     default:
       return state;
   }
