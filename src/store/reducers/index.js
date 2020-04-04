@@ -6,6 +6,7 @@ import category from './category';
 import singleArticleReducer from './singleArticle';
 import postCommentReducer from './comment';
 import userProfile from './userProfile';
+import categories from './categories';
 
 //@ create root reducer
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   fetchCategories: category,
   fetchSingleArticle: singleArticleReducer,
   postComment: postCommentReducer,
-  userProfile
+  userProfile,
+  categories: categories
 });
 
 export default rootReducer;

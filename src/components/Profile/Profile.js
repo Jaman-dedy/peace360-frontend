@@ -26,9 +26,14 @@ class Profile extends Component {
     event.currentTarget.className += ' active';
   };
 
+  componentWillUpdate = prevProps => {
+    if (prevProps.authError) {
+      window.location.href = '/login';
+    }
+  };
   componentDidMount = () => {
     this.props.getUser(user => {
-      this.props.getProfile(user._id);
+      this.props.getProfile(user._id, cd => {});
     });
   };
 
@@ -54,62 +59,74 @@ class Profile extends Component {
                 {error !== null &&
                 error.data.msg === 'There is no profile for this user' ? (
                   <NavLink to='/editProfile'>
-                    <button className='tabLinks'>Create Profile</button>
+                    <div className={classes.TabLinks}>Create Profile</div>
                   </NavLink>
                 ) : (
-                  <button
-                    className='tabLinks'
+                  <div
+                    className={classes.TabLinks}
                     onClick={e => this.handleShowTabs(e, 'Profile')}
                   >
                     Profile
-                  </button>
+                  </div>
                 )}
 
-                <button
-                  className='tabLinks'
+                <div
+                  className={classes.TabLinks}
                   onClick={e => this.handleShowTabs(e, 'Posts')}
                 >
                   Posts
-                </button>
-                <button
-                  className='tabLinks'
+                </div>
+                <div
+                  className={classes.TabLinks}
                   onClick={e => this.handleShowTabs(e, 'Likes')}
                 >
                   Likes
-                </button>
-                <button
-                  className='tabLinks'
+                </div>
+                <div
+                  className={classes.TabLinks}
                   onClick={e => this.handleShowTabs(e, 'Followers')}
                 >
                   Followers
-                </button>
-                <button
-                  className='tabLinks'
+                </div>
+                <div
+                  className={classes.TabLinks}
                   onClick={e => this.handleShowTabs(e, 'Following')}
                 >
                   Following
-                </button>
-              </div>
-              <div className={classes.FollowMe}>
-                <h2>Follow me on</h2>
-                <div className={classes.SocialMedia}>
-                  <Link to={profile.social ? profile.social.facebook : '#'}>
-                    <i className='fab fa-facebook'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.twitter : '#'}>
-                    <i className='fab fa-twitter'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.instagram : '#'}>
-                    <i className='fab fa-instagram'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.linkedin : '#'}>
-                    <i className='fab fa-linkedin'></i>
-                  </Link>
-                  <Link to={profile.social ? profile.social.youtube : '#'}>
-                    <i className='fab fa-youtube'></i>
-                  </Link>
                 </div>
               </div>
+              {profile.social ? (
+                <div className={classes.FollowMe}>
+                  <h2>Follow me on</h2>
+                  <div className={classes.SocialMedia}>
+                    {profile.social.facebook ? (
+                      <Link to={`web.facebook.com/${profile.social.facebook}`}>
+                        <i className='fab fa-facebook'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.twitter ? (
+                      <Link to={`twitter.com/${profile.social.twitter}`}>
+                        <i className='fab fa-twitter'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.instagram ? (
+                      <Link to={`instagram.com/${profile.social.instagram}`}>
+                        <i className='fab fa-instagram'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.linkedin ? (
+                      <Link to={`linkedin.com/in/${profile.social.linkedin}`}>
+                        <i className='fab fa-linkedin'></i>
+                      </Link>
+                    ) : null}
+                    {profile.social.youtube ? (
+                      <Link to={`youtube.com/${profile.social.youtube}`}>
+                        <i className='fab fa-youtube'></i>
+                      </Link>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
               <div id='Profile' className='tabContent'>
                 <span>
                   <h3>ABOUT ME</h3>
@@ -279,7 +296,7 @@ class Profile extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getProfile: id => dispatch(fetchProfileUser(id)),
+  getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
   getUser: cb => dispatch(fetchCurrentUser(cb))
 });
 const mapStateToProps = state => {
@@ -288,7 +305,9 @@ const mapStateToProps = state => {
     loading: state.userProfile.loading,
     profile: state.userProfile.profile,
     profileLoading: state.userProfile.loading,
-    current_user: state.currentUser.user
+    current_user: state.currentUser.user,
+    authError: state.currentUser.error,
+    isAuthenticated: state.register.token !== null || state.login.token !== null
   };
 };
 
