@@ -11,6 +11,8 @@ import Avatar from '../../assets/images/avatar.jpg';
 import EditLink from './EditProfile/EditProfileLink';
 import { fetchProfileUser, fetchCurrentUser } from '../../store/actions';
 import * as actions from '../../store/actions/index';
+import NotFound from '../errors/NotFound/NotFound';
+import Aux from '../../hoc/Aux/Aux';
 
 class Profile extends Component {
   handleShowTabs = (event, tabName) => {
@@ -48,8 +50,75 @@ class Profile extends Component {
       profileLoading,
       loading,
       current_user,
+      followingError = {},
+      followersError = {},
     } = this.props;
+    let followings = followingError ? (
+      <NotFound message={followingError.msg} />
+    ) : (
+      <Aux>
+        <span>
+          <h3>MY FOLLOWINGS</h3>
+        </span>
+        <div className={classes.ProfileTab}>
+          <div className={classes.MyFollowers}>
+            <div className={classes.Avatar}>
+              <img src={Avatar} alt="" />
+            </div>
+            <div className={classes.Name}>Emanuel Bush</div>
+            <div className={classes.UnFollow}>UnFollow</div>
+          </div>
+          <div className={classes.MyFollowers}>
+            <div className={classes.Avatar}>
+              <img src={Avatar} alt="" />
+            </div>
+            <div className={classes.Name}>Emanuel Bush</div>
+            <div className={classes.UnFollow}>UnFollow</div>
+          </div>
+          <div className={classes.MyFollowers}>
+            <div className={classes.Avatar}>
+              <img src={Avatar} alt="" />
+            </div>
+            <div className={classes.Name}>Emanuel Bush</div>
+            <div className={classes.UnFollow}>UnFollow</div>
+          </div>
+        </div>
+      </Aux>
+    );
+    let followers = followersError ? (
+      <NotFound message={followersError.msg} />
+    ) : (
+      <Aux>
+        <span>
+          <h3>MY FOLLOWERS</h3>
+        </span>
+        <div className={classes.ProfileTab}>
+          <div className={classes.MyFollowers}>
+            <div className={classes.Avatar}>
+              <img src={Avatar} alt="" />
+            </div>
+            <div className={classes.Name}>Emanuel Bush</div>
+            <div className={classes.Follow}>Follow</div>
+          </div>
+          <div className={classes.MyFollowers}>
+            <div className={classes.Avatar}>
+              <img src={Avatar} alt="" />
+            </div>
+            <div className={classes.Name}>Emanuel Bush</div>
+            <div className={classes.Follow}>Follow</div>
+          </div>
+          <div className={classes.MyFollowers}>
+            <div className={classes.Avatar}>
+              <img src={Avatar} alt="" />
+            </div>
+            <div className={classes.Name}>Emanuel Bush</div>
+            <div className={classes.Follow}>Follow</div>
+          </div>
+        </div>
+      </Aux>
+    );
     const { skills } = profile;
+
     return (
       <Layout>
         <div className={classes.Profile}>
@@ -236,60 +305,10 @@ class Profile extends Component {
                 </div>
               </div>
               <div id="Followers" className="tabContent">
-                <span>
-                  <h3>MY FOLLOWERS</h3>
-                </span>
-                <div className={classes.ProfileTab}>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt="" />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.Follow}>Follow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt="" />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.Follow}>Follow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt="" />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.Follow}>Follow</div>
-                  </div>
-                </div>
+                {followers}
               </div>
               <div id="Following" className="tabContent">
-                <span>
-                  <h3>MY FOLLOWINGS</h3>
-                </span>
-                <div className={classes.ProfileTab}>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt="" />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.UnFollow}>UnFollow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt="" />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.UnFollow}>UnFollow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt="" />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.UnFollow}>UnFollow</div>
-                  </div>
-                </div>
+                {followings}
               </div>
             </div>
           )}
@@ -315,11 +334,11 @@ const mapStateToProps = (state) => {
     authError: state.currentUser.error,
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
-    FollowersError: state.myFollowers.error,
+    followersError: state.myFollowers.error,
     loadFollowers: state.myFollowers.load,
     myFollowers: state.myFollowers,
     myFollowing: state.myFollowings,
-    FollowingError: state.myFollowings.error,
+    followingError: state.myFollowings.error,
     loadFollowing: state.myFollowings.load,
   };
 };
