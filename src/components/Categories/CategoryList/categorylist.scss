@@ -11,106 +11,353 @@ $blue-hover: #a38933;
 $black: rgb(62, 81, 95);
 $grey: #cacfd1;
 $brighter: #cacfd1;
-.categories {
-  font-family: 'Open Sans', sans-serif;
-  .menu {
-    margin-top: 3rem;
-  }
-  .danger {
-    background-color: #f85a5a;
-    color: white;
-    font-size: 20px;
-    padding: 10px;
-  }
-  .noErrorDisplay {
-    display: none;
-    .close_error {
-      float: right;
-      color: $white;
-      font-size: 25px;
-    }
-    .close_error {
-      font-size: 23px;
-      cursor: pointer;
-    }
-  }
-  .errorDisplay {
-    display: block;
-    .close_error {
-      float: right;
-      color: $white;
-      font-size: 25px;
-    }
-    .close_error {
-      font-size: 23px;
-      cursor: pointer;
-    }
-  }
 
-  .category_card {
-    width: 70%;
-    float: left;
-    margin: 8% 14% 0 14%;
-    overflow: hidden;
-  }
-  .title {
-    font-size: 30px;
-  }
-  .list_row {
-    float: left;
-  }
-  .id {
-    width: 10.5%;
-    padding: 1% 2%;
-    text-align: center;
-    border-bottom: $clean-blue 1px solid;
-  }
-  .name {
-    width: 21%;
-    padding: 1% 2%;
-    border-bottom: $clean-blue 1px solid;
-  }
-  .desc {
-    width: 50%;
-    padding: 1% 2%;
-    border-bottom: $clean-blue 1px solid;
-  }
-  .menu_list {
-    i {
-      float: right;
-      padding: 0px 8px;
+@media screen and (min-width: 200px) and (max-width: 450px) {
+  .categories {
+    font-family: 'Open Sans', sans-serif;
+    .menu {
+      margin-top: 3rem;
     }
-    i:hover {
-      color: $primary-color;
-      padding: 0px 8px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-  }
-  .newCategory {
-    padding-top: 20px;
-  }
-  .right {
-    float: right;
-  }
-  .createCategory {
-    i {
-      background-color: $clean-blue;
-      padding: 3px 5px;
-      border-radius: 50%;
+    .danger {
+      background-color: #f85a5a;
+      color: white;
       font-size: 20px;
+      padding: 10px;
+    }
+    .noErrorDisplay {
+      display: none;
+      .close_error {
+        float: right;
+        color: $white;
+        font-size: 25px;
+      }
+      .close_error {
+        font-size: 23px;
+        cursor: pointer;
+      }
+    }
+    .errorDisplay {
+      display: block;
+      .close_error {
+        float: right;
+        color: $white;
+        font-size: 25px;
+      }
+      .close_error {
+        font-size: 23px;
+        cursor: pointer;
+      }
+    }
+
+    .category_card {
+      width: 70%;
+      float: left;
+      margin: 8% 14% 0 14%;
+      overflow: hidden;
+    }
+    .title {
+      font-size: 30px;
+    }
+
+    .list_row {
+      width: 100%;
+      height: 40px;
+      border-bottom: $clean-blue 1px solid;
+    }
+    .row_role {
+      float: left;
+    }
+    .id {
+      width: 10%;
+      padding-top: 1%;
+      padding-left: 1%;
+    }
+    .name {
+      width: 62%;
+      padding-top: 1%;
+    }
+    .desc {
+      display: none;
+      width: 50%;
+      padding-top: 1%;
+    }
+
+    .change {
+      width: 25%;
+      padding-top: 1%;
+    }
+
+    .change {
+      i {
+        font-size: 0.7rem;
+        float: right;
+        padding: 0px 2px;
+      }
+      i:hover {
+        color: $primary-color;
+        padding: 0px 8px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+    .newCategory {
+      padding-top: 20px;
+    }
+    .right {
+      float: right;
+    }
+    .createCategory {
+      i {
+        background-color: $clean-blue;
+        padding: 3px 5px;
+        border-radius: 50%;
+        font-size: 20px;
+      }
+    }
+    .createCategory:hover {
+      i {
+        cursor: pointer;
+        color: $primary-color;
+      }
+    }
+    .textareaAutosize {
+      width: 96%;
     }
   }
-  .createCategory:hover {
-    i {
-      cursor: pointer;
-      color: $primary-color;
-    }
-  }
-  .textareaAutosize {
-    width: 96%;
+  .categories:hover {
+    cursor: default;
   }
 }
-.categories:hover {
-  cursor: default;
+
+@media (min-width: 450px) and (max-width: 950px) {
+  .categories {
+    font-family: 'Open Sans', sans-serif;
+    .menu {
+      margin-top: 3rem;
+    }
+    .danger {
+      background-color: #f85a5a;
+      color: white;
+      font-size: 20px;
+      padding: 10px;
+    }
+    .noErrorDisplay {
+      display: none;
+      .close_error {
+        float: right;
+        color: $white;
+        font-size: 25px;
+      }
+      .close_error {
+        font-size: 23px;
+        cursor: pointer;
+      }
+    }
+    .errorDisplay {
+      display: block;
+      .close_error {
+        float: right;
+        color: $white;
+        font-size: 25px;
+      }
+      .close_error {
+        font-size: 23px;
+        cursor: pointer;
+      }
+    }
+
+    .category_card {
+      width: 70%;
+      float: left;
+      margin: 8% 14% 0 14%;
+      overflow: hidden;
+    }
+    .title {
+      font-size: 30px;
+    }
+
+    .list_row {
+      width: 100%;
+      height: 40px;
+      border-bottom: $clean-blue 1px solid;
+    }
+    .row_role {
+      float: left;
+    }
+    .id {
+      width: 10%;
+      padding-top: 1%;
+      padding-left: 1%;
+    }
+    .name {
+      width: 52%;
+      padding-top: 1%;
+    }
+    .desc {
+      display: none;
+      width: 50%;
+      padding-top: 1%;
+    }
+
+    .change {
+      // background-color: $blue;
+      width: 35%;
+      padding-top: 1%;
+    }
+
+    .change {
+      i {
+        float: right;
+        padding: 0px 8px;
+      }
+      i:hover {
+        color: $primary-color;
+        padding: 0px 8px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+    .newCategory {
+      padding-top: 20px;
+    }
+    .right {
+      float: right;
+    }
+    .createCategory {
+      i {
+        background-color: $clean-blue;
+        padding: 3px 5px;
+        border-radius: 50%;
+        font-size: 20px;
+      }
+    }
+    .createCategory:hover {
+      i {
+        cursor: pointer;
+        color: $primary-color;
+      }
+    }
+    .textareaAutosize {
+      width: 96%;
+    }
+  }
+  .categories:hover {
+    cursor: default;
+  }
+}
+
+@media (min-width: 950px) and (max-width: 2000px) {
+  .categories {
+    font-family: 'Open Sans', sans-serif;
+    .menu {
+      margin-top: 3rem;
+    }
+    .danger {
+      background-color: #f85a5a;
+      color: white;
+      font-size: 20px;
+      padding: 10px;
+    }
+    .noErrorDisplay {
+      display: none;
+      .close_error {
+        float: right;
+        color: $white;
+        font-size: 25px;
+      }
+      .close_error {
+        font-size: 23px;
+        cursor: pointer;
+      }
+    }
+    .errorDisplay {
+      display: block;
+      .close_error {
+        float: right;
+        color: $white;
+        font-size: 25px;
+      }
+      .close_error {
+        font-size: 23px;
+        cursor: pointer;
+      }
+    }
+
+    .category_card {
+      width: 70%;
+      float: left;
+      margin: 8% 14% 0 14%;
+      overflow: hidden;
+    }
+    .title {
+      font-size: 30px;
+    }
+
+    .list_row {
+      width: 100%;
+      height: 40px;
+      border-bottom: $clean-blue 1px solid;
+    }
+    .row_role {
+      float: left;
+    }
+    .id {
+      width: 10%;
+      padding-top: 1%;
+      padding-left: 1%;
+    }
+    .name {
+      width: 32%;
+      padding-top: 1%;
+    }
+    .desc {
+      width: 40%;
+      padding-top: 1%;
+    }
+
+    .change {
+      // background-color: $blue;
+      width: 15%;
+      padding-top: 1%;
+    }
+
+    .change {
+      i {
+        float: right;
+        padding: 0px 8px;
+      }
+      i:hover {
+        color: $primary-color;
+        padding: 0px 8px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+    .newCategory {
+      padding-top: 20px;
+    }
+    .right {
+      float: right;
+    }
+    .createCategory {
+      i {
+        background-color: $clean-blue;
+        padding: 3px 5px;
+        border-radius: 50%;
+        font-size: 20px;
+      }
+    }
+    .createCategory:hover {
+      i {
+        cursor: pointer;
+        color: $primary-color;
+      }
+    }
+    .textareaAutosize {
+      width: 96%;
+    }
+  }
+  .categories:hover {
+    cursor: default;
+  }
 }

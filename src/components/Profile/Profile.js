@@ -26,14 +26,14 @@ class Profile extends Component {
     event.currentTarget.className += ' active';
   };
 
-  componentWillUpdate = prevProps => {
+  componentWillUpdate = (prevProps) => {
     if (prevProps.authError) {
       window.location.href = '/login';
     }
   };
   componentDidMount = () => {
-    this.props.getUser(user => {
-      this.props.getProfile(user._id, cd => {});
+    this.props.getUser((user) => {
+      this.props.getProfile(user._id, (cd) => {});
     });
   };
 
@@ -43,7 +43,7 @@ class Profile extends Component {
       error,
       profileLoading,
       loading,
-      current_user
+      current_user,
     } = this.props;
     const { skills } = profile;
     return (
@@ -64,7 +64,7 @@ class Profile extends Component {
                 ) : (
                   <div
                     className={classes.TabLinks}
-                    onClick={e => this.handleShowTabs(e, 'Profile')}
+                    onClick={(e) => this.handleShowTabs(e, 'Profile')}
                   >
                     Profile
                   </div>
@@ -72,25 +72,25 @@ class Profile extends Component {
 
                 <div
                   className={classes.TabLinks}
-                  onClick={e => this.handleShowTabs(e, 'Posts')}
+                  onClick={(e) => this.handleShowTabs(e, 'Posts')}
                 >
                   Posts
                 </div>
                 <div
                   className={classes.TabLinks}
-                  onClick={e => this.handleShowTabs(e, 'Likes')}
+                  onClick={(e) => this.handleShowTabs(e, 'Likes')}
                 >
                   Likes
                 </div>
                 <div
                   className={classes.TabLinks}
-                  onClick={e => this.handleShowTabs(e, 'Followers')}
+                  onClick={(e) => this.handleShowTabs(e, 'Followers')}
                 >
                   Followers
                 </div>
                 <div
                   className={classes.TabLinks}
-                  onClick={e => this.handleShowTabs(e, 'Following')}
+                  onClick={(e) => this.handleShowTabs(e, 'Following')}
                 >
                   Following
                 </div>
@@ -295,11 +295,11 @@ class Profile extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
-  getUser: cb => dispatch(fetchCurrentUser(cb))
+  getUser: (cb) => dispatch(fetchCurrentUser(cb)),
 });
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     error: state.userProfile.error,
     loading: state.userProfile.loading,
@@ -307,7 +307,8 @@ const mapStateToProps = state => {
     profileLoading: state.userProfile.loading,
     current_user: state.currentUser.user,
     authError: state.currentUser.error,
-    isAuthenticated: state.register.token !== null || state.login.token !== null
+    isAuthenticated:
+      state.register.token !== null || state.login.token !== null,
   };
 };
 

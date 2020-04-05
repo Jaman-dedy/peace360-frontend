@@ -8,13 +8,15 @@ import { NavLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import {
   fetchProfileUser,
-  createOrEditProfileUser
+  editProfileUser,
+  createProfileUser,
 } from '../../../store/actions/Userprofile';
 import Spinner from '../../UI/Spinner/Spinner';
 import { fetchCurrentUser } from '../../../store/actions/getCurrentUser';
 
 class EditProfile extends Component {
   state = {
+    profile: true,
     displayMore: false,
     displayExperience: false,
     displayEducation: false,
@@ -34,16 +36,16 @@ class EditProfile extends Component {
     address: '',
     skills: '',
     bio: '',
-    displayError: 'error'
+    displayError: 'error',
   };
   onCheckUTube = () => {
     let change = this.state.utube;
     this.setState({
-      utube: !change
+      utube: !change,
     });
     if (!this.state.utube) {
       this.setState({
-        utubeValue: ''
+        utubeValue: '',
       });
     }
   };
@@ -51,11 +53,11 @@ class EditProfile extends Component {
   onCheckTwitter = () => {
     let change = this.state.twitter;
     this.setState({
-      twitter: !change
+      twitter: !change,
     });
     if (!this.state.twitter) {
       this.setState({
-        twitterValue: ''
+        twitterValue: '',
       });
     }
   };
@@ -63,68 +65,68 @@ class EditProfile extends Component {
   onCheckFacebook = () => {
     let change = this.state.facebook;
     this.setState({
-      facebook: !change
+      facebook: !change,
     });
     if (!this.state.facebook) {
       this.setState({
-        facebookValue: ''
+        facebookValue: '',
       });
     }
   };
   onCheckLinkedIn = () => {
     let change = this.state.linkedin;
     this.setState({
-      linkedin: !change
+      linkedin: !change,
     });
     if (!this.state.linkedin) {
       this.setState({
-        linkedinValue: ''
+        linkedinValue: '',
       });
     }
   };
   onCheckInstagram = () => {
     let change = this.state.instagram;
     this.setState({
-      instagram: !change
+      instagram: !change,
     });
     if (!this.state.instagram) {
       this.setState({
-        instagramValue: ''
+        instagramValue: '',
       });
     }
   };
   onDisplayMore = () => {
     let changes = this.state.displayMore;
     this.setState({
-      displayMore: !changes
+      displayMore: !changes,
     });
   };
   onDisplayExperience = () => {
     let changes = this.state.displayExperience;
     this.setState({
-      displayExperience: !changes
+      displayExperience: !changes,
     });
   };
   onDisplayEducation = () => {
     let changes = this.state.displayEducation;
     this.setState({
-      displayEducation: !changes
+      displayEducation: !changes,
     });
   };
   onDisplaySocial = () => {
     let changes = this.state.displaySocial;
     this.setState({
-      displaySocial: !changes
+      displaySocial: !changes,
     });
   };
-  getUserInfo = e => {
+  getUserInfo = (e) => {
     const { name, value } = e.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
   onSubmitInfo = () => {
-    const { createOrEditProfile } = this.props;
+    const { editProfile, createProfile } = this.props;
     let utubeV, twitterV, facebookV, linkedinV, instagramV;
     const {
       company,
@@ -141,7 +143,8 @@ class EditProfile extends Component {
       twitter,
       facebook,
       linkedin,
-      instagram
+      instagram,
+      profile,
     } = this.state;
 
     !utube ? (utubeV = '') : (utubeV = utubeValue);
@@ -149,83 +152,112 @@ class EditProfile extends Component {
     !facebook ? (facebookV = '') : (facebookV = facebookValue);
     !linkedin ? (linkedinV = '') : (linkedinV = linkedinValue);
     !instagram ? (instagramV = '') : (instagramV = instagramValue);
-
-    createOrEditProfile(
-      {
-        company,
-        website,
-        location: address,
-        skills,
-        bio,
-        youtube: utubeV,
-        facebook: facebookV,
-        twitter: twitterV,
-        instagram: instagramV,
-        linkedin: linkedinV
-      },
-      cd => {
-        if (cd.status) {
-          window.location.href = '/profile';
-        } else {
-          this.setState({ error: 'Something is wrong, please retry' });
+    if (profile) {
+      editProfile(
+        {
+          company,
+          website,
+          location: address,
+          skills,
+          bio,
+          youtube: utubeV,
+          facebook: facebookV,
+          twitter: twitterV,
+          instagram: instagramV,
+          linkedin: linkedinV,
+        },
+        (cd) => {
+          if (cd.status) {
+            window.location.href = '/profile';
+          } else {
+            this.setState({ error: 'Something is wrong, please retry' });
+          }
         }
-      }
-    );
+      );
+    } else {
+      createProfile(
+        {
+          company,
+          website,
+          location: address,
+          skills,
+          bio,
+          youtube: utubeV,
+          facebook: facebookV,
+          twitter: twitterV,
+          instagram: instagramV,
+          linkedin: linkedinV,
+        },
+        (cd) => {
+          if (cd.status) {
+            window.location.href = '/profile';
+          } else {
+            this.setState({ error: 'Please try again' });
+          }
+        }
+      );
+    }
   };
   onCloseError = () => {
     this.setState({ displayError: 'no-error' });
   };
-  componentWillUpdate = prevProps => {
+  componentWillUpdate = (prevProps) => {
     !prevProps.isAuthenticated ? (window.location.href = '/login') : null;
   };
   componentDidMount = () => {
-    this.props.getUser(user => {
-      this.props.getProfile(user._id, data => {
-        const {
-          company,
-          website,
-          location,
-          bio,
-          skills,
-          social
-        } = data.profile;
-        this.setState({
-          company,
-          website,
-          address: location,
-          bio,
-          skills
-        });
-        if (social) {
-          if (social.youtube) {
-            this.setState({
-              utube: true,
-              utubeValue: social.youtube
-            });
-          }
-          if (social.twitter) {
-            this.setState({
-              twitter: true,
-              twitterValue: social.twitter
-            });
-          }
-          if (social.facebook) {
-            this.setState({
-              facebook: true,
-              facebookValue: social.facebook
-            });
-          }
-          if (social.linkedin) {
-            this.setState({
-              linkedin: true,
-              linkedinValue: social.linkedin
-            });
-          }
-          if (social.instagram) {
-            this.setState({
-              instagram: true,
-              instagramValue: social.instagram
-            });
+    this.props.getUser((user) => {
+      this.props.getProfile(user._id, (data) => {
+        if (data.status === 400) {
+          this.setState({
+            profile: false,
+          });
+        } else {
+          const {
+            company,
+            website,
+            location,
+            bio,
+            skills,
+            social,
+          } = data.profile;
+          this.setState({
+            company,
+            website,
+            address: location,
+            bio,
+            skills,
+          });
+          if (social) {
+            if (social.youtube) {
+              this.setState({
+                utube: true,
+                utubeValue: social.youtube,
+              });
+            }
+            if (social.twitter) {
+              this.setState({
+                twitter: true,
+                twitterValue: social.twitter,
+              });
+            }
+            if (social.facebook) {
+              this.setState({
+                facebook: true,
+                facebookValue: social.facebook,
+              });
+            }
+            if (social.linkedin) {
+              this.setState({
+                linkedin: true,
+                linkedinValue: social.linkedin,
+              });
+            }
+            if (social.instagram) {
+              this.setState({
+                instagram: true,
+                instagramValue: social.instagram,
+              });
+            }
           }
         }
       });
@@ -249,14 +281,11 @@ class EditProfile extends Component {
       twitterValue,
       facebookValue,
       linkedinValue,
-      instagramValue
+      instagramValue,
+      profile,
     } = this.state;
-    const {
-      loading,
-      getUserLoading,
-      errorProfile,
-    } = this.props;
-
+    const { loading, getUserLoading, errorProfile } = this.props;
+    console.log('errorProfile', profile);
     return (
       <div>
         <div className='editContainer'>
@@ -274,7 +303,7 @@ class EditProfile extends Component {
               <div className=''>
                 <div
                   className={
-                    errorProfile
+                    errorProfile && errorProfile.status !== 400
                       ? `errordisplay ${this.state.displayError}`
                       : `errordisplay no-error`
                   }
@@ -285,7 +314,9 @@ class EditProfile extends Component {
                     or go back to profile
                   </div>
                 </div>
-                <div className='title main-color center'>Edit your Profile</div>
+                <div className='title main-color center'>
+                  {profile ? 'Edit your Profile' : 'Create your Profile'}
+                </div>
 
                 <form action=''>
                   <div className='form'>
@@ -316,7 +347,7 @@ class EditProfile extends Component {
                                     type='text'
                                     placeholder='Enter your Company'
                                     name='company'
-                                    value={company}
+                                    value={company || ''}
                                     onChange={this.getUserInfo}
                                     data-required='true'
                                   />
@@ -329,7 +360,7 @@ class EditProfile extends Component {
                                     type='text'
                                     placeholder='Enter your website'
                                     name='website'
-                                    value={website}
+                                    value={website || ''}
                                     onChange={this.getUserInfo}
                                   />
                                 </fieldset>
@@ -343,7 +374,7 @@ class EditProfile extends Component {
                                     type='text'
                                     placeholder='Enter your address'
                                     name='address'
-                                    value={address}
+                                    value={address || ''}
                                     onChange={this.getUserInfo}
                                   />
                                 </fieldset>
@@ -355,7 +386,7 @@ class EditProfile extends Component {
                                     type='text'
                                     placeholder='Enter your Skills'
                                     name='skills'
-                                    value={skills}
+                                    value={skills || ''}
                                     onChange={this.getUserInfo}
                                   />
                                 </fieldset>
@@ -368,7 +399,7 @@ class EditProfile extends Component {
                                   style={{ width: '100%' }}
                                   placeholder='Enter your Bio'
                                   name='bio'
-                                  value={bio}
+                                  value={bio || ''}
                                   onChange={this.getUserInfo}
                                 />
                               </fieldset>
@@ -403,7 +434,7 @@ class EditProfile extends Component {
                                         className='link'
                                         placeholder='Enter your Youtube channel'
                                         name='utubeValue'
-                                        value={utubeValue}
+                                        value={utubeValue || ''}
                                         onChange={this.getUserInfo}
                                       />
                                     </div>
@@ -423,7 +454,7 @@ class EditProfile extends Component {
                                         className='link'
                                         placeholder='Enter your Twitter username'
                                         name='twitterValue'
-                                        value={twitterValue}
+                                        value={twitterValue || ''}
                                         onChange={this.getUserInfo}
                                       />
                                     </div>
@@ -443,7 +474,7 @@ class EditProfile extends Component {
                                         className='link'
                                         placeholder='Enter your Facebook username'
                                         name='facebookValue'
-                                        value={facebookValue}
+                                        value={facebookValue || ''}
                                         onChange={this.getUserInfo}
                                       />
                                     </div>
@@ -463,7 +494,7 @@ class EditProfile extends Component {
                                         className='link'
                                         placeholder='Enter your LinkedIn username'
                                         name='linkedinValue'
-                                        value={linkedinValue}
+                                        value={linkedinValue || ''}
                                         onChange={this.getUserInfo}
                                       />
                                     </div>
@@ -484,7 +515,7 @@ class EditProfile extends Component {
                                         className='link'
                                         placeholder='Enter your Instagram username'
                                         name='instagramValue'
-                                        value={instagramValue}
+                                        value={instagramValue || ''}
                                         onChange={this.getUserInfo}
                                       />
                                     </div>
@@ -514,12 +545,13 @@ class EditProfile extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getProfile: (id, cb) => dispatch(fetchProfileUser(id, cb)),
-  getUser: cb => dispatch(fetchCurrentUser(cb)),
-  createOrEditProfile: (body, cd) => dispatch(createOrEditProfileUser(body, cd))
+  getUser: (cb) => dispatch(fetchCurrentUser(cb)),
+  editProfile: (body, cd) => dispatch(editProfileUser(body, cd)),
+  createProfile: (body, cd) => dispatch(createProfileUser(body, cd)),
 });
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     errorProfile: state.userProfile.error,
     loading: state.userProfile.loading,
@@ -527,7 +559,7 @@ const mapStateToProps = state => {
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
     newUser: state.currentUser.user,
-    getUserLoading: state.currentUser.loading
+    getUserLoading: state.currentUser.loading,
   };
 };
 
