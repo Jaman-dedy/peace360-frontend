@@ -23,7 +23,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 class SingleArticle extends Component {
   componentWillMount() {
     const {
-      location: { state }
+      location: { state },
     } = this.props;
     if (state) {
       const { articleId } = state;
@@ -34,9 +34,7 @@ class SingleArticle extends Component {
     let createArticleLink = '';
     const { article = {} } = this.props;
     let user;
-    if (article) {
-      user = article.user;
-    }
+    let followUserComponent;
 
     let comments;
 
@@ -46,7 +44,10 @@ class SingleArticle extends Component {
 
     if (!article) {
       displaySingleArticle = <Spinner />;
+      followUserComponent = '';
     } else {
+      user = article.user;
+      followUserComponent = <FollowUser user={user} articleId={article._id} />;
       tags = article.tags;
       coverPhoto = article.coverPhoto ? article.coverPhoto : articleImg;
 
@@ -58,7 +59,7 @@ class SingleArticle extends Component {
       displaySingleArticle = (
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
-            <img src={coverPhoto} alt='' />
+            <img src={coverPhoto} alt="" />
           </div>
           <div className={classes.Text}>{ReactHtmlParser(article.text)}</div>
         </div>
@@ -86,15 +87,13 @@ class SingleArticle extends Component {
           <div className={classes.ArticleSubTitle}>
             {article && article.Subtitle}
           </div>
-
-          <FollowUser user={user} articleId={article && article._id} />
+          {followUserComponent}
           <SocialShare />
           {displaySingleArticle}
           {tags &&
             tags.map((tag, index) => {
               return <Tag key={index} tag={tag} />;
             })}
-
           <div className={classes.Favorite}>
             Rate & like this article
             <Like />
@@ -108,20 +107,20 @@ class SingleArticle extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchSingleArticle: articleId =>
-      dispatch(actions.fetchSingleArticle(articleId))
+    onFetchSingleArticle: (articleId) =>
+      dispatch(actions.fetchSingleArticle(articleId)),
   };
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
     loading: state.fetchSingleArticle.loading,
     error: state.fetchSingleArticle.error,
-    article: state.fetchSingleArticle.article
+    article: state.fetchSingleArticle.article,
   };
 };
 

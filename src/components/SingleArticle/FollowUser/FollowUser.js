@@ -7,33 +7,71 @@ import userAvatar from '../../../assets/images/avatar.jpg';
 
 class FollowUser extends Component {
   state = {
-    isFollowed: true
+    isFollowed: true,
+    followerId: null,
   };
-  switchFavoriteUserHandle = articleId => {
+  switchFavoriteUserHandle = (articleId) => {
     if (!this.props.isAuthenticated) {
       this.props.onSetRedirectPath();
     }
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return { isFollowed: !prevState.isFollowed };
     });
 
     this.props.onFollowUser(articleId);
-    console.log('articleId', articleId);
   };
+  componentWillReceiveProps(nextProps) {
+    const { followings } = this.props.myFollowings;
+
+    let myFlwings;
+
+    if (followings) {
+      myFlwings = followings.map((flwings) => {
+        myFlwings = flwings.username === nextProps.user.username;
+
+        if (myFlwings) {
+          this.setState({ isFollowed: false });
+        } else {
+          this.setState({ isFollowed: true });
+        }
+        return myFlwings;
+      });
+    }
+  }
+  componentDidMount() {
+    const { user } = this.props;
+    const { followings } = this.props.myFollowings;
+
+    let myFlwings;
+
+    if (followings && user) {
+      myFlwings = followings.map((flwings) => {
+        myFlwings = flwings.username === user.username;
+
+        if (myFlwings) {
+          this.setState({ isFollowed: false });
+        } else {
+          this.setState({ isFollowed: true });
+        }
+        return myFlwings;
+      });
+    }
+  }
 
   render() {
     const redirectPath = <Redirect to={this.props.redirectPath} />;
     const { articleId = {} } = this.props;
+    const { myFollowers = {} } = this.props;
     const { user = {} } = this.props;
     const { currentUser = {} } = this.props;
-    console.log('currentUser', currentUser);
+
     const followBox =
       user.id !== currentUser.user._id ? (
         <div
           className={
             this.state.isFollowed ? classes.FollowBox : classes.UnFollowBox
           }
-          onClick={e => this.switchFavoriteUserHandle(articleId)}
+          onClick={(e) => this.switchFavoriteUserHandle(articleId)}
         >
           {this.state.isFollowed ? 'Follow' : 'UnFollow'}
         </div>
@@ -57,7 +95,7 @@ class FollowUser extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
     loading: state.currentUser.loading,
@@ -65,14 +103,21 @@ const mapStateToProps = state => {
       state.login.token !== null || state.register.token !== null,
     redirectPath:
       state.login.authRedirectPath || state.register.authRedirectPath,
-    errorOnFollow: state.followUser.error
+    errorOnFollow: state.followUser.error,
+    followersError: state.myFollowers.error,
+    loadFollowers: state.myFollowers.load,
+    myFollowers: state.myFollowers,
+    myFollowings: state.myFollowings,
+    followingError: state.myFollowings.error,
+    loadFollowing: state.myFollowings.load,
+    singleArticle: state.fetchSingleArticle.article,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onSetRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login')),
-    onFollowUser: articleId => dispatch(actions.followUser(articleId))
+    onFollowUser: (articleId) => dispatch(actions.followUser(articleId)),
   };
 };
 

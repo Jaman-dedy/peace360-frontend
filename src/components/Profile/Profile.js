@@ -39,8 +39,7 @@ class Profile extends Component {
       this.props.getProfile(user._id, (cd) => {});
     });
 
-    this.props.onFetchMyFollowers();
-    this.props.onFetchMyFollowing();
+   
   };
 
   render() {
@@ -321,8 +320,6 @@ class Profile extends Component {
 const mapDispatchToProps = (dispatch) => ({
   getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
   getUser: (cb) => dispatch(fetchCurrentUser(cb)),
-  onFetchMyFollowers: () => dispatch(actions.fetchMyFollowers()),
-  onFetchMyFollowing: () => dispatch(actions.fetchMyFollowing()),
 });
 const mapStateToProps = (state) => {
   return {
@@ -334,12 +331,6 @@ const mapStateToProps = (state) => {
     authError: state.currentUser.error,
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
-    followersError: state.myFollowers.error,
-    loadFollowers: state.myFollowers.load,
-    myFollowers: state.myFollowers,
-    myFollowing: state.myFollowings,
-    followingError: state.myFollowings.error,
-    loadFollowing: state.myFollowings.load,
   };
 };
 
