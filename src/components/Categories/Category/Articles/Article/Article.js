@@ -13,7 +13,7 @@ class Article extends Component {
     this.props.onSetRedirectPath();
   }
 
-  setRedirectUrl = articleId => {
+  setRedirectUrl = (articleId) => {
     this.props.onSetRedirectPath(articleId);
   };
 
@@ -32,7 +32,7 @@ class Article extends Component {
           pathname: this.props.redirectUrl,
           search: '?id = articleId',
           hash: '#hash',
-          state: { articleId }
+          state: { articleId },
         }}
         onClick={() => this.setRedirectUrl(articleId)}
       >
@@ -50,16 +50,16 @@ class Article extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    redirectUrl: state.login.authRedirectPath
+    redirectUrl: state.login.authRedirectPath,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onSetRedirectPath: () =>
-      dispatch(actions.setAuthRedirectPath('/SingleArticle/'))
+      dispatch(actions.setAuthRedirectPath('/SingleArticle/')),
   };
 };
 

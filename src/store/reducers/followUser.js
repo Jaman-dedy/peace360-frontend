@@ -2,9 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 import { updatedObject } from '../../shared/utility';
 
 const initialState = {
-  msg: [],
+  msg: {},
   error: null,
-  loading: false
+  loading: false,
 };
 
 const followUserStart = (state, action) => {
@@ -15,14 +15,14 @@ const followUserSuccess = (state, action) => {
   return updatedObject(state, {
     msg: action.msg,
     error: null,
-    loading: false
+    loading: false,
   });
 };
 
 const followUserFail = (state, action) => {
   return updatedObject(state, {
     error: action.error,
-    loading: false
+    loading: false,
   });
 };
 

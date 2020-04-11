@@ -9,7 +9,7 @@ import CreateArticleLink from '../../components/SingleArticle/Article/CreateArti
 import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
 import Like from './FavoriteUser/Like/Like';
-import Rate from './FavoriteUser/Rate/Rate';
+// import Rate from './FavoriteUser/Rate/Rate';
 import CommentForm from '../../containers/CommentForm/CommentForm';
 import Comments from '../Comments/Comments';
 import SocialShare from '../SocialShare/SocialShare';
@@ -97,7 +97,7 @@ class SingleArticle extends Component {
           <div className={classes.Favorite}>
             Rate & like this article
             <Like />
-            <Rate />
+            {/* <Rate /> */}
           </div>
           {/* <RelatedArticle /> */}
           {this.props.isAuthenticated ? displayComments : null}

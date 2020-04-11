@@ -70,7 +70,7 @@ class NewArticle extends Component {
   };
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+  
   };
   submitArticleHandler = event => {
     event.preventDefault();

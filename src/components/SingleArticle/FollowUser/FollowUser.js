@@ -21,9 +21,17 @@ class FollowUser extends Component {
     this.props.onFollowUser(articleId);
   };
   componentWillReceiveProps(nextProps) {
+    const { user } = this.props;
+    const { followUser } = this.props;
     const { followings } = this.props.myFollowings;
 
     let myFlwings;
+
+    if (followUser.state === 'unfollow') {
+      if (followUser.user.username === user.username) {
+        this.setState({ isFollowed: true });
+      }
+    }
 
     if (followings) {
       myFlwings = followings.map((flwings) => {
@@ -44,6 +52,10 @@ class FollowUser extends Component {
 
     let myFlwings;
 
+    if (!this.props.isAuthenticated) {
+      this.setState({ isFollowed: true });
+    }
+
     if (followings && user) {
       myFlwings = followings.map((flwings) => {
         myFlwings = flwings.username === user.username;
@@ -61,7 +73,7 @@ class FollowUser extends Component {
   render() {
     const redirectPath = <Redirect to={this.props.redirectPath} />;
     const { articleId = {} } = this.props;
-    const { myFollowers = {} } = this.props;
+
     const { user = {} } = this.props;
     const { currentUser = {} } = this.props;
 
@@ -103,6 +115,7 @@ const mapStateToProps = (state) => {
       state.login.token !== null || state.register.token !== null,
     redirectPath:
       state.login.authRedirectPath || state.register.authRedirectPath,
+    followUser: state.followUser.msg,
     errorOnFollow: state.followUser.error,
     followersError: state.myFollowers.error,
     loadFollowers: state.myFollowers.load,

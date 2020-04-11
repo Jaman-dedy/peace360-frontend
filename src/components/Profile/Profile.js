@@ -38,81 +38,57 @@ class Profile extends Component {
     this.props.getUser((user) => {
       this.props.getProfile(user._id, (cd) => {});
     });
-
-   
   };
 
   render() {
+    const { followers } = this.props.myFollowers;
+    const { followings } = this.props.myFollowings;
     const {
       profile,
       error,
       profileLoading,
       loading,
       current_user,
-      followingError = {},
-      followersError = {},
+      followingError,
     } = this.props;
-    let followings = followingError ? (
-      <NotFound message={followingError.msg} />
+    let followingsList = !followings.length ? (
+      <NotFound message="Oops you are not followed by any user yet" />
     ) : (
       <Aux>
         <span>
           <h3>MY FOLLOWINGS</h3>
         </span>
         <div className={classes.ProfileTab}>
-          <div className={classes.MyFollowers}>
-            <div className={classes.Avatar}>
-              <img src={Avatar} alt="" />
+          {followings.map((flwings) => (
+            <div key={flwings._id} className={classes.MyFollowers}>
+              <div className={classes.Avatar}>
+                <img src={flwings.avatar ? flwings.avatar : Avatar} alt="" />
+              </div>
+              <div className={classes.Name}>{flwings.username}</div>
+              <div className={classes.UnFollow}>UnFollow</div>
             </div>
-            <div className={classes.Name}>Emanuel Bush</div>
-            <div className={classes.UnFollow}>UnFollow</div>
-          </div>
-          <div className={classes.MyFollowers}>
-            <div className={classes.Avatar}>
-              <img src={Avatar} alt="" />
-            </div>
-            <div className={classes.Name}>Emanuel Bush</div>
-            <div className={classes.UnFollow}>UnFollow</div>
-          </div>
-          <div className={classes.MyFollowers}>
-            <div className={classes.Avatar}>
-              <img src={Avatar} alt="" />
-            </div>
-            <div className={classes.Name}>Emanuel Bush</div>
-            <div className={classes.UnFollow}>UnFollow</div>
-          </div>
+          ))}
         </div>
       </Aux>
     );
-    let followers = followersError ? (
-      <NotFound message={followersError.msg} />
+
+    let followersList = !followers.length ? (
+      <NotFound message="Oops you have not follow any user yet" />
     ) : (
       <Aux>
         <span>
           <h3>MY FOLLOWERS</h3>
         </span>
         <div className={classes.ProfileTab}>
-          <div className={classes.MyFollowers}>
-            <div className={classes.Avatar}>
-              <img src={Avatar} alt="" />
+          {followers.map((flwers) => (
+            <div key={flwers._id} className={classes.MyFollowers}>
+              <div className={classes.Avatar}>
+                <img src={flwers.avatar ? flwers.avatar : Avatar} alt="" />
+              </div>
+              <div className={classes.Name}>{flwers.username}</div>
+              <div className={classes.Follow}>Follow</div>
             </div>
-            <div className={classes.Name}>Emanuel Bush</div>
-            <div className={classes.Follow}>Follow</div>
-          </div>
-          <div className={classes.MyFollowers}>
-            <div className={classes.Avatar}>
-              <img src={Avatar} alt="" />
-            </div>
-            <div className={classes.Name}>Emanuel Bush</div>
-            <div className={classes.Follow}>Follow</div>
-          </div>
-          <div className={classes.MyFollowers}>
-            <div className={classes.Avatar}>
-              <img src={Avatar} alt="" />
-            </div>
-            <div className={classes.Name}>Emanuel Bush</div>
-            <div className={classes.Follow}>Follow</div>
-          </div>
+          ))}
         </div>
       </Aux>
     );
@@ -304,10 +280,10 @@ class Profile extends Component {
                 </div>
               </div>
               <div id="Followers" className="tabContent">
-                {followers}
+                {followersList}
               </div>
               <div id="Following" className="tabContent">
-                {followings}
+                {followingsList}
               </div>
             </div>
           )}
@@ -331,6 +307,12 @@ const mapStateToProps = (state) => {
     authError: state.currentUser.error,
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
+    followersError: state.myFollowers.error,
+    loadFollowers: state.myFollowers.load,
+    myFollowers: state.myFollowers,
+    myFollowings: state.myFollowings,
+    followingError: state.myFollowings.error,
+    loadFollowing: state.myFollowings.load,
   };
 };
 
