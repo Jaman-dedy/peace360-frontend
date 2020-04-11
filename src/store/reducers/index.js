@@ -11,6 +11,7 @@ import postArticleReducer from './postArticle';
 import followUserReducer from './followUser';
 import myFollowersReducer from './getFollowers';
 import myFollowingReducer from './getFollowing';
+import likeArticleReducer from './likeArticle';
 
 //@ create root reducer
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   followUser: followUserReducer,
   myFollowers: myFollowersReducer,
   myFollowings: myFollowingReducer,
+  likeArticle: likeArticleReducer,
 });
 
 export default rootReducer;

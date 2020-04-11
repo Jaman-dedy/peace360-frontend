@@ -35,18 +35,23 @@ class SingleArticle extends Component {
     const { article = {} } = this.props;
     let user;
     let followUserComponent;
+    let articleId;
 
     let comments;
 
     let coverPhoto = null;
     let tags = null;
     let displaySingleArticle = null;
+    let likes = null;
 
     if (!article) {
       displaySingleArticle = <Spinner />;
       followUserComponent = '';
     } else {
       user = article.user;
+      likes = article.likes;
+      articleId = article._id;
+
       followUserComponent = <FollowUser user={user} articleId={article._id} />;
       tags = article.tags;
       coverPhoto = article.coverPhoto ? article.coverPhoto : articleImg;
@@ -95,8 +100,8 @@ class SingleArticle extends Component {
               return <Tag key={index} tag={tag} />;
             })}
           <div className={classes.Favorite}>
-            Rate & like this article
-            <Like />
+            Like this article
+            <Like articleId={articleId} likedObject={likes} />
             {/* <Rate /> */}
           </div>
           {/* <RelatedArticle /> */}

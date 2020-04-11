@@ -43,13 +43,13 @@ class Profile extends Component {
   render() {
     const { followers } = this.props.myFollowers;
     const { followings } = this.props.myFollowings;
+    
     const {
       profile,
       error,
       profileLoading,
       loading,
       current_user,
-      followingError,
     } = this.props;
     let followingsList = !followings.length ? (
       <NotFound message="Oops you are not followed by any user yet" />
