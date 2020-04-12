@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Aux from '../../../hoc/Aux/Aux';
+import Wrapper from '../../../hoc/Wrapper/Wrapper';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import LeftSide from '../../../components/Authentication/AuthLeftSide/AuthLeftSide';
@@ -140,7 +140,7 @@ class Signup extends Component {
     });
 
     let form = formElementsArray.map(formElement => (
-      <Aux key={formElement.id}>
+      <Wrapper key={formElement.id}>
         <Input
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
@@ -150,7 +150,7 @@ class Signup extends Component {
           touched={formElement.config.touched}
           changed={event => this.inputChangeHandler(event, formElement.id)}
         />
-      </Aux>
+      </Wrapper>
     ));
     if (this.props.loading) {
       form = <Spinner />;

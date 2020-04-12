@@ -1,9 +1,9 @@
 import React from "react";
 import classes from "./Statistic.module.scss";
-import Aux from "../../../hoc/Aux/Aux";
+import Wrapper from "../../../hoc/Wrapper/Wrapper";
 
 const statistic = props => (
-  <Aux>
+  <Wrapper>
     {" "}
     <div>
       <div className={classes.Number}>45</div>
@@ -21,7 +21,7 @@ const statistic = props => (
       <div className={classes.Number}>1000</div>
       <div className={classes.Title}>Recognition received</div>
     </div>
-  </Aux>
+  </Wrapper>
 );
 
 export default statistic;

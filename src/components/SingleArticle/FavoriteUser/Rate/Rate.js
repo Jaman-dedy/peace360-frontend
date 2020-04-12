@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Aux from '../../../../hoc/Aux/Aux';
+import Wrapper from '../../../../hoc/Wrapper/Wrapper';
 import './Rate.scss';
 
 class Rate extends Component {
@@ -93,7 +93,7 @@ class Rate extends Component {
         </form>
       </div>
     );
-    return <Aux>{this.props.isAuthenticated ? form : null}</Aux>;
+    return <Wrapper>{this.props.isAuthenticated ? form : null}</Wrapper>;
   }
 }
 

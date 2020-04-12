@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../../hoc/Aux/Aux';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 import Comment from './Comment/Comment';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
@@ -14,7 +14,7 @@ class Comments extends Component {
         return <Comment key={comment._id} comment={comment} />;
       });
     }
-    return <Aux>{foundComment}</Aux>;
+    return <Wrapper>{foundComment}</Wrapper>;
   }
 }
 

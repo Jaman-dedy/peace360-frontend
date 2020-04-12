@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Input.module.scss';
-import Aux from '../../../hoc/Aux/Aux';
+import Wrapper from '../../../hoc/Wrapper/Wrapper';
 
 const input = props => {
   let inputElement = null;
@@ -66,7 +66,7 @@ const input = props => {
         />
       );
   }
-  return <Aux>{inputElement}</Aux>;
+  return <Wrapper>{inputElement}</Wrapper>;
 };
 
 export default input;

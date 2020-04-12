@@ -7,7 +7,7 @@ import Button from '../../components/UI/Button/Button';
 import classes from './CommentForm.module.scss';
 import * as actions from '../../store/actions/index';
 import { updatedObject, checkValidity } from '../../shared/utility';
-import Aux from '../../hoc/Aux/Aux';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 import userAvatar from '../../assets/images/avatar.jpg';
 
 class CommentForm extends Component {
@@ -93,7 +93,7 @@ class CommentForm extends Component {
     }
 
     let form = (
-      <Aux>
+      <Wrapper>
         <Input
           elementType={this.state.commentForm.comment.elementType}
           elementConfig={this.state.commentForm.comment.elementConfig}
@@ -105,10 +105,10 @@ class CommentForm extends Component {
         />
 
         <Button>COMMENT</Button>
-      </Aux>
+      </Wrapper>
     );
     return (
-      <Aux>
+      <Wrapper>
         <div className={classes.CommentForm}>
           {' '}
           <h4>What do you think about this article?</h4>
@@ -117,7 +117,7 @@ class CommentForm extends Component {
           </form>
         </div>
         {instantCommentThread}
-      </Aux>
+      </Wrapper>
     );
   }
 }

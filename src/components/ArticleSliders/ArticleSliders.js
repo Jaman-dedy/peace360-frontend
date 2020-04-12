@@ -1,10 +1,10 @@
 import React from 'react';
-import Aux from '../../hoc/Aux/Aux';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 import ArticleSlider from './ArticleSlider/ArticleSlider';
 
 const articleSliders = props => (
-  <Aux>
+  <Wrapper>
     <ArticleSlider articles={props.articles} />
-  </Aux>
+  </Wrapper>
 );
 export default articleSliders;

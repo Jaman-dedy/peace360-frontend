@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'react-animated-slider/build/horizontal.css';
 import classes from './ArticleSlider.module.scss';
 import Slider from 'react-animated-slider';
-import Aux from '../../../hoc/Aux/Aux';
+import Wrapper from '../../../hoc/Wrapper/Wrapper';
 import './slider-animations.scss';
 import './styles.scss';
 import sliderCoverImg from '../../../assets/images/peace-in-africa.jpg';
@@ -10,7 +10,7 @@ class ArticleSlider extends Component {
   render() {
     const { articles } = this.props;
     return (
-      <Aux>
+      <Wrapper>
         <Slider autoplay={4000} className={classes.SliderWrapper}>
           {articles.map((article, index) => (
             <div
@@ -36,7 +36,7 @@ class ArticleSlider extends Component {
             </div>
           ))}
         </Slider>
-      </Aux>
+      </Wrapper>
     );
   }
 }

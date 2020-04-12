@@ -1,9 +1,9 @@
 import React from "react";
-import Aux from "../../../hoc/Aux/Aux";
+import Wrapper from "../../../hoc/Wrapper/Wrapper";
 import classes from "./SocialAuth.module.scss";
 
 const socialAuth = props => (
-  <Aux>
+  <Wrapper>
     <h2>Join us today</h2>
     <div className={classes.SocialAuth}>
       <i className="fab fa-facebook" style={{ color: "#3b5998" }}></i>
@@ -11,6 +11,6 @@ const socialAuth = props => (
       <i className="fab fa-twitter" style={{ color: "#55acee" }}></i>
       <i className="fab fa-linkedin" style={{ color: "#1377b7" }}></i>
     </div>
-  </Aux>
+  </Wrapper>
 );
 export default socialAuth;

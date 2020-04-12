@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
-import Aux from '../../hoc/Aux/Aux';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 import classes from './AuthenticatedUser.module.scss';
 
 class AuthenticatedUser extends Component {
@@ -47,7 +47,7 @@ class AuthenticatedUser extends Component {
       </div>
     );
     const redirectPath = <Redirect to='/login' />;
-    return <Aux>{this.props.error ? redirectPath : currentUser}</Aux>;
+    return <Wrapper>{this.props.error ? redirectPath : currentUser}</Wrapper>;
   }
 }
 

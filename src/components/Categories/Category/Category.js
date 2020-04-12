@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../../../hoc/Aux/Aux';
+import Wrapper from '../../../hoc/Wrapper/Wrapper';
 import Articles from './Articles/Articles';
 import MostViewArticles from './MostViewArticles/MostViewArticles';
 import Pagination from './Pagination/Pagination';
@@ -32,7 +32,7 @@ class Category extends Component {
         />
       );
     return (
-      <Aux>
+      <Wrapper>
         <div className={classes.Title}>
           <span>{titleCategory}</span>
         </div>
@@ -45,7 +45,7 @@ class Category extends Component {
           {articlePagination}
           {mostViewArticles}
         </div>
-      </Aux>
+      </Wrapper>
     );
   }
 }
