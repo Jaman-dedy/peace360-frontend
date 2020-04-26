@@ -284,8 +284,8 @@ class EditProfile extends Component {
       instagramValue,
       profile,
     } = this.state;
-    const { loading, getUserLoading, errorProfile } = this.props;
-    console.log('errorProfile', profile);
+    const { loading, getUserLoading , errorProfile} = this.props;
+    
     return (
       <div>
         <div className='editContainer'>
@@ -528,7 +528,7 @@ class EditProfile extends Component {
                           )}
                         </div>
                         <div
-                          className='submitButton'
+                          className='submitProfileButton'
                           onClick={this.onSubmitInfo}
                         >
                           Submit
