@@ -10,3 +10,5 @@ export { followUser } from './followUser';
 export { fetchMyFollowers } from './getFollowers';
 export { fetchMyFollowing } from './getFollowing';
 export { likeArticle } from './likeArticle';
+export { uploadImg } from './uploadImgCloudinary'
+

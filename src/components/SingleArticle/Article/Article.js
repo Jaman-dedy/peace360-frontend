@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { stateToHTML } from 'draft-js-export-html';
 import Select from 'react-select';
+import { stateToHTML } from 'draft-js-export-html';
 
 import Toolbar from '../../Menu/Toolbar/Toolbar';
 import TextareaAutoSize from 'react-textarea-autosize';
@@ -12,6 +12,9 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './Article.scss';
 import * as actions from '../../../store/actions/index';
+import {initImageUpload, initDropEffect} from '../../../shared/utility'
+import './uploadImage.scss'
+
 
 const options = [
   { value: 'peace', label: 'peace' },
@@ -58,7 +61,13 @@ class NewArticle extends Component {
     title: '',
     subtitle: '',
     redirect: '/createArticle',
+    categoryId: null,
+
   };
+
+  componentDidMount(){
+    this.props.onfetChCategories()
+  }
   onEditorStateChange = (editorState) => {
     this.setState({ editorState });
   };
@@ -68,28 +77,61 @@ class NewArticle extends Component {
   inputSubTitleChangeHandler = (event) => {
     this.setState({ subtitle: event.target.value });
   };
+  uploadImgInputHandler = (event) => {
+
+    this.props.onUploadImg(event.target.files[0])
+   
+  }
   handleChange = selectedOption => {
+    console.log('selectedOption', selectedOption)
     this.setState({ selectedOption });
   
   };
-  submitArticleHandler = event => {
+  selectedOptionHandler = (event) => {
     event.preventDefault();
+  
+    this.setState({ categoryId: event.target.value}) 
+
+
+  }
+ submitArticleHandler =  (event) => {
+    event.preventDefault();
+    let tags = []
+    console.log('this.state.selectedOption', this.state.selectedOption)
+    this.state.selectedOption.map(tag => {
+     return tags.push(tag.value)
+    })
+  
+    const { imgUrl } = this.props.uploadImg
+
     const body = stateToHTML(this.state.editorState.getCurrentContent());
     this.props.onPostArticle(
       this.state.title,
       this.state.subtitle,
+      this.state.categoryId,
+      imgUrl,
       body,
-      this.state.selectedOption
+      tags
     );
     this.setState({ editorState: '', title: '', redirect: '' });
   };
   render() {
+       // initialize box-scope
+       var boxes = document.querySelectorAll('.boxImg');
+          
+       for (let i = 0; i < boxes.length; i++) {
+         let box = boxes[i];
+         initDropEffect(box);
+         initImageUpload(box);
+       }
     const { selectedOption } = this.state;
     const { editorState } = this.state;
+    const { categories } = this.props.categories
 
     return (
       <div>
         <Redirect to={this.state.redirect} />
+     
         <div className="createArticle">
           <div className="menu">
             <Toolbar />
@@ -137,6 +179,33 @@ class NewArticle extends Component {
                     styles={customStyles}
                   />
                 </div>
+                <div className="category">
+                  <label> Select a category</label>
+                  
+                  <select onChange={this.selectedOptionHandler} value={this.state.categoryId} >
+                    {categories.map(category => (
+                      <option value={category._id}  >{category.categoryTitle} </option>
+                    ))}
+                    
+                  </select>
+                </div>
+              
+                 <label className='chooseImage left font-color'>
+                    Choose cover Image
+                  </label>
+
+                <div class="wrapperImg">
+                  <div class="boxImg">
+                    <div class="js--image-preview"></div>
+                    <div class="upload-options">
+                      <label>
+                        <input value={this.state.image} type="file" class="image-upload" accept="image/*" onChange={this.uploadImgInputHandler} />
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+
 
                 <div className="editor font-color">
                   <Editor
@@ -159,11 +228,20 @@ class NewArticle extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return{
+    categories: state.categories,
+    uploadImg: state.uploadImg
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPostArticle: (title, subtile, body, tags) =>
-      dispatch(actions.postArticle(title, subtile, body, tags))
+    onPostArticle: (title, subtile, categoryId, coverImg, body, tags) =>
+      dispatch(actions.postArticle(title, subtile, categoryId, coverImg, body, tags)),
+      onfetChCategories:() => dispatch(actions.fetchCategories()),
+      onUploadImg:(imgFile) => dispatch(actions.uploadImg(imgFile))
   };
 };
 
-export default connect(null, mapDispatchToProps)(NewArticle);
+export default connect(mapStateToProps, mapDispatchToProps)(NewArticle);

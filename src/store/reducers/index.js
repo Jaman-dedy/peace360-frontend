@@ -12,6 +12,7 @@ import followUserReducer from './followUser';
 import myFollowersReducer from './getFollowers';
 import myFollowingReducer from './getFollowing';
 import likeArticleReducer from './likeArticle';
+import uploadImgReducer from './uploadImgCloudinary'
 
 //@ create root reducer
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   myFollowers: myFollowersReducer,
   myFollowings: myFollowingReducer,
   likeArticle: likeArticleReducer,
+  uploadImg: uploadImgReducer
 });
 
 export default rootReducer;

@@ -23,23 +23,28 @@ export const postArticleFail = (error) => {
   };
 };
 
-export const postArticle = (title, subtitle, body, tags) => {
+export const postArticle = (title, subtitle, categoryId, coverImg, body, tags) => {
+  
+  console.log('tags', tags)
   return (dispatch) => {
     dispatch(postArticleStart());
     const articleData = {
       title: title,
       subTitle: subtitle,
+      categoryId,
+      coverImg,
       text: body,
-      // tags: tags,
-      categoryId: '5e89ae49b7d09a0004881018',
+      tags: tags,
+     
     };
-    axiosOrders
-      .post('article', articleData)
-      .then((response) => {
-        dispatch(postArticleSuccess(response.data));
-      })
-      .catch(({ response }) => {
-        dispatch(postArticleFail(response.data.errors));
-      });
+    console.log('articleData', articleData)
+    // axiosOrders
+    //   .post('article', articleData)
+    //   .then((response) => {
+    //     dispatch(postArticleSuccess(response.data));
+    //   })
+    //   .catch(({ response }) => {
+    //     dispatch(postArticleFail(response.data.errors));
+    //   });
   };
 };
