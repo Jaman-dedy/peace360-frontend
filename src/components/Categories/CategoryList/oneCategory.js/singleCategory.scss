@@ -12,93 +12,285 @@ $black: rgb(62, 81, 95);
 $grey: #cacfd1;
 $brighter: #cacfd1;
 $danger: #f76767;
-.singleCategory:hover {
-  cursor: default;
-}
-.singleCategory {
-  font-family: 'Open Sans', sans-serif;
-  .menu {
-    margin: 3rem 0;
-    position: relative;
+
+@media screen and (max-width: 600px) {
+  .singleCategory:hover {
+    cursor: default;
   }
-  .backerrorexist {
-    margin: -2% 1% 0 10%;
-    float: left;
-  }
-  .backerrornotexist {
-    margin: 8% 1% 0 10%;
-  }
-  .back {
-    float: left;
-    color: $font-color;
-    i {
-      font-size: 26px;
+  .singleCategory {
+    font-family: 'Open Sans', sans-serif;
+    .menu {
+      margin: 3rem 0;
+      position: relative;
     }
-  }
-  .back:hover {
-    color: $primary-color;
-  }
-  .loading {
-    float: left;
-    margin: 8% 45%;
-  }
-  .errorNotExist {
-    margin: 8% 10%;
-  }
-  .errorexis {
-    margin: -2% 20%;
-  }
-  .category-container {
-    float: left;
-    padding: 2%;
-    width: 60%;
-
-    -webkit-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
-    -moz-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
-    box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
-    .category_title {
-      font-size: 22px;
+    .backerrorexist {
+      margin: -2% 1% 0 10%;
+      float: left;
+    }
+    .backerrornotexist {
+      margin: 13% 1% 0 10%;
+    }
+    .back {
+      float: left;
       color: $font-color;
-
-      span {
-        font-size: 14px;
-        padding: 0 1%;
+      i {
+        font-size: 16px;
       }
     }
-    .editCategory {
-      float: right;
-      color: $font-color;
-      overflow: hidden;
-    }
-    .editCategory:hover {
+    .back:hover {
       color: $primary-color;
-      cursor: pointer;
     }
-    .description {
-      padding: 1% 0;
+    .loading {
+      float: left;
+      margin: 8% 45%;
+    }
+    .errorNotExist {
+      margin: 12% 10%;
+    }
+    .errorexis {
+      margin: -2% 20%;
+    }
+    .category-container {
+      float: left;
+      margin-top: 3rem;
+      padding: 2%;
+      width: 60%;
+
+      -webkit-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      -moz-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      .category_title {
+        font-size: 16px;
+        color: $font-color;
+
+        span {
+          display: none;
+          font-size: 14px;
+          padding: 0 1%;
+        }
+      }
+      .editCategory {
+        float: right;
+        color: $font-color;
+        overflow: hidden;
+      }
+      .editCategory:hover {
+        color: $primary-color;
+        cursor: pointer;
+      }
+      .description {
+        padding: 1% 0;
+        color: $font-color;
+        font-size: 0.8rem;
+      }
+    }
+    .errorDisplay {
+      display: block;
+      float: left;
+      margin: 12% 20%;
+      width: 60%;
+      color: $white;
+      background-color: $danger;
+      font-size: 1rem;
+      padding: 2% 30px;
+      .closeSpan {
+        font-size: 27px;
+        float: right;
+        padding: 5px;
+      }
+      .closeSpan:hover {
+        font-size: 35px;
+        padding: 0px;
+      }
+    }
+    .closeError {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) and (min-width: 600px) {
+  .singleCategory:hover {
+    cursor: default;
+  }
+  .singleCategory {
+    font-family: 'Open Sans', sans-serif;
+    .menu {
+      margin: 3rem 0;
+      position: relative;
+    }
+    .backerrorexist {
+      margin: -2% 1% 0 10%;
+      float: left;
+    }
+    .backerrornotexist {
+      margin: 12% 1% 0 10%;
+    }
+    .back {
+      float: left;
       color: $font-color;
+      i {
+        font-size: 22px;
+      }
+    }
+    .back:hover {
+      color: $primary-color;
+    }
+    .loading {
+      float: left;
+      margin: 8% 45%;
+    }
+    .errorNotExist {
+      margin: 12% 10%;
+    }
+    .errorexis {
+      margin: -2% 20%;
+    }
+    .category-container {
+      float: left;
+      margin-top: 3rem;
+      padding: 2%;
+      width: 60%;
+
+      -webkit-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      -moz-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      .category_title {
+        font-size: 22px;
+        color: $font-color;
+
+        span {
+          font-size: 14px;
+          padding: 0 15%;
+        }
+      }
+      .editCategory {
+        float: right;
+        color: $font-color;
+        overflow: hidden;
+      }
+      .editCategory:hover {
+        color: $primary-color;
+        cursor: pointer;
+      }
+      .description {
+        padding: 1% 0;
+        color: $font-color;
+      }
+    }
+    .errorDisplay {
+      display: block;
+      float: left;
+      margin: 8% 20%;
+      width: 60%;
+      color: $white;
+      background-color: $danger;
+      font-size: 24px;
+      padding: 2% 30px;
+      .closeSpan {
+        font-size: 27px;
+        float: right;
+        padding: 5px;
+      }
+      .closeSpan:hover {
+        font-size: 35px;
+        padding: 0px;
+      }
+    }
+    .closeError {
+      display: none;
     }
   }
-  .errorDisplay {
-    display: block;
-    float: left;
-    margin: 8% 20%;
-    width: 60%;
-    color: $white;
-    background-color: $danger;
-    font-size: 24px;
-    padding: 2% 30px;
-    .closeSpan {
-      font-size: 27px;
-      float: right;
-      padding: 5px;
-    }
-    .closeSpan:hover {
-      font-size: 35px;
-      padding: 0px;
-    }
+}
+
+@media screen and (min-width: 750px) and (max-width: 2000px) {
+  .singleCategory:hover {
+    cursor: default;
   }
-  .closeError {
-    display: none;
+  .singleCategory {
+    font-family: 'Open Sans', sans-serif;
+    .menu {
+      margin: 3rem 0;
+      position: relative;
+    }
+    .backerrorexist {
+      margin: -2% 1% 0 10%;
+      float: left;
+    }
+    .backerrornotexist {
+      margin: 8% 1% 0 10%;
+    }
+    .back {
+      float: left;
+      color: $font-color;
+      i {
+        font-size: 26px;
+      }
+    }
+    .back:hover {
+      color: $primary-color;
+    }
+    .loading {
+      float: left;
+      margin: 8% 45%;
+    }
+    .errorNotExist {
+      margin: 8% 10%;
+    }
+    .errorexis {
+      margin: -2% 20%;
+    }
+    .category-container {
+      float: left;
+      padding: 2%;
+      width: 60%;
+
+      -webkit-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      -moz-box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      box-shadow: 3px 4px 7px -1px rgba(199, 199, 199, 1);
+      .category_title {
+        font-size: 22px;
+        color: $font-color;
+        span {
+          font-size: 14px;
+          padding: 0 15%;
+        }
+      }
+      .editCategory {
+        float: right;
+        color: $font-color;
+        overflow: hidden;
+      }
+      .editCategory:hover {
+        color: $primary-color;
+        cursor: pointer;
+      }
+      .description {
+        padding: 1% 0;
+        color: $font-color;
+      }
+    }
+    .errorDisplay {
+      display: block;
+      float: left;
+      margin: 8% 20%;
+      width: 60%;
+      color: $white;
+      background-color: $danger;
+      font-size: 24px;
+      padding: 2% 30px;
+      .closeSpan {
+        font-size: 27px;
+        float: right;
+        padding: 5px;
+      }
+      .closeSpan:hover {
+        font-size: 35px;
+        padding: 0px;
+      }
+    }
+    .closeError {
+      display: none;
+    }
   }
 }

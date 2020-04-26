@@ -191,9 +191,8 @@ class SingleCategory extends Component {
                 </div>
                 <div className='category_title'>
                   {categoryTitle}
-                  <span>{date}</span>
+                  <span> created at : {date}</span>
                 </div>
-
                 <div className='description'>{description}</div>
               </div>
             </div>

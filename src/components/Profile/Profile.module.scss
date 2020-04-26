@@ -27,7 +27,8 @@ body {
       .TabLinks {
         color: $font-color;
         text-align: center;
-        font-size: 0.9rem;
+        font-weight: 750;
+        font-size: 0.7rem;
         float: left;
         width: 18%;
         padding: 0 0.5% 0 0.5%;
@@ -189,6 +190,7 @@ body {
       .TabLinks {
         color: $font-color;
         text-align: center;
+        font-weight: 750;
         font-size: 1rem;
         float: left;
         width: 18%;
@@ -355,6 +357,7 @@ body {
         color: $font-color;
         text-align: center;
         font-size: 1.2rem;
+        font-weight: 750;
         float: left;
         width: 18%;
         padding: 0 0.5% 0 0.5%;
@@ -507,16 +510,17 @@ body {
   }
 }
 
-@media screen and (max-width: 1820px) and (min-width: 1020px) {
+@media screen and (max-width: 2000px) and (min-width: 1020px) {
   .Profile {
-    width: 100%;
-    margin-top: 1rem;
+    width: 70%;
+    margin: 6% 15%;
     .Tab {
       width: 100%;
       padding: 2rem 0;
       .TabLinks {
         color: $font-color;
         text-align: center;
+        font-weight: 750;
         font-size: 1.2rem;
         float: left;
         width: 18%;
