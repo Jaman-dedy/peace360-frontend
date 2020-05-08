@@ -6,7 +6,8 @@
   grid-template-columns: repeat(auto-fill, minmax(auto, auto));
   grid-auto-flow: column;
   grid-auto-columns: minmax(auto, auto);
-  overflow-x: hidden;
+  // overflow-x: hidden;
+  overflow: auto;
 
   a {
     text-decoration: none;

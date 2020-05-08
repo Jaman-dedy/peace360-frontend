@@ -17,6 +17,7 @@ class Home extends Component {
 
     this.props.onFetchMyFollowers();
     this.props.onFetchMyFollowing();
+    this.props.onfetChCategories()
   }
   render() {
     let fetchedCategories = null;
@@ -64,6 +65,7 @@ const mapDispatchToProps = (dispatch) => {
     onFetchCategory: () => dispatch(actions.fetchCategory()),
     onFetchMyFollowers: () => dispatch(actions.fetchMyFollowers()),
     onFetchMyFollowing: () => dispatch(actions.fetchMyFollowing()),
+    onfetChCategories:() => dispatch(actions.fetchCategories()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

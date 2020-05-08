@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { updatedObject } from '../../shared/utility';
 
 const initialState = {
-  article: [],
+  article: null,
   error: null,
   loading: false
 };
@@ -26,6 +26,10 @@ const postArticleFail = (state, action) => {
   });
 };
 
+const clearPostArticleState = (state, action) => {
+  return state
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.POST_ARTICLE_START:
@@ -34,6 +38,8 @@ const reducer = (state = initialState, action) => {
       return postArticleSuccess(state, action);
     case actionTypes.POST_ARTICLE_FAIL:
       return postArticleFail(state, action);
+    case actionTypes.POST_ARTICLE_FAIL:
+      return clearPostArticleState(state, action);
     default:
       return state;
   }

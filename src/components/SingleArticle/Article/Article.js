@@ -13,6 +13,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './Article.scss';
 import * as actions from '../../../store/actions/index';
 import {initImageUpload, initDropEffect} from '../../../shared/utility'
+import Spinner from '../../UI/Spinner/Spinner'
 import './uploadImage.scss'
 
 
@@ -62,12 +63,11 @@ class NewArticle extends Component {
     subtitle: '',
     redirect: '/createArticle',
     categoryId: null,
+    hasPosted: false
 
   };
 
-  componentDidMount(){
-    this.props.onfetChCategories()
-  }
+  
   onEditorStateChange = (editorState) => {
     this.setState({ editorState });
   };
@@ -83,10 +83,15 @@ class NewArticle extends Component {
    
   }
   handleChange = selectedOption => {
-    console.log('selectedOption', selectedOption)
+  
     this.setState({ selectedOption });
   
   };
+  componentDidMount(){
+    this.setState({
+      hasPosted: false
+    })
+  }
   selectedOptionHandler = (event) => {
     event.preventDefault();
   
@@ -97,7 +102,7 @@ class NewArticle extends Component {
  submitArticleHandler =  (event) => {
     event.preventDefault();
     let tags = []
-    console.log('this.state.selectedOption', this.state.selectedOption)
+  
     this.state.selectedOption.map(tag => {
      return tags.push(tag.value)
     })
@@ -114,10 +119,31 @@ class NewArticle extends Component {
       tags
     );
     this.setState({ editorState: '', title: '', redirect: '' });
+    this.setState({ hasPosted: true})
   };
   render() {
        // initialize box-scope
        var boxes = document.querySelectorAll('.boxImg');
+       let redirect;
+       let articleId;
+       const { article } = this.props
+       
+       if(!article && this.state.hasPosted){
+         redirect = (<Spinner/>)
+         console.log('article :>> ');
+       } else if(article){
+         console.log('yeaaaaa :>> ');
+           articleId = article._id
+       return <Redirect
+       to={{
+        pathname: "/SingleArticle",
+        search: '?id = articleId',
+        hash: '#hash',
+        state: { articleId },
+      }}
+       />
+       }
+      
           
        for (let i = 0; i < boxes.length; i++) {
          let box = boxes[i];
@@ -130,7 +156,8 @@ class NewArticle extends Component {
 
     return (
       <div>
-        <Redirect to={this.state.redirect} />
+        {/* <Redirect to={this.state.redirect} /> */}
+       
      
         <div className="createArticle">
           <div className="menu">
@@ -183,6 +210,7 @@ class NewArticle extends Component {
                   <label> Select a category</label>
                   
                   <select onChange={this.selectedOptionHandler} value={this.state.categoryId} >
+                  <option value="0" disabled selected="selected">Select a category</option>
                     {categories.map(category => (
                       <option value={category._id}  >{category.categoryTitle} </option>
                     ))}
@@ -215,10 +243,12 @@ class NewArticle extends Component {
                     placeholder="Body of the article..."
                   />
                 </div>
+                  {redirect}
 
                 <div className="btn">
                   <button type="submit">Submit</button>
                 </div>
+              
               </div>
             </form>
           </div>
@@ -231,15 +261,15 @@ class NewArticle extends Component {
 const mapStateToProps = (state) => {
   return{
     categories: state.categories,
-    uploadImg: state.uploadImg
+    uploadImg: state.uploadImg,
+    article: state.postArticle.article
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPostArticle: (title, subtile, categoryId, coverImg, body, tags) =>
-      dispatch(actions.postArticle(title, subtile, categoryId, coverImg, body, tags)),
-      onfetChCategories:() => dispatch(actions.fetchCategories()),
+    onPostArticle: (title, subtile, categoryId, coverPhoto, body, tags) =>
+      dispatch(actions.postArticle(title, subtile, categoryId, coverPhoto, body, tags)),
       onUploadImg:(imgFile) => dispatch(actions.uploadImg(imgFile))
   };
 };
