@@ -6,10 +6,9 @@ const initialState = {
     social: {},
     skills: [],
     user: {},
-
   },
   error: null,
-  loading: false
+  loading: false,
 };
 
 const fetchProfileUserStart = (state, action) => {
@@ -20,33 +19,52 @@ const fetchProfileUserSuccess = (state, action) => {
   return updatedObject(state, {
     profile: action.profile,
     error: null,
-    loading: false
+    loading: false,
   });
 };
 
 const fetchProfileUserFail = (state, action) => {
   return updatedObject(state, {
     error: action.error,
-    loading: false
+    loading: false,
   });
 };
 
-const createOrEditProfileUserStart = (state, action) => {
+const editProfileUserStart = (state, action) => {
   return updatedObject(state, { error: null, loading: true });
 };
 
-const createOrEditProfileUserSuccess = (state, action) => {
+const editProfileUserSuccess = (state, action) => {
   return updatedObject(state, {
     profile: action.profile,
     error: null,
-    loading: false
+    loading: false,
   });
 };
 
-const createOrEditProfileUserFail = (state, action) => {
+const editProfileUserFail = (state, action) => {
   return updatedObject(state, {
     error: action.error,
-    loading: false
+    loading: false,
+  });
+};
+
+const createProfileUserStart = (state, action) => {
+  return updatedObject(state, { error: null, loading: true });
+};
+
+const createProfileUserSuccess = (state, action) => {
+  return updatedObject(state, {
+    profile: action.profile,
+    error: null,
+    loading: false,
+  });
+};
+
+const createProfileUserFail = (state, action) => {
+  return updatedObject(state, {
+    error: action.error,
+    loading: false,
   });
 };
 
@@ -58,12 +76,18 @@ const reducer = (state = initialState, action) => {
       return fetchProfileUserFail(state, action);
     case actionTypes.FETCH_PROFILE_USER_SUCCESS:
       return fetchProfileUserSuccess(state, action);
-    case actionTypes.CREATE_OR_EDIT_PROFILE_USER_START:
-      return createOrEditProfileUserStart(state, action);
-    case actionTypes.CREATE_OR_EDIT_PROFILE_USER_FAIL:
-      return createOrEditProfileUserFail(state, action);
-    case actionTypes.CREATE_OR_EDIT_PROFILE_USER_SUCCESS:
-      return createOrEditProfileUserSuccess(state, action);
+    case actionTypes.EDIT_PROFILE_USER_START:
+      return editProfileUserStart(state, action);
+    case actionTypes.EDIT_PROFILE_USER_FAIL:
+      return editProfileUserFail(state, action);
+    case actionTypes.EDIT_PROFILE_USER_SUCCESS:
+      return editProfileUserSuccess(state, action);
+    case actionTypes.CREATE_PROFILE_USER_START:
+      return createProfileUserStart(state, action);
+    case actionTypes.CREATE_PROFILE_USER_FAIL:
+      return createProfileUserFail(state, action);
+    case actionTypes.CREATE_PROFILE_USER_SUCCESS:
+      return createProfileUserSuccess(state, action);
     default:
       return state;
   }

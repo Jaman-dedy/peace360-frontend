@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './categorylist.scss';
+import reducerString from '../../../helpers/CategoryDescriptionHelper';
 import Layout from '../../Menu/Toolbar/Toolbar';
 import Modal from '../../UI/Modal/Modal';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -162,40 +163,39 @@ class CreateCategory extends Component {
                     <div>No categories</div>
                   ) : (
                     <div className='list '>
-                      <div className='list_title font-color'>
-                        <div className='list_row id'>No</div>
-                        <div className='list_row name'>Category name</div>
-                        <div className='list_row desc'>Description</div>
+                      <div className='list_row font-color'>
+                        <div className='row_role id'>No</div>
+                        <div className='row_role name'>Category name</div>
+                        <div className='row_role desc'>Description</div>
+                        <div className='row_role change'></div>
                       </div>
 
                       {categories.map((object, key) => (
-                        <div key={key} className='font-color'>
-                          <div>
-                            <div className='list_row id' id={object.id}>
-                              {key + 1}
-                            </div>
-                            <div className='list_row name' id={object.id}>
-                              {object.categoryTitle}
-                            </div>
-                            <div className='list_row desc'>
-                              {object.description
-                                ? object.description
-                                : 'no description of this category'}
-                              <span className='menu_list'>
-                                <i
-                                  className='fas fa-trash'
-                                  onClick={() =>
-                                    this.onDelete(object.categoryTitle)
-                                  }
-                                ></i>
-                                <i
-                                  className='far fa-eye'
-                                  onClick={() =>
-                                    this.onGetCategory(object.categoryTitle)
-                                  }
-                                ></i>
-                              </span>
-                            </div>
+                        <div key={key} className='list_row font-color'>
+                          <div className='row_role id' id={object.id}>
+                            {key + 1}
+                          </div>
+                          <div className='row_role name' id={object.id}>
+                            {reducerString(object.categoryTitle)}
+                          </div>
+                          <div className='row_role desc'>
+                            {object.description
+                              ? reducerString(object.description)
+                              : 'no description'}
+                          </div>
+                          <div className='row_role change'>
+                            <i
+                              className='fas fa-trash'
+                              onClick={() =>
+                                this.onDelete(object.categoryTitle)
+                              }
+                            ></i>
+                            <i
+                              className='far fa-eye'
+                              onClick={() =>
+                                this.onGetCategory(object.categoryTitle)
+                              }
+                            ></i>
                           </div>
                         </div>
                       ))}
