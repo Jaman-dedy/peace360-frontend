@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Layout from '../../hoc/Layout/Layout';
 import classes from './Profile.module.scss';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -9,7 +10,9 @@ import postImg from '../../assets/images/experience1.jpg';
 import Avatar from '../../assets/images/avatar.jpg';
 import EditLink from './EditProfile/EditProfileLink';
 import { fetchProfileUser, fetchCurrentUser } from '../../store/actions';
-import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
+import NotFound from '../errors/NotFound/NotFound';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 class Profile extends Component {
   handleShowTabs = (event, tabName) => {
@@ -32,12 +35,17 @@ class Profile extends Component {
     }
   };
   componentDidMount = () => {
-    this.props.getUser((user) => {
-      this.props.getProfile(user._id, (cd) => {});
-    });
+  
+    if(this.props. current_user) {
+      this.props.getProfile(this.props.current_user._id, (cd) => {});
+    }
+   
   };
 
   render() {
+    const { followers } = this.props.myFollowers;
+    const { followings } = this.props.myFollowings;
+    
     const {
       profile,
       error,
@@ -46,6 +54,49 @@ class Profile extends Component {
       current_user,
     } = this.props;
     const { skills } = profile;
+    let followingsList = !followings.length ? (
+      <NotFound message="Oops you are not followed by any user yet" />
+    ) : (
+      <Wrapper>
+        <span>
+          <h3>MY FOLLOWINGS</h3>
+        </span>
+        <div className={classes.ProfileTab}>
+          {followings.map((flwings) => (
+            <div key={flwings._id} className={classes.MyFollowers}>
+              <div className={classes.Avatar}>
+                <img src={flwings.avatar ? flwings.avatar : Avatar} alt="" />
+              </div>
+              <div className={classes.Name}>{flwings.username}</div>
+              <div className={classes.UnFollow}>UnFollow</div>
+            </div>
+          ))}
+        </div>
+      </Wrapper>
+    );
+
+    let followersList = !followers.length ? (
+      <NotFound message="Oops you have not follow any user yet" />
+    ) : (
+      <Wrapper>
+        <span>
+          <h3>MY FOLLOWERS</h3>
+        </span>
+        <div className={classes.ProfileTab}>
+          {followers.map((flwers) => (
+            <div key={flwers._id} className={classes.MyFollowers}>
+              <div className={classes.Avatar}>
+                <img src={flwers.avatar ? flwers.avatar : Avatar} alt="" />
+              </div>
+              <div className={classes.Name}>{flwers.username}</div>
+              <div className={classes.Follow}>Follow</div>
+            </div>
+          ))}
+        </div>
+      </Wrapper>
+    );
+    
+
     return (
       <Layout>
         <div className={classes.Profile}>
@@ -58,7 +109,7 @@ class Profile extends Component {
               <div className={classes.Tab}>
                 {error !== null &&
                 error.data.msg === 'There is no profile for this user' ? (
-                  <NavLink to='/editProfile'>
+                  <NavLink to="/editProfile">
                     <div className={classes.TabLinks}>Create Profile</div>
                   </NavLink>
                 ) : (
@@ -95,39 +146,40 @@ class Profile extends Component {
                   Following
                 </div>
               </div>
+           
               {profile.social ? (
                 <div className={classes.FollowMe}>
                   <h2>Follow me on</h2>
                   <div className={classes.SocialMedia}>
                     {profile.social.facebook ? (
                       <Link to={`web.facebook.com/${profile.social.facebook}`}>
-                        <i className='fab fa-facebook'></i>
+                        <i className="fab fa-facebook"></i>
                       </Link>
                     ) : null}
                     {profile.social.twitter ? (
                       <Link to={`twitter.com/${profile.social.twitter}`}>
-                        <i className='fab fa-twitter'></i>
+                        <i className="fab fa-twitter"></i>
                       </Link>
                     ) : null}
                     {profile.social.instagram ? (
                       <Link to={`instagram.com/${profile.social.instagram}`}>
-                        <i className='fab fa-instagram'></i>
+                        <i className="fab fa-instagram"></i>
                       </Link>
                     ) : null}
                     {profile.social.linkedin ? (
                       <Link to={`linkedin.com/in/${profile.social.linkedin}`}>
-                        <i className='fab fa-linkedin'></i>
+                        <i className="fab fa-linkedin"></i>
                       </Link>
                     ) : null}
                     {profile.social.youtube ? (
                       <Link to={`youtube.com/${profile.social.youtube}`}>
-                        <i className='fab fa-youtube'></i>
+                        <i className="fab fa-youtube"></i>
                       </Link>
                     ) : null}
                   </div>
                 </div>
               ) : null}
-              <div id='Profile' className='tabContent'>
+              <div id="Profile" className="tabContent">
                 <span>
                   <h3>ABOUT ME</h3>
                 </span>
@@ -153,17 +205,17 @@ class Profile extends Component {
                   </span>
                 </div>
               </div>
-              <div id='Posts' className='tabContent'>
+              <div id="Posts" className="tabContent">
                 <span>
                   <h3>MY POSTS</h3>
                 </span>
                 <div className={classes.ProfileTab}>
                   <div className={classes.Posts}>
                     {' '}
-                    <Link to='/singleArticle'>
+                    <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
-                          <img src={postImg} alt='' />
+                          <img src={postImg} alt="" />
                         </div>
                         <div className={classes.PostTitle}>
                           Peace is a stress-free state of security and calmness
@@ -176,10 +228,10 @@ class Profile extends Component {
                   </div>
                   <div className={classes.Posts}>
                     {' '}
-                    <Link to='/singleArticle'>
+                    <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
-                          <img src={postImg} alt='' />
+                          <img src={postImg} alt="" />
                         </div>
                         <div className={classes.PostTitle}>
                           Peace is a stress-free state of security and calmness
@@ -192,17 +244,17 @@ class Profile extends Component {
                   </div>
                 </div>
               </div>
-              <div id='Likes' className='tabContent'>
+              <div id="Likes" className="tabContent">
                 <span>
                   <h3>MY LIKES</h3>
                 </span>
                 <div className={classes.ProfileTab}>
                   <div className={classes.Posts}>
                     {' '}
-                    <Link to='/singleArticle'>
+                    <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
-                          <img src={postImg} alt='' />
+                          <img src={postImg} alt="" />
                         </div>
                         <div className={classes.PostTitle}>
                           Peace is a stress-free state of security and calmness
@@ -215,10 +267,10 @@ class Profile extends Component {
                   </div>
                   <div className={classes.Posts}>
                     {' '}
-                    <Link to='/singleArticle'>
+                    <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
-                          <img src={postImg} alt='' />
+                          <img src={postImg} alt="" />
                         </div>
                         <div className={classes.PostTitle}>
                           Peace is a stress-free state of security and calmness
@@ -231,61 +283,11 @@ class Profile extends Component {
                   </div>
                 </div>
               </div>
-              <div id='Followers' className='tabContent'>
-                <span>
-                  <h3>MY FOLLOWERS</h3>
-                </span>
-                <div className={classes.ProfileTab}>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt='' />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.Follow}>Follow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt='' />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.Follow}>Follow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt='' />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.Follow}>Follow</div>
-                  </div>
-                </div>
+              <div id="Followers" className="tabContent">
+                {followersList}
               </div>
-              <div id='Following' className='tabContent'>
-                <span>
-                  <h3>MY FOLLOWINGS</h3>
-                </span>
-                <div className={classes.ProfileTab}>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt='' />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.UnFollow}>UnFollow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt='' />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.UnFollow}>UnFollow</div>
-                  </div>
-                  <div className={classes.MyFollowers}>
-                    <div className={classes.Avatar}>
-                      <img src={Avatar} alt='' />
-                    </div>
-                    <div className={classes.Name}>Emanuel Bush</div>
-                    <div className={classes.UnFollow}>UnFollow</div>
-                  </div>
-                </div>
+              <div id="Following" className="tabContent">
+                {followingsList}
               </div>
             </div>
           )}
@@ -297,7 +299,7 @@ class Profile extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
-  getUser: (cb) => dispatch(fetchCurrentUser(cb)),
+  getUser: () => dispatch(fetchCurrentUser()),
 });
 const mapStateToProps = (state) => {
   return {
@@ -309,6 +311,12 @@ const mapStateToProps = (state) => {
     authError: state.currentUser.error,
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
+    followersError: state.myFollowers.error,
+    loadFollowers: state.myFollowers.load,
+    myFollowers: state.myFollowers,
+    myFollowings: state.myFollowings,
+    followingError: state.myFollowings.error,
+    loadFollowing: state.myFollowings.load,
   };
 };
 

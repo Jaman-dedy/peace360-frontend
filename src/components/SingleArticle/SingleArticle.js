@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
 import './Article/Article.scss';
 import Layout from '../../hoc/Layout/Layout';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
@@ -7,7 +9,7 @@ import CreateArticleLink from '../../components/SingleArticle/Article/CreateArti
 import FollowUser from './FollowUser/FollowUser';
 import Tag from './Tag/Tag';
 import Like from './FavoriteUser/Like/Like';
-import Rate from './FavoriteUser/Rate/Rate';
+// import Rate from './FavoriteUser/Rate/Rate';
 import CommentForm from '../../containers/CommentForm/CommentForm';
 import Comments from '../Comments/Comments';
 import SocialShare from '../SocialShare/SocialShare';
@@ -21,7 +23,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 class SingleArticle extends Component {
   componentWillMount() {
     const {
-      location: { state }
+      location: { state },
     } = this.props;
     if (state) {
       const { articleId } = state;
@@ -29,31 +31,42 @@ class SingleArticle extends Component {
     }
   }
   render() {
+    let createArticleLink = '';
     const { article = {} } = this.props;
     let user;
-    if (article) {
-      user = article.user;
-    }
+    let followUserComponent;
+    let articleId;
 
     let comments;
 
     let coverPhoto = null;
     let tags = null;
     let displaySingleArticle = null;
+    let likes = null;
 
     if (!article) {
       displaySingleArticle = <Spinner />;
+      followUserComponent = '';
     } else {
+      user = article.user;
+      likes = article.likes;
+      articleId = article._id;
+
+      followUserComponent = <FollowUser user={user} articleId={article._id} />;
       tags = article.tags;
       coverPhoto = article.coverPhoto ? article.coverPhoto : articleImg;
 
       comments = article.comments;
+      createArticleLink = this.props.isAuthenticated
+        ? '/createArticle'
+        : '/login';
+
       displaySingleArticle = (
         <div className={classes.Content}>
           <div className={classes.ArticleImage}>
-            <img src={coverPhoto} alt='' />
+            <img src={coverPhoto} alt="" />
           </div>
-          <div className={classes.Text}>{article.text}</div>
+          <div className={classes.Text}>{ReactHtmlParser(article.text)}</div>
         </div>
       );
     }
@@ -72,26 +85,24 @@ class SingleArticle extends Component {
           <AuthenticationAction />
         )}
 
-        <CreateArticleLink className='ArticleLink' />
+        <CreateArticleLink link={createArticleLink} className="ArticleLink" />
 
         <div className={classes.SingleArticle}>
           <div className={classes.ArticleTitle}>{article && article.title}</div>
           <div className={classes.ArticleSubTitle}>
             {article && article.Subtitle}
           </div>
-
-          <FollowUser user={user} />
+          {followUserComponent}
           <SocialShare />
           {displaySingleArticle}
           {tags &&
             tags.map((tag, index) => {
               return <Tag key={index} tag={tag} />;
             })}
-
           <div className={classes.Favorite}>
-            Rate & like this article
-            <Like />
-            <Rate />
+            Like this article
+            <Like articleId={articleId} likedObject={likes} />
+            {/* <Rate /> */}
           </div>
           {/* <RelatedArticle /> */}
           {this.props.isAuthenticated ? displayComments : null}
@@ -101,20 +112,20 @@ class SingleArticle extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchSingleArticle: articleId =>
-      dispatch(actions.fetchSingleArticle(articleId))
+    onFetchSingleArticle: (articleId) =>
+      dispatch(actions.fetchSingleArticle(articleId)),
   };
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
     loading: state.fetchSingleArticle.loading,
     error: state.fetchSingleArticle.error,
-    article: state.fetchSingleArticle.article
+    article: state.fetchSingleArticle.article,
   };
 };
 

@@ -14,6 +14,10 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 class Home extends Component {
   componentDidMount() {
     this.props.onFetchCategory();
+
+    this.props.onFetchMyFollowers();
+    this.props.onFetchMyFollowing();
+    this.props.onfetChCategories()
   }
   render() {
     let fetchedCategories = null;
@@ -47,18 +51,21 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated:
       state.register.token !== null || state.login.token !== null,
     loading: state.fetchCategories.loading,
     error: state.fetchCategories.error,
-    categories: state.fetchCategories
+    categories: state.fetchCategories,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchCategory: () => dispatch(actions.fetchCategory())
+    onFetchCategory: () => dispatch(actions.fetchCategory()),
+    onFetchMyFollowers: () => dispatch(actions.fetchMyFollowers()),
+    onFetchMyFollowing: () => dispatch(actions.fetchMyFollowing()),
+    onfetChCategories:() => dispatch(actions.fetchCategories()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

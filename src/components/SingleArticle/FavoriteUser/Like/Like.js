@@ -6,17 +6,42 @@ import classes from './Like.module.scss';
 
 class like extends Component {
   state = {
-    isLiked: false
+    isLiked: false,
   };
-  switchLikedHandle = () => {
+  switchLikedHandle = (articleId) => {
     if (!this.props.isAuthenticated) {
       this.props.onSetRedirectPath();
     }
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return { isLiked: !prevState.isLiked };
     });
+    this.props.onLikeArticle(articleId);
   };
+  componentWillReceiveProps(nextProps) {
+    const { articleId, likeArticle, likedObject } = nextProps;
+
+    if (likedObject && articleId) {
+      if (likedObject.length) {
+        likedObject.map((liked) => {
+          if (liked.articleId === articleId && this.props.isAuthenticated) {
+            this.setState({ isLiked: true });
+          } else {
+            this.setState({ isLiked: false });
+          }
+        });
+      }
+    }
+
+    if (likeArticle.state) {
+      if (likeArticle.state === 'dislike') {
+        this.setState({ isLiked: false });
+      } else {
+        this.setState({ isLiked: true });
+      }
+    }
+  }
   render() {
+    const { articleId } = this.props;
     const redirectPath = <Redirect to={this.props.redirectPath} />;
     return (
       <div
@@ -25,7 +50,7 @@ class like extends Component {
             ? [classes.Like, classes.Clicked].join(' ')
             : classes.Like
         }
-        onClick={this.switchLikedHandle}
+        onClick={(e) => this.switchLikedHandle(articleId)}
       >
         {redirectPath}
         <i className="fas fa-heart" tabIndex="0"></i>
@@ -34,19 +59,21 @@ class like extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
     loading: state.currentUser.loading,
     isAuthenticated:
       state.login.token !== null || state.register.token !== null,
-    redirectPath: state.login.authRedirectPath
+    redirectPath: state.login.authRedirectPath,
+    likeArticle: state.likeArticle.liked,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onSetRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login'))
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login')),
+    onLikeArticle: (articleId) => dispatch(actions.likeArticle(articleId)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(like);

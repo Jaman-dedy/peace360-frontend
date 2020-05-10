@@ -182,7 +182,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onLogin: (email, password) => dispatch(actions.login(email, password)),
     onSetAuthRedirect: () =>
-      dispatch(actions.setAuthRedirectPath('/SingleArticle'))
+      dispatch(actions.setAuthRedirectPath(''))
   };
 };
 

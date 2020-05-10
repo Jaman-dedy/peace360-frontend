@@ -7,6 +7,12 @@ import singleArticleReducer from './singleArticle';
 import postCommentReducer from './comment';
 import userProfile from './userProfile';
 import categories from './categories';
+import postArticleReducer from './postArticle';
+import followUserReducer from './followUser';
+import myFollowersReducer from './getFollowers';
+import myFollowingReducer from './getFollowing';
+import likeArticleReducer from './likeArticle';
+import uploadImgReducer from './uploadImgCloudinary'
 
 //@ create root reducer
 
@@ -18,7 +24,13 @@ const rootReducer = combineReducers({
   fetchSingleArticle: singleArticleReducer,
   postComment: postCommentReducer,
   userProfile,
-  categories: categories
+  categories: categories,
+  postArticle: postArticleReducer,
+  followUser: followUserReducer,
+  myFollowers: myFollowersReducer,
+  myFollowings: myFollowingReducer,
+  likeArticle: likeArticleReducer,
+  uploadImg: uploadImgReducer
 });
 
 export default rootReducer;
