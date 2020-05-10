@@ -51,6 +51,7 @@ class Profile extends Component {
       loading,
       current_user,
     } = this.props;
+    console.log('profile', profile)
     let followingsList = !followings.length ? (
       <NotFound message="Oops you are not followed by any user yet" />
     ) : (
@@ -143,6 +144,7 @@ class Profile extends Component {
                   Following
                 </div>
               </div>
+              {console.log('profile.social', profile.social)}
               {profile.social ? (
                 <div className={classes.FollowMe}>
                   <h2>Follow me on</h2>
