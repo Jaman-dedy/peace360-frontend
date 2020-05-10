@@ -12,7 +12,7 @@ import EditLink from './EditProfile/EditProfileLink';
 import { fetchProfileUser, fetchCurrentUser } from '../../store/actions';
 import * as actions from '../../store/actions/index';
 import NotFound from '../errors/NotFound/NotFound';
-import Aux from '../../hoc/Aux/Aux';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 class Profile extends Component {
   handleShowTabs = (event, tabName) => {
@@ -54,7 +54,7 @@ class Profile extends Component {
     let followingsList = !followings.length ? (
       <NotFound message="Oops you are not followed by any user yet" />
     ) : (
-      <Aux>
+      <Wrapper>
         <span>
           <h3>MY FOLLOWINGS</h3>
         </span>
@@ -69,13 +69,13 @@ class Profile extends Component {
             </div>
           ))}
         </div>
-      </Aux>
+      </Wrapper>
     );
 
     let followersList = !followers.length ? (
       <NotFound message="Oops you have not follow any user yet" />
     ) : (
-      <Aux>
+      <Wrapper>
         <span>
           <h3>MY FOLLOWERS</h3>
         </span>
@@ -90,7 +90,7 @@ class Profile extends Component {
             </div>
           ))}
         </div>
-      </Aux>
+      </Wrapper>
     );
     const { skills } = profile;
 
