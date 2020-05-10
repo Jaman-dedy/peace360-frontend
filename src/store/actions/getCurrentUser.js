@@ -34,3 +34,37 @@ export const fetchCurrentUser = () => {
     }
   };
 };
+
+
+export const editUserPicSuccess = (user) => {
+  return {
+    type: actionTypes.EDIT_USER_PIC_SUCCESS,
+    user,
+  };
+};
+
+export const editUserPicFail = (error) => {
+  return {
+    type: actionTypes.EDIT_USER_PIC_FAIL,
+    error: error,
+  };
+};
+
+export const editUserPicStart = () => {
+  return {
+    type: actionTypes.EDIT_USER_PIC_START,
+  };
+};
+
+export const editUserPic = (avatar) => {
+  return async (dispatch) => {
+    dispatch(editUserPicStart());
+    try {
+      const response = await axiosOrders.put(`users/updateImage`, avatar);
+      console.log("response", response);
+      dispatch(editUserPicSuccess(response));
+    } catch ({ response }) {
+      dispatch(editUserPicFail(response));
+    }
+  };
+};

@@ -3,14 +3,16 @@ import React, { Component } from 'react';
 import './EditProfile.scss';
 import { connect } from 'react-redux';
 import Layout from '../../Menu/Toolbar/Toolbar';
-import avatar from '../../../assets/images/avatar.jpg';
 import { NavLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import {
   fetchProfileUser,
   editProfileUser,
   createProfileUser,
+  
 } from '../../../store/actions/Userprofile';
+import {editUserPic} from '../../../store/actions/getCurrentUser';
+import * as actions from '../../../store/actions/index';
 import Spinner from '../../UI/Spinner/Spinner';
 import { fetchCurrentUser } from '../../../store/actions/getCurrentUser';
 
@@ -37,6 +39,8 @@ class EditProfile extends Component {
     skills: '',
     bio: '',
     displayError: 'error',
+    displaySaveImage:false,
+    displayEditImage: false
   };
   onCheckUTube = () => {
     let change = this.state.utube;
@@ -198,6 +202,30 @@ class EditProfile extends Component {
       );
     }
   };
+
+  updateImage=()=>{
+    this.setState({
+      displayEditImage: true
+    })
+  }
+
+  uploadUserPP = (event) => {
+    this.setState({
+      displaySaveImage: true,
+      displayEditImage:false
+    })
+    this.props.onUploadImg(event.target.files[0]); 
+  }
+
+  onSaveImage = ()=>{
+    const {editUserPics, userImageUrl} = this.props;
+    this.setState({
+      displayEditImage: false,
+      displaySaveImage: false
+    });
+    editUserPics("url here there");
+  }
+
   onCloseError = () => {
     this.setState({ displayError: 'no-error' });
   };
@@ -284,7 +312,7 @@ class EditProfile extends Component {
       instagramValue,
       profile,
     } = this.state;
-    const { loading, getUserLoading , errorProfile} = this.props;
+    const { loading, getUserLoading , errorProfile, newUser} = this.props;
     
     return (
       <div>
@@ -317,13 +345,30 @@ class EditProfile extends Component {
                 <div className='title main-color center'>
                   {profile ? 'Edit your Profile' : 'Create your Profile'}
                 </div>
-
+                
                 <form action=''>
                   <div className='form'>
                     <div className='row image'>
                       <div className='image_container'>
-                        <img src={avatar} alt='' className='boxContent' />
+                        <div className='update_image' onClick={this.updateImage}>
+                          <i className='fas fa-pencil-alt'></i>
+                        </div>
+                        <img src={newUser.avatar} alt='' className='boxContent' />
                       </div>
+                      {
+                        this.state.displayEditImage?(<div>
+                          <input value={this.state.image} type="file" className="image-upload" accept="image/*" onChange={this.uploadUserPP} />
+                         </div>):null
+                      }
+                      {
+                        this.state.displaySaveImage?(
+                          <div onClick={this.onSaveImage}>
+                            save image
+                          </div>
+                        ):null
+                      }
+                      <div>
+                 </div>
                     </div>
                     {loading || getUserLoading ? (
                       <div>
@@ -550,9 +595,12 @@ const mapDispatchToProps = (dispatch) => ({
   getUser: (cb) => dispatch(fetchCurrentUser(cb)),
   editProfile: (body, cd) => dispatch(editProfileUser(body, cd)),
   createProfile: (body, cd) => dispatch(createProfileUser(body, cd)),
+  onUploadImg:(imgFile) => dispatch(actions.uploadImg(imgFile)),
+  editUserPics:(img) => dispatch(editUserPic(img))
 });
 const mapStateToProps = (state) => {
   return {
+    userImageUrl: state.uploadImg.imgUrl,
     errorProfile: state.userProfile.error,
     loading: state.userProfile.loading,
     current_profile: state.userProfile.profile,

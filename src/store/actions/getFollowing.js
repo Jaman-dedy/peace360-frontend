@@ -27,9 +27,9 @@ export const fetchMyFollowing = () => {
     dispatch(fetchMyFollowingStart());
     try {
       const response = await axiosOrders.get('users/followings');
-      dispatch(fetchMyFollowingSuccess(response.data.myFollowings));
+      dispatch(fetchMyFollowingSuccess(response ? response.data.myFollowings : null));
     } catch ({ response }) {
-      dispatch(fetchMyFollowingFail(response.data));
+      dispatch(fetchMyFollowingFail( response ? response.data : null));
     }
   };
 };

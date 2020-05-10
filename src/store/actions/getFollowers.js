@@ -27,9 +27,9 @@ export const fetchMyFollowers = () => {
     dispatch(fetchMyFollowersStart());
     try {
       const response = await axiosOrders.get('users/followers');
-      dispatch(fetchMyFollowersSuccess(response.data.myFollowers));
+      dispatch(fetchMyFollowersSuccess(response? response.data.myFollowers:null));
     } catch ({ response }) {
-      dispatch(fetchMyFollowersFail(response.data));
+      dispatch(fetchMyFollowersFail(response? response.data : null));
     }
   };
 };

@@ -49,6 +49,25 @@ const editProfileUserFail = (state, action) => {
   });
 };
 
+const editUserPicStart = (state, action) => {
+  return updatedObject(state, { error: null, loading: true });
+};
+
+const editUserPicSuccess = (state, action) => {
+  return updatedObject(state, {
+    profile: action,
+    error: null,
+    loading: false,
+  });
+};
+
+const editUserPicFail = (state, action) => {
+  return updatedObject(state, {
+    error: action.error,
+    loading: false,
+  });
+};
+
 const createProfileUserStart = (state, action) => {
   return updatedObject(state, { error: null, loading: true });
 };
@@ -81,7 +100,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.EDIT_PROFILE_USER_FAIL:
       return editProfileUserFail(state, action);
     case actionTypes.EDIT_PROFILE_USER_SUCCESS:
-      return editProfileUserSuccess(state, action);
+      return editProfileUserSuccess(state, action);  
     case actionTypes.CREATE_PROFILE_USER_START:
       return createProfileUserStart(state, action);
     case actionTypes.CREATE_PROFILE_USER_FAIL:

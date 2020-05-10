@@ -12,6 +12,8 @@ $black: rgb(62, 81, 95);
 $grey: #a2a4a5;
 $brighter: #cacfd1;
 $danger: #f76060;
+$base-color: #3e515f;
+$base-font: 'Raleway', sans-serif;
 
 @media screen and (min-width:250px) and (max-width: 500px){
   .editProfileLink {
@@ -504,6 +506,21 @@ $danger: #f76060;
             height: 100%;
             border-radius: 50%;
           }
+          .update_image{
+            background-color: red;
+            i{
+              margin: 5rem 6rem;
+              position: absolute;
+              float: right;
+              overflow: hidden;
+              color: $main-color;
+            }
+            i:hover, i:focus{
+              cursor: pointer;
+              color: $main-hover;
+            }
+          }
+          
         }
         .editIcon {
           position: absolute;
