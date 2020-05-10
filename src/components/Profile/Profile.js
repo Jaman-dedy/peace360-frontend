@@ -35,9 +35,11 @@ class Profile extends Component {
     }
   };
   componentDidMount = () => {
-    this.props.getUser((user) => {
-      this.props.getProfile(user._id, (cd) => {});
-    });
+  
+    if(this.props. current_user) {
+      this.props.getProfile(this.props.current_user._id, (cd) => {});
+    }
+   
   };
 
   render() {
@@ -51,7 +53,7 @@ class Profile extends Component {
       loading,
       current_user,
     } = this.props;
-    console.log('profile', profile)
+    const { skills } = profile;
     let followingsList = !followings.length ? (
       <NotFound message="Oops you are not followed by any user yet" />
     ) : (
@@ -93,7 +95,7 @@ class Profile extends Component {
         </div>
       </Wrapper>
     );
-    const { skills } = profile;
+    
 
     return (
       <Layout>
@@ -144,7 +146,7 @@ class Profile extends Component {
                   Following
                 </div>
               </div>
-              {console.log('profile.social', profile.social)}
+           
               {profile.social ? (
                 <div className={classes.FollowMe}>
                   <h2>Follow me on</h2>
@@ -297,7 +299,7 @@ class Profile extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
-  getUser: (cb) => dispatch(fetchCurrentUser(cb)),
+  getUser: () => dispatch(fetchCurrentUser()),
 });
 const mapStateToProps = (state) => {
   return {
