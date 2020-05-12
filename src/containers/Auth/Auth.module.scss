@@ -1,13 +1,26 @@
+@import '../../mixins';
 .Block {
   grid-area: auth-right-side;
 }
 .Auth {
+ 
   margin: 0;
   height: 51.25rem;
   display: grid;
   grid-template-areas: 'auth-left-side auth-right-side';
   grid-template-columns: 35% 65%;
   overflow: hidden;
+
+  @include respond-to(mobile){
+    margin: 0;
+    height: 51.25rem;
+    display: grid;
+    grid-template-areas: 'auth-left-side auth-left-side '
+                          'auth-right-side auth-right-side';
+    grid-template-rows: 35% 65%;
+    overflow: hidden;
+  }
+
 }
 .Image {
   padding-top: 1rem;
@@ -16,18 +29,31 @@
     height: 100%;
     width: 100%;
   }
+
+  @include respond-to(mobile){
+    display: none;
+  }
 }
 .FormBlock {
   color: #5a5554;
   height: 31rem;
-  padding-top: 1rem;
+  padding-top: 0rem;
   text-align: center;
+
+
 }
 .FormContent {
-  margin-top: 1rem;
+  margin-top: 0rem;
   margin-left: 19rem;
   width: 20rem;
   height: 20rem;
+  @include respond-to(mobile){
+    margin-top: 0rem;
+  margin-left: 2rem;
+  width: 20rem;
+  height: 20rem;
+ 
+  }
 }
 
 .Input {
@@ -56,9 +82,6 @@
   }
   input[type='password'] {
     margin-top: 0.5rem;
-  }
-  input[type='checkbox'] {
-    margin-left: -1rem;
   }
   button {
     margin-top: 0.5rem;

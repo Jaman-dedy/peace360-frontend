@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+@import '../../../mixins';
 
 .wrapper {
   max-width: 1335px;
   box-sizing: border-box;
   padding: 0 20px;
   margin: auto;
+
+  @include respond-to(mobile){
+    max-width: 535px;
+  padding: 0 13px;
+  }
+
 }
 
 .wrapper a {

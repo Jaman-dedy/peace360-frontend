@@ -10,11 +10,15 @@
   }
 }
 .CheckTerms {
+  font-size: .9rem !important;
+
   a {
     text-decoration: none;
     color: #2e424e;
+    font-style: italic;
+   
   }
-  input[type="checkbox"] {
-  margin-left: -1rem;
+
 }
-}
+
+
