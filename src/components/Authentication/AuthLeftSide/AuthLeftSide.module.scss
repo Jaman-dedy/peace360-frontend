@@ -1,5 +1,4 @@
-
-@import '../../../mixins';
+@import "../../../mixins";
 
 .Left {
   grid-area: auth-left-side;
@@ -22,12 +21,26 @@
     color: rgb(246, 243, 243);
     background-color: #395161;
   }
-  @include respond-to(mobile){
+  @include respond-to(tablets) {
     text-align: center;
-  padding: 2.3rem 1rem;
-  color: rgb(246, 243, 243);
-  font-family: sans-serif;
-  font-family: "Open Sans", sans-serif;
+    padding: 2.3rem 5rem;
+    color: rgb(246, 243, 243);
+    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
+  }
+  @include respond-to(mobile-landscape) {
+    text-align: center;
+    padding: 2.3rem 1rem;
+    color: rgb(246, 243, 243);
+    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
+  }
+  @include respond-to(mobile) {
+    text-align: center;
+    padding: 2.3rem 1rem;
+    color: rgb(246, 243, 243);
+    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
   }
   h1 {
     font-size: 1.5rem;

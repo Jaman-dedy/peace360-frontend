@@ -1,5 +1,4 @@
-@import '../../../mixins';
-
+@import "../../../mixins";
 
 .Image {
   padding-top: 1rem;
@@ -8,8 +7,14 @@
     height: 100%;
     width: 100%;
   }
+  @include respond-to(tablets) {
+    display: none;
+  }
+  @include respond-to(mobile-landscape) {
+    display: none;
+  }
 
-  @include respond-to(mobile){
+  @include respond-to(mobile) {
     display: none;
   }
 }
@@ -25,4 +30,3 @@
     color: #395161;
   }
 }
-

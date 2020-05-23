@@ -1,5 +1,7 @@
+@import "../../../mixins";
+
 .Actions {
-  margin-top: -.5rem;
+  margin-top: -0.5rem;
   span {
     display: block;
     padding-bottom: 0.5rem;
@@ -10,15 +12,18 @@
   }
 }
 .CheckTerms {
-  font-size: .9rem !important;
+  font-size: 0.9rem !important;
+  margin-left: -1rem;
 
   a {
     text-decoration: none;
     color: #2e424e;
     font-style: italic;
-   
   }
-
+  @include respond-to(mobile) {
+    font-size: 0.8rem !important;
+  }
+  @include respond-to(small-mobile) {
+    font-size: 0.7rem !important;
+  }
 }
-
-
