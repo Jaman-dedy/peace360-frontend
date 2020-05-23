@@ -1,17 +1,24 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { Component } from 'react';
-import moment from 'moment';
+import React, { Component } from "react";
+import { withRouter } from "react-router";
+import moment from "moment";
 
-import classes from './Article.module.scss';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from '../../../../../store/actions/index';
-import experienceImg from '../../../../../assets/images/peace-in-africa.jpg';
+import classes from "./Article.module.scss";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../../../../../store/actions/index";
+import experienceImg from "../../../../../assets/images/peace-in-africa.jpg";
 
 class Article extends Component {
-  componentDidMount() {
+  redirectUserHandler = (articleId) => {
+    this.props.history.replace({
+      pathname: "/singleArticle",
+      search: "?id = articleId",
+      hash: "#hash",
+      state: { articleId },
+    });
     this.props.onSetRedirectPath();
-  }
+  };
 
   setRedirectUrl = (articleId) => {
     this.props.onSetRedirectPath(articleId);
@@ -26,16 +33,7 @@ class Article extends Component {
     const articlePhotoCover = coverPhoto ? coverPhoto : experienceImg;
 
     return (
-      <Link
-        // to={this.props.redirectUrl}
-        to={{
-          pathname: this.props.redirectUrl,
-          search: '?id = articleId',
-          hash: '#hash',
-          state: { articleId },
-        }}
-        onClick={() => this.setRedirectUrl(articleId)}
-      >
+      <a onClick={() => this.redirectUserHandler(articleId)}>
         <div className={classes.Article}>
           <div className={classes.CoverPhoto}>
             <img src={articlePhotoCover} alt="experience" />
@@ -45,7 +43,7 @@ class Article extends Component {
             {user.username}, {timeAgo} | &#128338; 4 min to read
           </div>
         </div>
-      </Link>
+      </a>
     );
   }
 }
@@ -55,12 +53,13 @@ const mapStateToProps = (state) => {
     redirectUrl: state.login.authRedirectPath,
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetRedirectPath: () =>
-      dispatch(actions.setAuthRedirectPath('/SingleArticle/')),
+      dispatch(actions.setAuthRedirectPath("/singleArticle")),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Article);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Article)
+);

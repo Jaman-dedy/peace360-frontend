@@ -1,86 +1,86 @@
-import React, { Component } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import Wrapper from '../../../hoc/Wrapper/Wrapper';
-import Input from '../../../components/UI/Input/Input';
-import Button from '../../../components/UI/Button/Button';
-import LeftSide from '../../../components/Authentication/AuthLeftSide/AuthLeftSide';
-import SocialAuth from '../../../components/Authentication/SocialAuth/SocialAuth';
-import styles from '../Auth.module.scss';
-import classes from './Signup.module.scss';
-import AuthImg from '../../../assets/svg/meetup.svg';
-import Backward from '../../../components/Backward/Backward';
-import * as actions from '../../../store/actions/signup';
-import { updatedObject, checkValidity } from '../../../shared/utility';
-import Spinner from '../../../components/UI/Spinner/Spinner';
-import ErrorPage from '../../../components/UI/Error/ErrorPage';
+import React, { Component } from "react";
+import { NavLink, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import Wrapper from "../../../hoc/Wrapper/Wrapper";
+import Input from "../../../components/UI/Input/Input";
+import Button from "../../../components/UI/Button/Button";
+import LeftSide from "../../../components/Authentication/AuthLeftSide/AuthLeftSide";
+import SocialAuth from "../../../components/Authentication/SocialAuth/SocialAuth";
+import styles from "../Auth.module.scss";
+import classes from "./Signup.module.scss";
+import AuthImg from "../../../assets/svg/meetup.svg";
+import Backward from "../../../components/Backward/Backward";
+import * as actions from "../../../store/actions/signup";
+import { updatedObject, checkValidity } from "../../../shared/utility";
+import Spinner from "../../../components/UI/Spinner/Spinner";
+import ErrorPage from "../../../components/UI/Error/ErrorPage";
 class Signup extends Component {
   state = {
     signupForm: {
       username: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'username',
-          placeholder: 'User name'
+          type: "username",
+          placeholder: "User name",
         },
-        value: '',
-        label: 'Username',
+        value: "",
+        label: "Username",
         validation: {
           required: true,
-          minLength: 5
+          minLength: 5,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       email: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'email',
-          placeholder: 'Email'
+          type: "email",
+          placeholder: "Email",
         },
-        value: '',
-        label: 'Email',
+        value: "",
+        label: "Email",
         validation: {
           required: true,
-          isEmail: true
+          isEmail: true,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       password: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'password',
-          placeholder: 'Password'
+          type: "password",
+          placeholder: "Password",
         },
-        value: '',
-        label: 'Password',
+        value: "",
+        label: "Password",
         validation: {
           required: true,
-          minLength: 6
+          minLength: 6,
         },
         valid: false,
-        touched: false
+        touched: false,
       },
       confirmPassword: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'password',
-          placeholder: 'Confirm your password'
+          type: "password",
+          placeholder: "Confirm your password",
         },
-        value: '',
-        label: 'Password',
+        value: "",
+        label: "Password",
         validation: {
           required: true,
-          minLength: 6
+          minLength: 6,
         },
         valid: false,
-        touched: false
-      }
+        touched: false,
+      },
     },
-    closeError: false
+    closeError: false,
   };
-  submitHandler = event => {
+  submitHandler = (event) => {
     event.preventDefault();
     this.props.onRegister(
       this.state.signupForm.username.value,
@@ -96,23 +96,23 @@ class Signup extends Component {
           event.target.value,
           this.state.signupForm[inputName].validation
         ),
-        touched: true
-      })
+        touched: true,
+      }),
     });
     this.setState({ signupForm: updatedInputs });
   };
-  checkClickedHandler = e => {};
+  checkClickedHandler = (e) => {};
   componentDidUpdate(prevProps) {
     if (prevProps.error !== this.props.error) {
       this.setState({ closeError: true });
     }
   }
-  componentDidMount() {
-    this.props.onSetAuthRedirect();
-  }
-  closeErrorHandler = e => {
+  // componentDidMount() {
+  //   this.props.onSetAuthRedirect();
+  // }
+  closeErrorHandler = (e) => {
     if (this.state.closeError) {
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return { closeError: !prevState.closeError };
       });
     }
@@ -123,23 +123,23 @@ class Signup extends Component {
     let formBlock;
     let disableButton = false;
     const checkBoxElementConfig = {
-      type: 'checkbox'
+      type: "checkbox",
     };
     const formElementsArray = [];
     for (let key in this.state.signupForm) {
       formElementsArray.push({
         id: key,
-        config: this.state.signupForm[key]
+        config: this.state.signupForm[key],
       });
     }
-    formElementsArray.map(element => {
+    formElementsArray.map((element) => {
       if (!element.config.valid) {
         disableButton = true;
       }
       return disableButton;
     });
 
-    let form = formElementsArray.map(formElement => (
+    let form = formElementsArray.map((formElement) => (
       <Wrapper key={formElement.id}>
         <Input
           elementType={formElement.config.elementType}
@@ -148,7 +148,7 @@ class Signup extends Component {
           invalid={!formElement.config.valid}
           shouldValidate={formElement.config.validation}
           touched={formElement.config.touched}
-          changed={event => this.inputChangeHandler(event, formElement.id)}
+          changed={(event) => this.inputChangeHandler(event, formElement.id)}
         />
       </Wrapper>
     ));
@@ -166,9 +166,9 @@ class Signup extends Component {
                 <Input
                   elementType="checkbox"
                   elementConfig={checkBoxElementConfig}
-                  changed={e => this.checkClickedHandler(e)}
+                  changed={(e) => this.checkClickedHandler(e)}
                 />
-                I have read and accept{' '}
+                I have read and accept{" "}
                 <NavLink to="#">Terms and conditions</NavLink>
               </div>
               <Button disabled={disableButton}>SIGN UP</Button>
@@ -177,7 +177,7 @@ class Signup extends Component {
         </div>
         <div className={classes.Actions}>
           <span>
-            Already have an account?{' '}
+            Already have an account?{" "}
             <NavLink to="/login">
               <strong>Log in</strong>
             </NavLink>
@@ -190,6 +190,8 @@ class Signup extends Component {
     }
     let authRedirect = null;
     if (this.props.isAuthenticated) {
+      console.log("history", this.props.history);
+
       authRedirect = <Redirect to={this.props.authRedirectPath} />;
     }
 
@@ -209,21 +211,20 @@ class Signup extends Component {
   }
 }
 
-const maStateToProps = state => {
+const maStateToProps = (state) => {
   return {
     loading: state.register.loading,
     error: state.register.error,
     isAuthenticated: state.register.token !== null,
-    authRedirectPath: state.register.authRedirectPath
+    authRedirectPath: state.register.authRedirectPath,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onRegister: (username, email, password) =>
       dispatch(actions.register(username, email, password)),
-    onSetAuthRedirect: () =>
-      dispatch(actions.setAuthRedirectPath('/SingleArticle'))
+    // onSetAuthRedirect: () => dispatch(actions.setAuthRedirectPath("")),
   };
 };
 
