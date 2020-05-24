@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import moment from "moment";
@@ -18,11 +17,7 @@ class Article extends Component {
       state: { articleId },
     });
     this.props.onSetRedirectPath();
-  };
-
-  setRedirectUrl = (articleId) => {
-    this.props.onSetRedirectPath(articleId);
-  };
+  }
 
   render() {
     const { article = {} } = this.props;
@@ -47,12 +42,6 @@ class Article extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    redirectUrl: state.login.authRedirectPath,
-  };
-};
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetRedirectPath: () =>
@@ -61,5 +50,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Article)
+  connect(null, mapDispatchToProps)(Article)
 );

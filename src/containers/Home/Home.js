@@ -28,7 +28,6 @@ class Home extends Component {
 
     if (!category.length) {
       fetchedCategories = <Spinner />;
-      // articleSliders = <Spinner />;
     }
     if (categories !== undefined) {
       articleSliders = <ArticleSliders articles={categories[0].articles} />;

@@ -107,9 +107,6 @@ class Signup extends Component {
       this.setState({ closeError: true });
     }
   }
-  // componentDidMount() {
-  //   this.props.onSetAuthRedirect();
-  // }
   closeErrorHandler = (e) => {
     if (this.state.closeError) {
       this.setState((prevState) => {
@@ -132,7 +129,7 @@ class Signup extends Component {
         config: this.state.signupForm[key],
       });
     }
-    formElementsArray.map((element) => {
+    formElementsArray.map((element) => { 
       if (!element.config.valid) {
         disableButton = true;
       }
@@ -190,9 +187,8 @@ class Signup extends Component {
     }
     let authRedirect = null;
     if (this.props.isAuthenticated) {
-      console.log("history", this.props.history);
 
-      authRedirect = <Redirect to={this.props.authRedirectPath} />;
+      authRedirect = <Redirect to='/' />;
     }
 
     return (
@@ -216,7 +212,6 @@ const maStateToProps = (state) => {
     loading: state.register.loading,
     error: state.register.error,
     isAuthenticated: state.register.token !== null,
-    authRedirectPath: state.register.authRedirectPath,
   };
 };
 
@@ -224,7 +219,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onRegister: (username, email, password) =>
       dispatch(actions.register(username, email, password)),
-    // onSetAuthRedirect: () => dispatch(actions.setAuthRedirectPath("")),
   };
 };
 

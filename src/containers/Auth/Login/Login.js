@@ -57,9 +57,6 @@ class Login extends Component {
       this.setState({ closeError: true });
     }
   }
-  componentDidMount() {
-    this.props.onSetAuthRedirect();
-  }
 
   inputChangeHandler = (event, inputName) => {
     const updatedInputs = updatedObject(this.state.loginForm, {
@@ -151,7 +148,7 @@ class Login extends Component {
     }
     let authRedirect = null;
     if (this.props.isAuthenticated) {
-      authRedirect = <Redirect to={this.props.authRedirectPath} />;
+      authRedirect = <Redirect to='/' />;
     }
     return (
       <div className={styles.Auth} onClick={this.closeErrorHandler}>
@@ -174,14 +171,12 @@ const maStateToProps = (state) => {
     loading: state.login.loading,
     error: state.login.error,
     isAuthenticated: state.login.token !== null,
-    authRedirectPath: state.login.authRedirectPath,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogin: (email, password) => dispatch(actions.login(email, password)),
-    onSetAuthRedirect: () => dispatch(actions.setAuthRedirectPath("")),
   };
 };
 

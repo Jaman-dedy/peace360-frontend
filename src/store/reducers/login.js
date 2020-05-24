@@ -1,13 +1,7 @@
-import * as actionTypes from '../actions/actionTypes';
-import { updatedObject } from '../../shared/utility';
-
-const initialState = {
-  token: null,
-  userId: null,
-  error: null,
-  loading: false,
-  authRedirectPath: '/'
-};
+import * as actionTypes from "../actions/actionTypes";
+import { updatedObject } from "../../shared/utility";
+import initialState from "./initialState";
+import logout from "./logout";
 
 const loginStart = (state, action) => {
   return updatedObject(state, { error: null, loading: true });
@@ -18,19 +12,19 @@ const loginSuccess = (state, action) => {
     token: action.token,
     userId: action.userId,
     error: null,
-    loading: false
+    loading: false,
   });
 };
 
 const loginFail = (state, action) => {
   return updatedObject(state, {
     error: action.error,
-    loading: false
+    loading: false,
   });
 };
 
 const authLogout = (state, action) => {
-  return updatedObject(state, { token: null, userId: null });
+  return logout(state, action);
 };
 
 const setAuthRedirectPath = (state, action) => {
