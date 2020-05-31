@@ -5,7 +5,7 @@ const instance = axios.create({
 
   headers: {
     'x-auth-token': localStorage.getItem('token'),
-    'Content-Type': 'multipart/form-data',
+    'Content-Type': 'application/json',
     'Accept': 'application/json'
   },
 });

@@ -1,4 +1,5 @@
 import axiosOrders from '../../axios/axios-orders';
+import axios from 'axios'
 
 import * as actionTypes from './actionTypes';
 
@@ -60,8 +61,7 @@ export const editUserPic = (avatar) => {
   return async (dispatch) => {
     dispatch(editUserPicStart());
     try {
-      const response = await axiosOrders.put(`users/updateImage`, avatar);
-      console.log("response", response);
+      const response = await axiosOrders.put(`users/updateImage`, {avatar});
       dispatch(editUserPicSuccess(response));
     } catch ({ response }) {
       dispatch(editUserPicFail(response));

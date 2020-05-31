@@ -223,7 +223,7 @@ class EditProfile extends Component {
       displayEditImage: false,
       displaySaveImage: false
     });
-    editUserPics("url here there");
+    editUserPics(userImageUrl);
   }
 
   onCloseError = () => {
