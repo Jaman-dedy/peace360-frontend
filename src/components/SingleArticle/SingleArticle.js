@@ -30,7 +30,6 @@ class SingleArticle extends Component {
     }
   }
   render() {
-    console.log("here");
     let createArticleLink = "";
     const { article = {} } = this.props;
     let user;

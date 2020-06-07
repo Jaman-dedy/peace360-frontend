@@ -9,13 +9,7 @@ import * as actions from "../../../../../store/actions/index";
 import experienceImg from "../../../../../assets/images/peace-in-africa.jpg";
 
 class Article extends Component {
-  redirectUserHandler = (articleId) => {
-    this.props.history.replace({
-      pathname: "/singleArticle",
-      search: "?id = articleId",
-      hash: "#hash",
-      state: { articleId },
-    });
+  redirectUserHandler = () => {
     this.props.onSetRedirectPath();
   };
 
@@ -28,7 +22,13 @@ class Article extends Component {
     const articlePhotoCover = coverPhoto ? coverPhoto : experienceImg;
 
     return (
-      <Link onClick={() => this.redirectUserHandler(articleId)}>
+      <Link
+        to={{
+          pathname: "/singleArticle",
+          state: { articleId },
+        }}
+        onClick={() => this.redirectUserHandler()}
+      >
         <div className={classes.Article}>
           <div className={classes.CoverPhoto}>
             <img src={articlePhotoCover} alt="experience" />

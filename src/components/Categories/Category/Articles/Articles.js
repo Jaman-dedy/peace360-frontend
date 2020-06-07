@@ -6,13 +6,7 @@ class Articles extends Component {
   render() {
     const { articles } = this.props;
     const foundArticle = articles.map((fArticles) => {
-      return (
-        <Article
-          key={fArticles._id}
-          article={fArticles}
-          history={this.props.history}
-        />
-      );
+      return <Article key={fArticles._id} article={fArticles} />;
     });
     return (
       <div id={"articles" + this.props.id} className={classes.Articles}>
