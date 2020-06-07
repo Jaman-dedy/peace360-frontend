@@ -17,7 +17,7 @@ class Article extends Component {
       state: { articleId },
     });
     this.props.onSetRedirectPath();
-  }
+  };
 
   render() {
     const { article = {} } = this.props;
@@ -28,7 +28,7 @@ class Article extends Component {
     const articlePhotoCover = coverPhoto ? coverPhoto : experienceImg;
 
     return (
-      <a onClick={() => this.redirectUserHandler(articleId)}>
+      <Link onClick={() => this.redirectUserHandler(articleId)}>
         <div className={classes.Article}>
           <div className={classes.CoverPhoto}>
             <img src={articlePhotoCover} alt="experience" />
@@ -38,7 +38,7 @@ class Article extends Component {
             {user.username}, {timeAgo} | &#128338; 4 min to read
           </div>
         </div>
-      </a>
+      </Link>
     );
   }
 }
@@ -49,6 +49,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default withRouter(
-  connect(null, mapDispatchToProps)(Article)
-);
+export default withRouter(connect(null, mapDispatchToProps)(Article));
