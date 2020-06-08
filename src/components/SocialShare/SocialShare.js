@@ -15,29 +15,28 @@ import {
 
 const socialShare = (props) => (
   <div className={classes.SocialShare}>
-    {console.log("props", props)}
     <div className={classes.Icon}>
-      <FacebookShareButton url={props.shareUrl}>
+      <FacebookShareButton url={props.url + props.articleId}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>
     </div>
     <div className={classes.Icon}>
-      <TwitterShareButton>
+      <TwitterShareButton url={props.url + props.articleId}>
         <TwitterIcon size={32} round />
       </TwitterShareButton>
     </div>
     <div className={classes.Icon}>
-      <LinkedinShareButton>
+      <LinkedinShareButton url={props.url + props.articleId}>
         <LinkedinIcon size={32} round />
       </LinkedinShareButton>
     </div>
     <div className={classes.Icon}>
-      <WhatsappShareButton>
+      <WhatsappShareButton url={props.url + props.articleId}>
         <WhatsappIcon size={32} round />
       </WhatsappShareButton>
     </div>
     <div className={classes.Icon}>
-      <EmailShareButton>
+      <EmailShareButton url={props.url + props.articleId}>
         <EmailIcon size={32} round />
       </EmailShareButton>
     </div>

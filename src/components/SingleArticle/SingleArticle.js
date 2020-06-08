@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
-import "dotenv/config";
 import "./Article/Article.scss";
 import Layout from "../../hoc/Layout/Layout";
 import Wrapper from "../../hoc/Wrapper/Wrapper";
@@ -38,7 +36,7 @@ class SingleArticle extends Component {
     let articleId;
 
     let comments;
-    const url = "www.peace360maker.com";
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     let coverPhoto = null;
     let tags = null;
     let displaySingleArticle = null;
@@ -93,10 +91,8 @@ class SingleArticle extends Component {
             {article && article.Subtitle}
           </div>
           {followUserComponent}
-          {console.log("process.env.APP_URI", process.env.APP_URI)}
-          <SocialShare
-            shareUrl={process.env.APP_URI + article && article._id}
-          />
+          {console.log("process.env.APP_URI", BASE_URL)}
+          <SocialShare url={BASE_URL} articleId={article && article._id} />
           {displaySingleArticle}
           {tags &&
             tags.map((tag, index) => {

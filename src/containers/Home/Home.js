@@ -10,6 +10,7 @@ import AuthenticationAction from "../../components/AuthenticationAction/Authenti
 import Layout from "../../hoc/Layout/Layout";
 import AuthenticatedUser from "../../components/AuthenticatedUser/AuthenticatedUser";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import HomePlaceHolder from "../../components/PlaceHolders/Home";
 
 class Home extends Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ class Home extends Component {
     const history = this.props.history;
 
     if (!category.length) {
-      fetchedCategories = <Spinner />;
+      fetchedCategories = <HomePlaceHolder />;
     }
     if (categories !== undefined) {
       articleSliders = <ArticleSliders articles={categories[0].articles} />;
