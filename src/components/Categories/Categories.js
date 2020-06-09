@@ -1,8 +1,6 @@
 import React from "react";
 import Category from "./Category/Category";
-import { Button } from "semantic-ui-react";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import HomePlaceHolder from "../../components/PlaceHolders/Home/index";
 
 import CategoryPagination from "./Category/Pagination/CategoryPagination";
 import classes from "./Categories.module.scss";
@@ -14,9 +12,7 @@ const categories = (props) => {
   const category = props.categories.categories;
 
   if (!category) {
-    //Category and pagination are fetched at the same time
-    foundCategories = <HomePlaceHolder />;
-    // categoryPagination = <Spinner />;
+    foundCategories = <Spinner />;
   } else {
     foundCategories = category.map((fetchedCategory) => {
       return (
@@ -34,8 +30,6 @@ const categories = (props) => {
   return (
     <div className={classes.Categories}>
       {foundCategories}
-      <Button>Yes here</Button>
-      <HomePlaceHolder />
       {categoryPagination}
     </div>
   );

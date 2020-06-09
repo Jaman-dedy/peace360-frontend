@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import Select from 'react-select';
-import { stateToHTML } from 'draft-js-export-html';
+import React, { Component } from "react";
+import { NavLink, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import Select from "react-select";
+import { stateToHTML } from "draft-js-export-html";
+import ReactDOM from "react-dom";
+import { WithContext as ReactTags } from "react-tag-input";
 
-import Toolbar from '../../Menu/Toolbar/Toolbar';
-import TextareaAutoSize from 'react-textarea-autosize';
-import textConfig from '../../../helpers/textConfig.json';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import './Article.scss';
-import * as actions from '../../../store/actions/index';
-import {initImageUpload, initDropEffect} from '../../../shared/utility'
-import Spinner from '../../UI/Spinner/Spinner'
-import './uploadImage.scss'
+import Toolbar from "../../Menu/Toolbar/Toolbar";
+import TextareaAutoSize from "react-textarea-autosize";
+import textConfig from "../../../helpers/textConfig.json";
+import { EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./Article.scss";
+import * as actions from "../../../store/actions/index";
+import { initImageUpload, initDropEffect } from "../../../shared/utility";
+import Spinner from "../../UI/Spinner/Spinner";
+import "./uploadImage.scss";
 
+const KeyCodes = {
+  comma: 188,
+  enter: 13,
+};
 
-const options = [
-  { value: 'peace', label: 'peace' },
-  { value: 'Youth and peace', label: 'Youth and peace' },
-  { value: 'Sustainability', label: 'Sustainability' },
-  { value: 'modern societies', label: 'modern societies' }
-];
-
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 const customStyles = {
   control: () => ({
-    fontSize: 15
+    fontSize: 15,
   }),
   dropdownIndicator: (provided, state) => {
     const opacity = 0;
@@ -41,36 +41,85 @@ const customStyles = {
     return { ...provided, opacity };
   },
   menuList: (provided, state) => {
-    const width = '170px';
-    const fontSize = '15px';
+    const width = "170px";
+    const fontSize = "15px";
     return { ...provided, width, fontSize };
   },
   menu: (provided, state) => {
-    const width = '170px';
-    const fontSize = '15px';
+    const width = "170px";
+    const fontSize = "15px";
     return { ...provided, width, fontSize };
   },
   container: (provided, state) => {
-    const paddingTop = '10px';
+    const paddingTop = "10px";
     return { ...provided, paddingTop };
-  }
+  },
 };
 class NewArticle extends Component {
   state = {
     editorState: EditorState.createEmpty(),
     formIsValid: false,
-    title: '',
-    subtitle: '',
-    redirect: '/createArticle',
+    title: "",
+    subtitle: "",
+    redirect: "/createArticle",
     categoryId: null,
-    hasPosted: false
-
+    hasPosted: false,
+    tag: null,
+    tags: [
+      { id: "Thailand", text: "Thailand" },
+      { id: "India", text: "India" },
+    ],
+    suggestions: [
+      { id: "USA", text: "USA" },
+      { id: "Germany", text: "Germany" },
+      { id: "Austria", text: "Austria" },
+      { id: "Costa Rica", text: "Costa Rica" },
+      { id: "Sri Lanka", text: "Sri Lanka" },
+      { id: "Thailand", text: "Thailand" },
+    ],
   };
 
-  
+  handleDelete = (i) => {
+    const { tags } = this.state;
+    this.setState({
+      tags: tags.filter((tag, index) => index !== i),
+    });
+  };
+  handleDrag = (tag, currPos, newPos) => {
+    const tags = [...this.state.tags];
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    this.setState({ tags: newTags });
+  };
+
+  handleAddition = (tag) => {
+    this.setState((state) => ({ tags: [...state.tags, tag] }));
+  };
   onEditorStateChange = (editorState) => {
     this.setState({ editorState });
   };
+  onChangeHandler = (e) => {
+    const value = e.target.value;
+    this.setState({
+      ...this.state,
+      [e.target.name]: value,
+    });
+  };
+  onKeyPressHandler = (e) => {
+    console.log("e.key", e.key);
+    let tagArray = [];
+    if (e.key === "Enter") {
+      tagArray.push(e.target.value);
+      this.setState({
+        tags: tagArray,
+      });
+    }
+  };
+
   inputTitleChangeHandler = (event) => {
     this.setState({ title: event.target.value });
   };
@@ -78,36 +127,30 @@ class NewArticle extends Component {
     this.setState({ subtitle: event.target.value });
   };
   uploadImgInputHandler = (event) => {
-
-    this.props.onUploadImg(event.target.files[0])
-   
-  }
-  handleChange = selectedOption => {
-  
-    this.setState({ selectedOption });
-  
+    this.props.onUploadImg(event.target.files[0]);
   };
-  componentDidMount(){
+  // handleChange = (selectedOption) => {
+  //   this.setState({ selectedOption });
+  // };
+  componentDidMount() {
     this.setState({
-      hasPosted: false
-    })
+      hasPosted: false,
+    });
   }
   selectedOptionHandler = (event) => {
     event.preventDefault();
-  
-    this.setState({ categoryId: event.target.value}) 
 
-
-  }
- submitArticleHandler =  (event) => {
+    this.setState({ categoryId: event.target.value });
+  };
+  submitArticleHandler = (event) => {
     event.preventDefault();
-    let tags = []
-  
-    this.state.selectedOption.map(tag => {
-     return tags.push(tag.value)
-    })
-  
-    const { imgUrl } = this.props.uploadImg
+    // let tags = [];
+
+    // this.state.selectedOption.map((tag) => {
+    //   return tags.push(tag.value);
+    // });
+
+    const { imgUrl } = this.props.uploadImg;
 
     const body = stateToHTML(this.state.editorState.getCurrentContent());
     this.props.onPostArticle(
@@ -115,50 +158,51 @@ class NewArticle extends Component {
       this.state.subtitle,
       this.state.categoryId,
       imgUrl,
-      body,
-      tags
+      body
     );
-    this.setState({ editorState: '', title: '', redirect: '' });
-    this.setState({ hasPosted: true})
+    this.setState({ editorState: "", title: "", redirect: "" });
+    this.setState({ hasPosted: true });
   };
   render() {
-       // initialize box-scope
-       var boxes = document.querySelectorAll('.boxImg');
-       let redirect;
-       let articleId;
-       const { article } = this.props
-       
-       if(!article && this.state.hasPosted){
-         redirect = (<Spinner/>)
-         console.log('article :>> ');
-       } else if(article){
-         console.log('yeaaaaa :>> ');
-           articleId = article._id
-       return <Redirect
-       to={{
-        pathname: "/SingleArticle",
-        search: '?id = articleId',
-        hash: '#hash',
-        state: { articleId },
-      }}
-       />
-       }
-      
-          
-       for (let i = 0; i < boxes.length; i++) {
-         let box = boxes[i];
-         initDropEffect(box);
-         initImageUpload(box);
-       }
+    // initialize box-scope
+    console.log("this.state.tags", this.state.tags);
+    const { tags, suggestions } = this.state;
+    var boxes = document.querySelectorAll(".boxImg");
+    let redirect;
+    let articleId;
+    const { article } = this.props;
+
+    if (!article && this.state.hasPosted) {
+      redirect = <Spinner />;
+      console.log("article :>> ");
+    } else if (article) {
+      console.log("yeaaaaa :>> ");
+      articleId = article._id;
+      return (
+        <Redirect
+          to={{
+            pathname: "/SingleArticle",
+            search: "?id = articleId",
+            hash: "#hash",
+            state: { articleId },
+          }}
+        />
+      );
+    }
+
+    for (let i = 0; i < boxes.length; i++) {
+      let box = boxes[i];
+      initDropEffect(box);
+      initImageUpload(box);
+    }
     const { selectedOption } = this.state;
     const { editorState } = this.state;
-    const { categories } = this.props.categories
+    const { categories } = this.props.categories;
 
     return (
       <div>
         {/* <Redirect to={this.state.redirect} /> */}
-       
-     
+
         <div className="createArticle">
           <div className="menu">
             <Toolbar />
@@ -196,44 +240,54 @@ class NewArticle extends Component {
                   />
                 </div>
                 <div className="tags">
-                  <label htmlFor="">Add a tag</label>
-                  <Select
-                    value={selectedOption}
-                    onChange={this.handleChange}
-                    options={options}
-                    isMulti
-                    isSearchable
-                    styles={customStyles}
+                  <label> Add a tag</label>
+                  <ReactTags
+                    tags={tags}
+                    suggestions={suggestions}
+                    handleDelete={this.handleDelete}
+                    handleAddition={this.handleAddition}
+                    handleDrag={this.handleDrag}
+                    delimiters={delimiters}
                   />
                 </div>
                 <div className="category">
                   <label> Select a category</label>
-                  
-                  <select onChange={this.selectedOptionHandler} value={this.state.categoryId} >
-                  <option value="0" disabled selected="selected">Select a category</option>
-                    {categories.map(category => (
-                      <option value={category._id}  >{category.categoryTitle} </option>
+
+                  <select
+                    onChange={this.selectedOptionHandler}
+                    value={this.state.categoryId}
+                  >
+                    <option value="0" disabled selected="selected">
+                      Select a category
+                    </option>
+                    {categories.map((category) => (
+                      <option value={category._id}>
+                        {category.categoryTitle}{" "}
+                      </option>
                     ))}
-                    
                   </select>
                 </div>
-              
-                 <label className='chooseImage left font-color'>
-                    Choose cover Image
-                  </label>
+
+                <label className="chooseImage left font-color">
+                  Choose cover Image
+                </label>
 
                 <div class="wrapperImg">
                   <div class="boxImg">
                     <div class="js--image-preview"></div>
                     <div class="upload-options">
                       <label>
-                        <input value={this.state.image} type="file" class="image-upload" accept="image/*" onChange={this.uploadImgInputHandler} />
+                        <input
+                          value={this.state.image}
+                          type="file"
+                          class="image-upload"
+                          accept="image/*"
+                          onChange={this.uploadImgInputHandler}
+                        />
                       </label>
                     </div>
                   </div>
-
                 </div>
-
 
                 <div className="editor font-color">
                   <Editor
@@ -243,12 +297,11 @@ class NewArticle extends Component {
                     placeholder="Body of the article..."
                   />
                 </div>
-                  {redirect}
+                {redirect}
 
                 <div className="btn">
                   <button type="submit">Submit</button>
                 </div>
-              
               </div>
             </form>
           </div>
@@ -259,18 +312,20 @@ class NewArticle extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     categories: state.categories,
     uploadImg: state.uploadImg,
-    article: state.postArticle.article
-  }
-}
+    article: state.postArticle.article,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onPostArticle: (title, subtile, categoryId, coverPhoto, body, tags) =>
-      dispatch(actions.postArticle(title, subtile, categoryId, coverPhoto, body, tags)),
-      onUploadImg:(imgFile) => dispatch(actions.uploadImg(imgFile))
+      dispatch(
+        actions.postArticle(title, subtile, categoryId, coverPhoto, body, tags)
+      ),
+    onUploadImg: (imgFile) => dispatch(actions.uploadImg(imgFile)),
   };
 };
 
