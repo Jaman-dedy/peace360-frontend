@@ -23,12 +23,12 @@ export const fetchCurrentUserStart = () => {
   };
 };
 
-export const fetchCurrentUser = () => {
+export const fetchCurrentUser = (cb) => {
   return async dispatch => {
     dispatch(fetchCurrentUserStart());
     try {
       const response = await axiosOrders.get('auth');
-      // cb(response.data.user);
+      cb(response.data.user);
       dispatch(fetchCurrentUserSuccess(response.data.user));
     } catch ({ response }) {
       dispatch(fetchCurrentUserFail(response));

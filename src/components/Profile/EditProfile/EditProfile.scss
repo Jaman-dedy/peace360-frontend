@@ -15,6 +15,7 @@ $danger: #f76060;
 $base-color: #3e515f;
 $base-font: 'Raleway', sans-serif;
 
+
 @media screen and (min-width:250px) and (max-width: 500px){
   .editProfileLink {
     color: $main-color;
@@ -494,46 +495,39 @@ $base-font: 'Raleway', sans-serif;
           margin: 20px;
           border-bottom: 1px solid $clean-blue;
         }
-        .image_container {
-          margin: auto;
-          position: relative;
-          width: 20%;
-          height: 20%;
-          overflow: hidden;
-          img {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+        .image{
+          .image-upload{
+            border: 1px solid $clean-blue;
+            width: 50%;
+            float: left;
+            margin-left: 6rem;
           }
-          .update_image{
-            background-color: red;
-            i{
-              margin: 5rem 6rem;
-              position: absolute;
-              float: right;
-              overflow: hidden;
-              color: $main-color;
-            }
-            i:hover, i:focus{
-              cursor: pointer;
-              color: $main-hover;
+          .saveImage{
+            margin-left: 3rem;
+            padding: 2px;
+            background-color: $main-color;
+            color: $white;
+            width: 10%;
+            float: left;
+            text-align: center;
+          }
+          .image_container {
+            margin: auto;
+            position: relative;
+            width: 20%;
+            height: 20%;
+            overflow: hidden;
+            
+            img {
+              object-fit: cover;
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
             }
           }
           
         }
-        .editIcon {
-          position: absolute;
-          margin: 77% 0 0 79%;
-          font-size: 15px;
-          color: white;
-          background-color: $main-color;
-          padding: 8px;
-          border-radius: 50%;
-        }
-        .editIcon:hover {
-          background-color: $primary-color;
-        }
+        
         fieldset {
           padding: 0 10px 5px 10px;
         }

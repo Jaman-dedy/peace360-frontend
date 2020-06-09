@@ -27,9 +27,7 @@ export const fetchProfileUser = (id, cb) => {
     dispatch(fetchProfileUserStart());
     try {
       const response = await axiosOrders.get(`profile/${id}`);
-      console.log('response.data', response.data)
       cb(response.data);
-      
       dispatch(fetchProfileUserSuccess(response.data.profile));
     } catch ({ response }) {
       cb(response);

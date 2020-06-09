@@ -31,9 +31,8 @@ const editUserPicStart = (state, action) => {
 };
 
 const editUserPicSuccess = (state, action) => {
-  console.log("action", action);
   return updatedObject(state, {
-    user: action.user,
+    user: action.user.data.data,
     error: null,
     loading: false,
   });

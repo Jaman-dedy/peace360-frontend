@@ -212,7 +212,7 @@ class EditProfile extends Component {
   uploadUserPP = (event) => {
     this.setState({
       displaySaveImage: true,
-      displayEditImage:false
+      displayEditImage:true
     })
     this.props.onUploadImg(event.target.files[0]); 
   }
@@ -350,23 +350,23 @@ class EditProfile extends Component {
                   <div className='form'>
                     <div className='row image'>
                       <div className='image_container'>
-                        <div className='update_image' onClick={this.updateImage}>
-                          <i className='fas fa-pencil-alt'></i>
-                        </div>
-                        <img src={newUser.avatar} alt='' className='boxContent' />
+                        <img src={newUser.avatar} alt='' className='boxContent' onClick={this.updateImage}/>
                       </div>
                       {
-                        this.state.displayEditImage?(<div>
+                        this.state.displayEditImage ?(<div>
                           <input value={this.state.image} type="file" className="image-upload" accept="image/*" onChange={this.uploadUserPP} />
+                          <div onClick={this.onSaveImage} className="saveImage">
+                            save
+                          </div>
                          </div>):null
                       }
-                      {
+                      {/* {
                         this.state.displaySaveImage?(
                           <div onClick={this.onSaveImage}>
                             save image
                           </div>
                         ):null
-                      }
+                      } */}
                       <div>
                  </div>
                     </div>

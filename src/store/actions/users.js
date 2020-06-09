@@ -25,10 +25,7 @@ export const editUserPicSuccess = (profile) => {
     return async (dispatch) => {
       dispatch(editUserPicStart());
       try {
-        console.log("here there this", avatar);
         const response = await axiosOrders.put(`users/updateImage`, avatar);
-        console.log(response);
-        // cd(response);
       } catch ({ response }) {
         dispatch(editUserPicFail(response));
       }
