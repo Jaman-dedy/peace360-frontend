@@ -5,7 +5,16 @@ $tablets-landscape: 1024px;
 $mobile: 375px;
 $mobile-landscape: 425px;
 $mall-mobile: 320px;
-
+// @import "../../mixins";@include respond-to(tablets) {
+//   margin: 0;
+//   height: 51.25rem;
+//   display: grid;
+//   grid-template-areas:
+//     "auth-left-side auth-left-side "
+//     "auth-right-side auth-right-side";
+//   grid-template-rows: 35% 65%;
+//   overflow: hidden;
+// }
 @mixin respond-to($media) {
   @if $media == largeDesktop {
     @media only screen and (min-width: $large-desktop) {

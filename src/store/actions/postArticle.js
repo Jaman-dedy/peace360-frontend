@@ -30,8 +30,8 @@ export const postArticleFail = (error) => {
 };
 
 export const postArticle = (title, subtitle, categoryId, coverPhoto, body, tags) => {
-  
- 
+
+
   return (dispatch) => {
     dispatch(postArticleStart());
     const articleData = {
@@ -41,15 +41,17 @@ export const postArticle = (title, subtitle, categoryId, coverPhoto, body, tags)
       coverPhoto,
       text: body,
       tags: tags,
-     
+
     };
-  
+
     axiosOrders
       .post('article', articleData)
       .then((response) => {
         dispatch(postArticleSuccess(response.data));
       })
-      .catch(({ response }) => {
+      .catch(({
+        response
+      }) => {
         dispatch(postArticleFail(response.data.error));
       });
 
