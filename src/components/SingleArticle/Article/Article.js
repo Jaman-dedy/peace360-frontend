@@ -198,12 +198,6 @@ class NewArticle extends Component {
     const {
       imgUrl
     } = this.props.uploadImg;
-    // const newTags = this.state.tags.map(tag => {
-    //   return {
-    //     value: tag.id,
-    //     label: tag.text
-    //   }
-    // })
 
     const body = stateToHTML(this.state.editorState.getCurrentContent());
     this.props.onPostArticle(
