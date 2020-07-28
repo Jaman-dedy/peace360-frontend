@@ -1,0 +1,66 @@
+.profile-row {
+  justify-content: center;
+  text-align: center;
+}
+
+.profile-row .profile-container {
+  padding: 20px;
+  //   margin: 10px;
+  border: 1px solid #eeeeee;
+}
+
+.profile-row .image-row img {
+  border-radius: 50%;
+  width: 14%;
+  justify-content: center;
+}
+
+.profile-row .followers-button a {
+  margin: 10px;
+  font-size: 15px;
+  //   box-shadow: none;
+  //   justify-content: space-between;
+}
+
+.profile-row .edit-button button {
+  margin: 10px;
+  font-size: 13px;
+  width: 20%;
+  height: auto;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.uploadImg-container {
+  // background-color: red;
+  flex: 0 0 50%;
+  max-width: 50%;
+  justify-content: center;
+  text-align: center;
+  padding: 70px;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.uploadImg-container .image-holder {
+  justify-content: center;
+}
+
+.uploadImg-container .image-holder img {
+  width: 170px;
+  height: 170px;
+  justify-content: center;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.uploadImg-container .input-form {
+  width: 100%;
+  margin: 5px;
+  padding: 5px;
+  // border-radius: 3px;
+}
+
+.uploadImg-container textarea {
+  padding: 20px;
+}

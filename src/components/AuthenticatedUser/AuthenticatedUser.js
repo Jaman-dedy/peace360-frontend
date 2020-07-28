@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import * as actions from "../../store/actions/index";
+import { fetchCurrentUser } from "../../store/actions";
+
 import Wrapper from "../../hoc/Wrapper/Wrapper";
 import classes from "./AuthenticatedUser.module.scss";
 
@@ -11,7 +13,7 @@ class AuthenticatedUser extends Component {
     this.props.onCheckAuthState();
   }
   render() {
-    const { user } = this.props.currentUser;
+    const { currentUser: user } = this.props;
     const currentUser = (
       <div className={classes.User}>
         <Link to="/profile">
@@ -46,7 +48,6 @@ class AuthenticatedUser extends Component {
         </div>
       </div>
     );
-    // const redirectPath = <Redirect to="/login" />;
     return <Wrapper>{currentUser}</Wrapper>;
   }
 }
@@ -55,13 +56,13 @@ const mapStateToProps = (state) => {
   return {
     loading: state.currentUser.loading,
     error: state.currentUser.error,
-    currentUser: state.currentUser,
+    currentUser: state.currentUser.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetUser: () => dispatch(actions.fetchCurrentUser()),
+    onGetUser: () => dispatch(fetchCurrentUser()),
     onCheckAuthState: () => dispatch(actions.loginCheckState()),
   };
 };

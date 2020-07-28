@@ -1,29 +1,29 @@
-import axiosOrders from '../../axios/axios-orders';
+import axiosOrders from "../../axios/axios-orders";
 
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
-export const fetchSingleArticleSuccess = article => {
+export const fetchSingleArticleSuccess = (article) => {
   return {
     type: actionTypes.FETCH_SINGLE_ARTICLE_SUCCESS,
-    article: article
+    article: article,
   };
 };
 
-export const fetchSingleArticleFail = error => {
+export const fetchSingleArticleFail = (error) => {
   return {
     type: actionTypes.FETCH_SINGLE_ARTICLE_FAIL,
-    error: error
+    error: error,
   };
 };
 
 export const fetchSingleArticleStart = () => {
   return {
-    type: actionTypes.FETCH_SINGLE_ARTICLE_START
+    type: actionTypes.FETCH_SINGLE_ARTICLE_START,
   };
 };
 
-export const fetchSingleArticle = articleId => {
-  return async dispatch => {
+export const fetchSingleArticle = (articleId) => {
+  return async (dispatch) => {
     dispatch(fetchSingleArticleStart());
     try {
       const response = await axiosOrders.get(`article/${articleId}`);

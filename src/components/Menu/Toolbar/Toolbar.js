@@ -1,14 +1,14 @@
-import React from 'react';
-import Search from '../../../containers/Search/Search';
-import classes from './Toolbar.module.scss';
-import './Menu_dropdown.scss';
-import MenuItems from '../MenuItems/MenuItems';
-import Logo from '../../Logo/Logo';
-import MenuDropDrown from '../MenuDropdown/MenuDropdown';
+import React from "react";
+import Search from "../../../containers/Search/Search";
+import classes from "./Toolbar.module.scss";
+import "./Menu_dropdown.scss";
+import MenuItems from "../MenuItems/MenuItems";
+import Logo from "../../Logo/Logo";
+import MenuDropDrown from "../MenuDropdown/MenuDropdown";
 
 class toolbar extends React.Component {
   state = {
-    dropdown: false
+    dropdown: false,
   };
   onDisplayMenu = () => {
     this.setState({ dropdown: !this.state.dropdown });
@@ -19,10 +19,10 @@ class toolbar extends React.Component {
       <nav className={classes.Toolbar}>
         <Logo />
         <MenuItems />
-        <div className='menu_list'>
-          <div className='dropdownMenu' onClick={this.onDisplayMenu}>
+        <div className="menu_list">
+          <div className="dropdownMenu" onClick={this.onDisplayMenu}>
             <div>
-              <i className='fas fa-bars'></i>
+              <i className="fas fa-bars"></i>
             </div>
 
             {dropdown ? (
@@ -33,7 +33,7 @@ class toolbar extends React.Component {
           </div>
         </div>
 
-        <Search />
+        <Search categories={this.props.categories} />
       </nav>
     );
   }

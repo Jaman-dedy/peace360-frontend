@@ -1,6 +1,6 @@
-import axiosOrders from '../../axios/axios-orders';
+import axiosOrders from "../../axios/axios-orders";
 
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
 export const fetchMyFollowingSuccess = (following) => {
   return {
@@ -26,10 +26,12 @@ export const fetchMyFollowing = () => {
   return async (dispatch) => {
     dispatch(fetchMyFollowingStart());
     try {
-      const response = await axiosOrders.get('users/followings');
-      dispatch(fetchMyFollowingSuccess(response ? response.data.myFollowings : null));
+      const response = await axiosOrders.get("users/followings");
+      dispatch(
+        fetchMyFollowingSuccess(response ? response.data.myFollowings : null)
+      );
     } catch ({ response }) {
-      dispatch(fetchMyFollowingFail( response ? response.data : null));
+      dispatch(fetchMyFollowingFail(response ? response.data : null));
     }
   };
 };

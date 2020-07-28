@@ -1,8 +1,9 @@
-import * as actionTypes from '../actions/actionTypes';
-import { updatedObject } from '../../shared/utility';
+import * as actionTypes from "../actions/actionTypes";
+import { updatedObject } from "../../shared/utility";
 
 const initialState = {
   msg: {},
+  followDetails: [],
   error: null,
   loading: false,
 };
@@ -16,6 +17,7 @@ const followUserSuccess = (state, action) => {
     msg: action.msg,
     error: null,
     loading: false,
+    followDetails: [...state.followDetails, action.msg.data],
   });
 };
 
@@ -28,6 +30,11 @@ const followUserFail = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.CLEAR_FOLLOW:
+      return {
+        ...state,
+        followDetails: [],
+      };
     case actionTypes.FOLLOW_USER_START:
       return followUserStart(state, action);
     case actionTypes.FOLLOW_USER_SUCCESS:
