@@ -48,3 +48,4 @@ package-lock.json
 
 #VScode configuration
 .vscode
+build/

@@ -19,6 +19,7 @@ class Home extends Component {
     this.props.onFetchMyFollowers();
     this.props.onFetchMyFollowing();
     this.props.onfetChCategories();
+    window.scrollTo(0, 0);
   }
   render() {
     let fetchedCategories = null;
@@ -36,7 +37,7 @@ class Home extends Component {
     fetchedCategories = <Categories categories={category} history={history} />;
 
     return (
-      <Layout>
+      <Layout categories={this.props.categories}>
         {this.props.isAuthenticated ? (
           <AuthenticatedUser />
         ) : (

@@ -1,6 +1,6 @@
-import axiosOrders from '../../axios/axios-orders';
+import axiosOrders from "../../axios/axios-orders";
 
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
 export const fetchProfileUserSuccess = (profile) => {
   return {
@@ -22,17 +22,13 @@ export const fetchProfileUserStart = () => {
   };
 };
 
-export const fetchProfileUser = (id, cb) => {
+export const fetchProfileUser = (id) => {
   return async (dispatch) => {
     dispatch(fetchProfileUserStart());
     try {
       const response = await axiosOrders.get(`profile/${id}`);
-      console.log('response.data', response.data)
-      cb(response.data);
-      
       dispatch(fetchProfileUserSuccess(response.data.profile));
     } catch ({ response }) {
-      cb(response);
       dispatch(fetchProfileUserFail(response));
     }
   };
@@ -58,11 +54,52 @@ export const editProfileUserStart = () => {
   };
 };
 
-export const editProfileUser = (body = {}, cd) => {
+export const editProfileUser = (userId, body = {}, cd) => {
+  const {
+    bio,
+    avatar,
+    address,
+    company,
+    facebook,
+    instagram,
+    linkedin,
+    location,
+    occupation,
+    twitter,
+    website,
+    youtube,
+  } = body;
+
+  const formData = new FormData();
+  if (bio !== null) formData.append("bio", bio);
+  if (address !== null) formData.append("address", address);
+  if (avatar !== null) formData.append("avatar", avatar);
+  if (company !== null) formData.append("company", company);
+  if (facebook !== null) formData.append("facebook", facebook);
+  if (instagram !== null) formData.append("instagram", instagram);
+  if (linkedin !== null) formData.append("linkedin", linkedin);
+  if (location !== null) formData.append("location", location);
+  if (occupation !== null) formData.append("occupation", occupation);
+  if (twitter !== null) formData.append("twitter", twitter);
+  if (website !== null) formData.append("website", website);
+  if (youtube !== null) formData.append("youtube", youtube);
+
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      authorization: token,
+      "content-type": "multipart/form-data",
+    },
+  };
+
   return async (dispatch) => {
     dispatch(editProfileUserStart());
     try {
-      const response = await axiosOrders.put(`profile/edit`, body);
+      const response = await axiosOrders.put(
+        `profile/edit/${userId}`,
+        formData,
+        config
+      );
 
       cd(response);
       dispatch(editProfileUserSuccess(response.data.profile));

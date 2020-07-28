@@ -4,8 +4,8 @@
   width: 15rem;
   display: grid;
   grid-template-areas:
-    'user-avatar user-name follow-user'
-    'user-avatar article-detail article-detail';
+    "user-avatar user-name follow-user"
+    "user-avatar article-detail article-detail";
 }
 .Avatar {
   grid-area: user-avatar;

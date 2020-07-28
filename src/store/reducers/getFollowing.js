@@ -1,5 +1,5 @@
-import * as actionTypes from '../actions/actionTypes';
-import { updatedObject } from '../../shared/utility';
+import * as actionTypes from "../actions/actionTypes";
+import { updatedObject } from "../../shared/utility";
 
 const initialState = {
   followings: [],
@@ -28,6 +28,11 @@ const fetchMyFollowingFail = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.CLEAR_FOLLOW:
+      return {
+        ...state,
+        followings: [],
+      };
     case actionTypes.FETCH_FOLLOWING_START:
       return fetchMyFollowingStart(state, action);
     case actionTypes.FETCH_FOLLOWING_FAIL:

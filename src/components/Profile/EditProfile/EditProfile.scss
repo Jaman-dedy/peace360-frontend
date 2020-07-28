@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 $main-color: rgb(62, 81, 95);
 $main-hover: rgb(36, 46, 53);
 $font-color: #555353;
@@ -13,9 +13,9 @@ $grey: #a2a4a5;
 $brighter: #cacfd1;
 $danger: #f76060;
 $base-color: #3e515f;
-$base-font: 'Raleway', sans-serif;
+$base-font: "Raleway", sans-serif;
 
-@media screen and (min-width:250px) and (max-width: 500px){
+@media screen and (min-width: 250px) and (max-width: 500px) {
   .editProfileLink {
     color: $main-color;
     float: right;
@@ -75,7 +75,7 @@ $base-font: 'Raleway', sans-serif;
       cursor: pointer;
       background-color: $main-hover;
     }
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     .menu {
       margin: 3rem 0;
       position: relative;
@@ -97,19 +97,18 @@ $base-font: 'Raleway', sans-serif;
     .edit_container {
       width: 54%;
       margin: 10% 18% 0 3%;
-      .title{
+      .title {
         font-size: 25px;
         color: $main-color;
-
       }
-      .title:hover{
+      .title:hover {
         cursor: pointer;
       }
       .form {
         font-size: 15px;
-        .row{
-          .box{
-            width:100%;
+        .row {
+          .box {
+            width: 100%;
           }
         }
         .diviser {
@@ -184,7 +183,7 @@ $base-font: 'Raleway', sans-serif;
               width: 92%;
             }
             input {
-              width: 82%;
+              // width: 82%;
               padding: 5px 10px;
 
               background-color: rgb(233, 231, 231);
@@ -201,11 +200,29 @@ $base-font: 'Raleway', sans-serif;
         }
       }
     }
-  } 
+  }
+}
+#input[type="file"] {
+  display: none;
+}
+.lebel {
+  // border: 2px red solid;
+  margin-bottom: 30px;
+  padding-bottom: 40%;
+  position: absolute;
+  top: 45%;
+  left: 43%;
+  bottom: 60%;
+}
+.lebel .fas {
+  color: #3e515f;
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+  // padding: 40%;
 }
 
-
-@media screen and (min-width:500px) and (max-width: 750px){
+@media screen and (min-width: 500px) and (max-width: 750px) {
   .editProfileLink {
     color: $main-color;
     float: right;
@@ -265,7 +282,7 @@ $base-font: 'Raleway', sans-serif;
       cursor: pointer;
       background-color: $main-hover;
     }
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     .menu {
       margin: 3rem 0;
       position: relative;
@@ -287,18 +304,18 @@ $base-font: 'Raleway', sans-serif;
     .edit_container {
       width: 54%;
       margin: 10% 18% 0 3%;
-      .title{
+      .title {
         font-size: 35px;
         color: $main-color;
       }
-      .title:hover{
+      .title:hover {
         cursor: pointer;
       }
       .form {
         font-size: 18px;
-        .row{
-          .box{
-            width:100%;
+        .row {
+          .box {
+            width: 100%;
           }
         }
         .diviser {
@@ -373,7 +390,7 @@ $base-font: 'Raleway', sans-serif;
               width: 92%;
             }
             input {
-              width: 82%;
+              // width: 82%;
               padding: 5px 10px;
 
               background-color: rgb(233, 231, 231);
@@ -390,11 +407,10 @@ $base-font: 'Raleway', sans-serif;
         }
       }
     }
-  } 
+  }
 }
 
-
-@media screen and (min-width:750px) and (max-width: 2050px){
+@media screen and (min-width: 750px) and (max-width: 2050px) {
   .editProfileLink {
     color: $main-color;
     float: right;
@@ -454,7 +470,7 @@ $base-font: 'Raleway', sans-serif;
       cursor: pointer;
       background-color: $main-hover;
     }
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     .menu {
       margin: 3rem 0;
       position: relative;
@@ -476,18 +492,18 @@ $base-font: 'Raleway', sans-serif;
     .edit_container {
       width: 54%;
       margin: 10% 18% 0 3%;
-      .title{
+      .title {
         font-size: 45px;
         color: $main-color;
       }
-      .title:hover{
+      .title:hover {
         cursor: pointer;
       }
       .form {
         font-size: 18px;
-        .row{
-          .box{
-            width:50%;
+        .row {
+          .box {
+            width: 50%;
           }
         }
         .diviser {
@@ -506,21 +522,21 @@ $base-font: 'Raleway', sans-serif;
             height: 100%;
             border-radius: 50%;
           }
-          .update_image{
+          .update_image {
             background-color: red;
-            i{
+            i {
               margin: 5rem 6rem;
               position: absolute;
               float: right;
               overflow: hidden;
               color: $main-color;
             }
-            i:hover, i:focus{
+            i:hover,
+            i:focus {
               cursor: pointer;
               color: $main-hover;
             }
           }
-          
         }
         .editIcon {
           position: absolute;
@@ -577,7 +593,7 @@ $base-font: 'Raleway', sans-serif;
               width: 92%;
             }
             input {
-              width: 82%;
+              // width: 82%;
               padding: 5px 10px;
 
               background-color: rgb(233, 231, 231);
@@ -594,8 +610,5 @@ $base-font: 'Raleway', sans-serif;
         }
       }
     }
-  } 
+  }
 }
-
-
-

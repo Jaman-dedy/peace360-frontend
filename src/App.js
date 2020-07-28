@@ -1,16 +1,20 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import Router from './routes/route';
-import './App.scss';
-import Store from './store/Store';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+// import { ToastContainer, toast } from "react-toastify";
+import Router from "./routes/route";
+import "./App.scss";
+import Store from "./store/Store";
+
+// toast.configure();
 
 const App = () => {
   return (
-    <Provider store={Store}>
-      <div className="App">
+    <div className="App">
+      <BrowserRouter>
+        {/* <ToastContainer /> */}
         <Router />
-      </div>
-    </Provider>
+      </BrowserRouter>
+    </div>
   );
 };
 
