@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
-import './Article/Article.scss';
-import Layout from '../../hoc/Layout/Layout';
-import Wrapper from '../../hoc/Wrapper/Wrapper';
-import CreateArticleLink from '../../components/SingleArticle/Article/CreateArticleLink';
-import FollowUser from './FollowUser/FollowUser';
-import Tag from './Tag/Tag';
-import Like from './FavoriteUser/Like/Like';
-// import Rate from './FavoriteUser/Rate/Rate';
-import CommentForm from '../../containers/CommentForm/CommentForm';
-import Comments from '../Comments/Comments';
-import SocialShare from '../SocialShare/SocialShare';
-import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
-import classes from './SingleArticle.module.scss';
-import articleImg from '../../assets/images/peace-in-africa.jpg';
-import AuthenticationAction from '../AuthenticationAction/AuthenticationAction';
-import * as actions from '../../store/actions/index';
-import Spinner from '../../components/UI/Spinner/Spinner';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import ReactHtmlParser from "react-html-parser";
+import "./Article/Article.scss";
+import Layout from "../../hoc/Layout/Layout";
+import Wrapper from "../../hoc/Wrapper/Wrapper";
+import CreateArticleLink from "../../components/SingleArticle/Article/CreateArticleLink";
+import FollowUser from "./FollowUser/FollowUser";
+import Tag from "./Tag/Tag";
+import Like from "./FavoriteUser/Like/Like";
+import CommentForm from "../../containers/CommentForm/CommentForm";
+import Comments from "../Comments/Comments";
+import SocialShare from "../SocialShare/SocialShare";
+import AuthenticatedUser from "../AuthenticatedUser/AuthenticatedUser";
+import classes from "./SingleArticle.module.scss";
+import articleImg from "../../assets/images/peace-in-africa.jpg";
+import AuthenticationAction from "../AuthenticationAction/AuthenticationAction";
+import * as actions from "../../store/actions/index";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class SingleArticle extends Component {
   componentWillMount() {
@@ -31,14 +29,14 @@ class SingleArticle extends Component {
     }
   }
   render() {
-    let createArticleLink = '';
+    let createArticleLink = "";
     const { article = {} } = this.props;
     let user;
     let followUserComponent;
     let articleId;
 
     let comments;
-
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     let coverPhoto = null;
     let tags = null;
     let displaySingleArticle = null;
@@ -46,7 +44,7 @@ class SingleArticle extends Component {
 
     if (!article) {
       displaySingleArticle = <Spinner />;
-      followUserComponent = '';
+      followUserComponent = "";
     } else {
       user = article.user;
       likes = article.likes;
@@ -58,8 +56,8 @@ class SingleArticle extends Component {
 
       comments = article.comments;
       createArticleLink = this.props.isAuthenticated
-        ? '/createArticle'
-        : '/login';
+        ? "/createArticle"
+        : "/login";
 
       displaySingleArticle = (
         <div className={classes.Content}>
@@ -93,7 +91,8 @@ class SingleArticle extends Component {
             {article && article.Subtitle}
           </div>
           {followUserComponent}
-          <SocialShare />
+          {console.log("process.env.APP_URI", BASE_URL)}
+          <SocialShare url={BASE_URL} articleId={article && article._id} />
           {displaySingleArticle}
           {tags &&
             tags.map((tag, index) => {

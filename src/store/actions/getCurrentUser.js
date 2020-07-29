@@ -1,36 +1,45 @@
-import axiosOrders from '../../axios/axios-orders';
-import axios from 'axios'
+import axios from "axios";
 
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
-export const fetchCurrentUserSuccess = user => {
+export const fetchCurrentUserSuccess = (user) => {
   return {
     type: actionTypes.FETCH_CURRENT_USER_SUCCESS,
-    user: user
+    user: user,
   };
 };
 
-export const fetchCurrentUserFail = error => {
+export const fetchCurrentUserFail = (error) => {
   return {
     type: actionTypes.FETCH_CURRENT_USER_FAIL,
-    error: error
+    error: error,
   };
 };
 
 export const fetchCurrentUserStart = () => {
   return {
-    type: actionTypes.FETCH_CURRENT_USER_START
+    type: actionTypes.FETCH_CURRENT_USER_START,
   };
 };
 
 export const fetchCurrentUser = () => {
-  return async dispatch => {
+
+  return async (dispatch) => {
     dispatch(fetchCurrentUserStart());
     try {
-      const response = await axiosOrders.get('auth');
-      // cb(response.data.user);
+      const response = await axios.get(
+        "https://peace360.herokuapp.com/api/auth",
+        {
+          headers: {
+            "x-auth-token": localStorage.token,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
       dispatch(fetchCurrentUserSuccess(response.data.user));
     } catch ({ response }) {
+      console.log("or here", response);
       dispatch(fetchCurrentUserFail(response));
     }
   };
@@ -61,7 +70,7 @@ export const editUserPic = (avatar) => {
   return async (dispatch) => {
     dispatch(editUserPicStart());
     try {
-      const response = await axiosOrders.put(`users/updateImage`, {avatar});
+      const response = await axios.put(`users/updateImage`, {avatar});
       dispatch(editUserPicSuccess(response));
     } catch ({ response }) {
       dispatch(editUserPicFail(response));

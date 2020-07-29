@@ -1,11 +1,11 @@
 /* eslint-disable no-throw-literal */
-import axiosOrders from '../../axios/axios-orders';
+import axiosOrders from "../../axios/axios-orders";
 
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
 export const loginStart = () => {
   return {
-    type: actionTypes.LOGIN_START
+    type: actionTypes.LOGIN_START,
   };
 };
 
@@ -13,67 +13,66 @@ export const loginSuccess = (token, userId) => {
   return {
     type: actionTypes.LOGIN_SUCCESS,
     token: token,
-    userId: userId
+    userId: userId,
   };
 };
 
-export const loginFail = error => {
+export const loginFail = (error) => {
   return {
     type: actionTypes.LOGIN_FAIL,
-    error: error
+    error: error,
   };
 };
 
 export const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userId');
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
   return {
-    type: actionTypes.AUTH_LOGOUT
+    type: actionTypes.AUTH_LOGOUT,
   };
 };
 
 export const login = (email, password) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loginStart());
     const loginData = {
       email: email,
       password: password,
-      returnSecureToken: true
+      returnSecureToken: true,
     };
-    // let url = 'users/login'
     axiosOrders
-      .post('users/login', loginData)
-      .then(response => {
-        localStorage.setItem('token', response.data.token.generate);
-        localStorage.setItem('userId', response.data.user._id);
-        localStorage.setItem('user', response.data);
+      .post("users/login", loginData)
+      .then((response) => {
+        localStorage.setItem("token", response.data.token.generate);
+        localStorage.setItem("userId", response.data.user._id);
         dispatch(
           loginSuccess(response.data.token.generate, response.data.user._id)
         );
       })
       .catch(({ response }) => {
         if (!response) {
-          throw { message: 'Check your internet cable' };
+          throw { message: "Check your internet cable" };
         }
         dispatch(loginFail(response.data.errors));
       });
   };
 };
 
-export const setAuthRedirectPath = path => {
+export const setAuthRedirectPath = (path) => {
   return {
     type: actionTypes.SET_AUTH_REDIRECT_PATH,
-    path: path
+    path: path,
   };
 };
 
 export const loginCheckState = () => {
-  return dispatch => {
-    const token = localStorage.getItem('token');
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+
     if (!token) {
       dispatch(logout());
     } else {
-      const userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem("userId");
       dispatch(loginSuccess(token, userId));
     }
   };

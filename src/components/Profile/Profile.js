@@ -1,51 +1,47 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import Layout from '../../hoc/Layout/Layout';
-import classes from './Profile.module.scss';
-import Spinner from '../../components/UI/Spinner/Spinner';
-import './Profile.scss';
-import postImg from '../../assets/images/experience1.jpg';
-import Avatar from '../../assets/images/avatar.jpg';
-import EditLink from './EditProfile/EditProfileLink';
-import { fetchProfileUser, fetchCurrentUser } from '../../store/actions';
-import * as actions from '../../store/actions/index';
-import NotFound from '../errors/NotFound/NotFound';
-import Wrapper from '../../hoc/Wrapper/Wrapper';
+import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import Layout from "../../hoc/Layout/Layout";
+import classes from "./Profile.module.scss";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import "./Profile.scss";
+import Avatar from "../../assets/images/avatar.jpg";
+import EditLink from "./EditProfile/EditProfileLink";
+import { fetchProfileUser, fetchCurrentUser } from "../../store/actions";
+import NotFound from "../errors/NotFound/NotFound";
+import Wrapper from "../../hoc/Wrapper/Wrapper";
 
 class Profile extends Component {
   handleShowTabs = (event, tabName) => {
     let i, tabContent, tabLinks;
-    tabContent = document.getElementsByClassName('tabContent');
+    tabContent = document.getElementsByClassName("tabContent");
     for (i = 0; i < tabContent.length; i++) {
-      tabContent[i].style.display = 'none';
+      tabContent[i].style.display = "none";
     }
-    tabLinks = document.getElementsByClassName('tabLinks');
+    tabLinks = document.getElementsByClassName("tabLinks");
     for (i = 0; i < tabLinks.length; i++) {
-      tabLinks[i].className = tabLinks[i].className.replace(' active', '');
+      tabLinks[i].className = tabLinks[i].className.replace(" active", "");
     }
-    document.getElementById(tabName).style.display = 'block';
-    event.currentTarget.className += ' active';
+    document.getElementById(tabName).style.display = "block";
+    event.currentTarget.className += " active";
   };
 
   componentWillUpdate = (prevProps) => {
     if (prevProps.authError) {
-      window.location.href = '/login';
+      window.location.href = "/login";
     }
   };
   componentDidMount = () => {
-  
-    if(this.props. current_user) {
+    if (this.props.current_user) {
       this.props.getProfile(this.props.current_user._id, (cd) => {});
     }
-   
   };
 
   render() {
     const { followers } = this.props.myFollowers;
     const { followings } = this.props.myFollowings;
-    
+
     const {
       profile,
       error,
@@ -95,7 +91,6 @@ class Profile extends Component {
         </div>
       </Wrapper>
     );
-    
 
     return (
       <Layout>
@@ -108,45 +103,45 @@ class Profile extends Component {
             <div>
               <div className={classes.Tab}>
                 {error !== null &&
-                error.data.msg === 'There is no profile for this user' ? (
+                error.data.msg === "There is no profile for this user" ? (
                   <NavLink to="/editProfile">
                     <div className={classes.TabLinks}>Create Profile</div>
                   </NavLink>
                 ) : (
                   <div
                     className={classes.TabLinks}
-                    onClick={(e) => this.handleShowTabs(e, 'Profile')}
+                    onClick={(e) => this.handleShowTabs(e, "Profile")}
                   >
                     Profile
                   </div>
                 )}
 
-                <div
+                {/* <div
                   className={classes.TabLinks}
                   onClick={(e) => this.handleShowTabs(e, 'Posts')}
                 >
                   Posts
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   className={classes.TabLinks}
                   onClick={(e) => this.handleShowTabs(e, 'Likes')}
                 >
                   Likes
-                </div>
+                </div> */}
                 <div
                   className={classes.TabLinks}
-                  onClick={(e) => this.handleShowTabs(e, 'Followers')}
+                  onClick={(e) => this.handleShowTabs(e, "Followers")}
                 >
                   Followers
                 </div>
                 <div
                   className={classes.TabLinks}
-                  onClick={(e) => this.handleShowTabs(e, 'Following')}
+                  onClick={(e) => this.handleShowTabs(e, "Following")}
                 >
                   Following
                 </div>
               </div>
-           
+
               {profile.social ? (
                 <div className={classes.FollowMe}>
                   <h2>Follow me on</h2>
@@ -189,7 +184,7 @@ class Profile extends Component {
                   </div>
                   <span>
                     <h3>
-                      {current_user.username ? current_user.username : ''}
+                      {current_user.username ? current_user.username : ""}
                     </h3>
                   </span>
                   <span className={classes.Location}>{profile.location}</span>
@@ -205,13 +200,13 @@ class Profile extends Component {
                   </span>
                 </div>
               </div>
-              <div id="Posts" className="tabContent">
+              {/* <div id="Posts" className="tabContent">
                 <span>
                   <h3>MY POSTS</h3>
                 </span>
                 <div className={classes.ProfileTab}>
                   <div className={classes.Posts}>
-                    {' '}
+                    {" "}
                     <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
@@ -227,7 +222,7 @@ class Profile extends Component {
                     </Link>
                   </div>
                   <div className={classes.Posts}>
-                    {' '}
+                    {" "}
                     <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
@@ -243,14 +238,14 @@ class Profile extends Component {
                     </Link>
                   </div>
                 </div>
-              </div>
-              <div id="Likes" className="tabContent">
+              </div> */}
+              {/* <div id="Likes" className="tabContent">
                 <span>
                   <h3>MY LIKES</h3>
                 </span>
                 <div className={classes.ProfileTab}>
                   <div className={classes.Posts}>
-                    {' '}
+                    {" "}
                     <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
@@ -266,7 +261,7 @@ class Profile extends Component {
                     </Link>
                   </div>
                   <div className={classes.Posts}>
-                    {' '}
+                    {" "}
                     <Link to="/singleArticle">
                       <div className={classes.MyPosts}>
                         <div>
@@ -282,7 +277,7 @@ class Profile extends Component {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div id="Followers" className="tabContent">
                 {followersList}
               </div>

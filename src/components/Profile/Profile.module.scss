@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 $main-color: rgb(62, 81, 95);
 $main-hover: rgb(36, 46, 53);
 $font-color: #555353;
@@ -14,7 +14,7 @@ $brighter: #cacfd1;
 $danger: #f76060;
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 @media screen and (max-width: 550px) {
@@ -24,6 +24,7 @@ body {
     .Tab {
       width: 100%;
       padding: 2rem 0;
+
       .TabLinks {
         color: $font-color;
         text-align: center;
@@ -114,7 +115,7 @@ body {
       }
     }
     .PostTitle {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       font-weight: 700;
       line-height: 1;
       padding-top: 0.3rem;
@@ -122,15 +123,15 @@ body {
       color: #5a5554;
     }
     .PostDetails {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       color: #5a5554a8;
       font-size: 0.7rem;
     }
     .MyFollowers {
       display: grid;
       grid-template-areas:
-        'my-follower-img my-follower-name'
-        'my-follower-img my-follower-follow-box';
+        "my-follower-img my-follower-name"
+        "my-follower-img my-follower-follow-box";
       grid-template-columns: 6rem 6rem;
       height: 4rem;
       grid-gap: 1rem;
@@ -278,7 +279,7 @@ body {
       }
     }
     .PostTitle {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       font-weight: 700;
       line-height: 1;
       padding-top: 0.3rem;
@@ -286,7 +287,7 @@ body {
       color: #5a5554;
     }
     .PostDetails {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       color: #5a5554a8;
       font-size: 1rem;
     }
@@ -294,8 +295,8 @@ body {
       display: grid;
       font-size: 1rem;
       grid-template-areas:
-        'my-follower-img my-follower-name'
-        'my-follower-img my-follower-follow-box';
+        "my-follower-img my-follower-name"
+        "my-follower-img my-follower-follow-box";
       grid-template-columns: 6rem 10rem;
       height: 4rem;
       grid-gap: 1rem;
@@ -443,7 +444,7 @@ body {
       }
     }
     .PostTitle {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       font-weight: 700;
       line-height: 1;
       padding-top: 0.3rem;
@@ -451,7 +452,7 @@ body {
       color: #5a5554;
     }
     .PostDetails {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       font-size: 1.1rem;
       color: #5a5554a8;
     }
@@ -459,8 +460,8 @@ body {
       font-size: 1.1rem;
       display: grid;
       grid-template-areas:
-        'my-follower-img my-follower-name'
-        'my-follower-img my-follower-follow-box';
+        "my-follower-img my-follower-name"
+        "my-follower-img my-follower-follow-box";
       grid-template-columns: 6rem 10rem;
       height: 4rem;
       grid-gap: 1rem;
@@ -515,8 +516,9 @@ body {
     width: 70%;
     margin: 6% 15%;
     .Tab {
-      width: 100%;
+      width: 93%;
       padding: 2rem 0;
+      padding-left: 11rem;
       .TabLinks {
         color: $font-color;
         text-align: center;
@@ -607,7 +609,7 @@ body {
       }
     }
     .PostTitle {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       font-weight: 700;
       line-height: 1;
       padding-top: 0.3rem;
@@ -615,7 +617,7 @@ body {
       color: #5a5554;
     }
     .PostDetails {
-      font-family: 'M PLUS 1p', sans-serif;
+      font-family: "M PLUS 1p", sans-serif;
       font-size: 1.1rem;
       color: #5a5554a8;
     }
@@ -623,8 +625,8 @@ body {
       font-size: 1.1rem;
       display: grid;
       grid-template-areas:
-        'my-follower-img my-follower-name'
-        'my-follower-img my-follower-follow-box';
+        "my-follower-img my-follower-name"
+        "my-follower-img my-follower-follow-box";
       grid-template-columns: 6rem 10rem;
       height: 4rem;
       grid-gap: 1rem;

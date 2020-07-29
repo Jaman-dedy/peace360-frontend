@@ -1,29 +1,44 @@
-import React from 'react';
-import classes from './SocialShare.module.scss';
-import { Link } from 'react-router-dom';
+import React from "react";
+import classes from "./SocialShare.module.scss";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
-const socialShare = props => (
+const socialShare = (props) => (
   <div className={classes.SocialShare}>
     <div className={classes.Icon}>
-      <Link to="#">
-        <i className="fab fa-facebook"></i>
-      </Link>
+      <FacebookShareButton url={props.url + props.articleId}>
+        <FacebookIcon size={32} round />
+      </FacebookShareButton>
     </div>
     <div className={classes.Icon}>
-      {' '}
-      <Link to="#">
-        <i className="fab fa-twitter"></i>
-      </Link>
+      <TwitterShareButton url={props.url + props.articleId}>
+        <TwitterIcon size={32} round />
+      </TwitterShareButton>
     </div>
     <div className={classes.Icon}>
-      <Link to="#">
-        <i className="fab fa-instagram"></i>
-      </Link>
+      <LinkedinShareButton url={props.url + props.articleId}>
+        <LinkedinIcon size={32} round />
+      </LinkedinShareButton>
     </div>
     <div className={classes.Icon}>
-      <Link to="#">
-        <i className="fab fa-facebook"></i>
-      </Link>
+      <WhatsappShareButton url={props.url + props.articleId}>
+        <WhatsappIcon size={32} round />
+      </WhatsappShareButton>
+    </div>
+    <div className={classes.Icon}>
+      <EmailShareButton url={props.url + props.articleId}>
+        <EmailIcon size={32} round />
+      </EmailShareButton>
     </div>
   </div>
 );
