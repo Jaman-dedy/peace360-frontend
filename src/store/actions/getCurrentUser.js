@@ -70,7 +70,7 @@ export const editUserPic = (avatar) => {
   return async (dispatch) => {
     dispatch(editUserPicStart());
     try {
-      const response = await axiosOrders.put(`users/updateImage`, {avatar});
+      const response = await axios.put(`users/updateImage`, {avatar});
       dispatch(editUserPicSuccess(response));
     } catch ({ response }) {
       dispatch(editUserPicFail(response));
