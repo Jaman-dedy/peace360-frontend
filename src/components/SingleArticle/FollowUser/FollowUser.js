@@ -82,7 +82,6 @@ export class FollowUser extends Component {
 
   render() {
     const { user = {}, article } = this.props;
-    console.log("props from follow", this.props);
     const { buttonState, unfollowButtonStyle } = this.state;
 
     return (

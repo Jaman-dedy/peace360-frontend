@@ -11,7 +11,6 @@ import "./styles.scss";
 import sliderCoverImg from "../../../assets/images/peace-in-africa.jpg";
 class ArticleSlider extends Component {
   redirectUserHandler = (articleId) => {
-    console.log("this.props", this.props.history);
     this.props.history.replace({
       pathname: "/singleArticle",
       search: "?id = articleId",
