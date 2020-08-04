@@ -9,6 +9,7 @@ import "./Profile.scss";
 import Avatar from "../../assets/images/avatar.jpg";
 import EditLink from "./EditProfile/EditProfileLink";
 import { fetchProfileUser, fetchCurrentUser } from "../../store/actions";
+import { fetchMyFollowing, fetchMyFollowers } from "../../store/actions";
 import NotFound from "../errors/NotFound/NotFound";
 import Wrapper from "../../hoc/Wrapper/Wrapper";
 
@@ -33,38 +34,37 @@ class Profile extends Component {
     }
   };
   componentDidMount = () => {
-    if (this.props.current_user) {
-      this.props.getProfile(this.props.current_user._id, (cd) => {});
-    }
+    this.props.getUser();
+    this.props.fetchMyFollowers();
+    this.props.fetchMyFollowing();
   };
 
   render() {
-    const { followers } = this.props.myFollowers;
-    const { followings } = this.props.myFollowings;
+    const { myFollowers: followers } = this.props;
+    const { myFollowings: followings } = this.props;
 
-    const {
-      profile,
-      error,
-      profileLoading,
-      loading,
-      current_user,
-    } = this.props;
-    const { skills } = profile;
+    const { error, profileLoading, loading, current_user } = this.props;
     let followingsList = !followings.length ? (
-      <NotFound message="Oops you are not followed by any user yet" />
+      <NotFound message="Oops you do not follow any person currently" />
     ) : (
       <Wrapper>
         <span>
           <h3>MY FOLLOWINGS</h3>
         </span>
         <div className={classes.ProfileTab}>
-          {followings.map((flwings) => (
-            <div key={flwings._id} className={classes.MyFollowers}>
+          {followings.map((following) => (
+            <div key={following.following._id} className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={flwings.avatar ? flwings.avatar : Avatar} alt="" />
+                <img
+                  src={
+                    following.following.avatar
+                      ? following.following.avatar
+                      : Avatar
+                  }
+                  alt=""
+                />
               </div>
-              <div className={classes.Name}>{flwings.username}</div>
-              <div className={classes.UnFollow}>UnFollow</div>
+              <div className={classes.Name}>{following.following.username}</div>
             </div>
           ))}
         </div>
@@ -72,7 +72,7 @@ class Profile extends Component {
     );
 
     let followersList = !followers.length ? (
-      <NotFound message="Oops you have not follow any user yet" />
+      <NotFound message="Oops you have no followers by now" />
     ) : (
       <Wrapper>
         <span>
@@ -115,19 +115,6 @@ class Profile extends Component {
                     Profile
                   </div>
                 )}
-
-                {/* <div
-                  className={classes.TabLinks}
-                  onClick={(e) => this.handleShowTabs(e, 'Posts')}
-                >
-                  Posts
-                </div> */}
-                {/* <div
-                  className={classes.TabLinks}
-                  onClick={(e) => this.handleShowTabs(e, 'Likes')}
-                >
-                  Likes
-                </div> */}
                 <div
                   className={classes.TabLinks}
                   onClick={(e) => this.handleShowTabs(e, "Followers")}
@@ -142,34 +129,49 @@ class Profile extends Component {
                 </div>
               </div>
 
-              {profile.social ? (
+              {current_user.social ? (
                 <div className={classes.FollowMe}>
                   <h2>Follow me on</h2>
                   <div className={classes.SocialMedia}>
-                    {profile.social.facebook ? (
-                      <Link to={`web.facebook.com/${profile.social.facebook}`}>
+                    {current_user.social.facebook ? (
+                      <a
+                        target="_blank"
+                        href={`https://www.facebook.com/${current_user.social.facebook}`}
+                      >
                         <i className="fab fa-facebook"></i>
-                      </Link>
+                      </a>
                     ) : null}
-                    {profile.social.twitter ? (
-                      <Link to={`twitter.com/${profile.social.twitter}`}>
+                    {current_user.social.twitter ? (
+                      <a
+                        target="_blank"
+                        href={`https://www.twitter.com/${current_user.social.twitter}`}
+                      >
                         <i className="fab fa-twitter"></i>
-                      </Link>
+                      </a>
                     ) : null}
-                    {profile.social.instagram ? (
-                      <Link to={`instagram.com/${profile.social.instagram}`}>
+                    {current_user.social.instagram ? (
+                      <a
+                        target="_blank"
+                        href={`https://www.instagram.com/${current_user.social.instagram}`}
+                      >
                         <i className="fab fa-instagram"></i>
-                      </Link>
+                      </a>
                     ) : null}
-                    {profile.social.linkedin ? (
-                      <Link to={`linkedin.com/in/${profile.social.linkedin}`}>
+                    {current_user.social.linkedin ? (
+                      <a
+                        target="_blank"
+                        href={`https://www.linkedin.com/in/${current_user.social.linkedin}`}
+                      >
                         <i className="fab fa-linkedin"></i>
-                      </Link>
+                      </a>
                     ) : null}
-                    {profile.social.youtube ? (
-                      <Link to={`youtube.com/${profile.social.youtube}`}>
+                    {current_user.social.youtube ? (
+                      <a
+                        target="_blank"
+                        href={`https://www.youtube.com/${current_user.social.youtube}`}
+                      >
                         <i className="fab fa-youtube"></i>
-                      </Link>
+                      </a>
                     ) : null}
                   </div>
                 </div>
@@ -187,97 +189,23 @@ class Profile extends Component {
                       {current_user.username ? current_user.username : ""}
                     </h3>
                   </span>
-                  <span className={classes.Location}>{profile.location}</span>
-                  <span className={classes.Details}>Rwanda Kigali</span>
-                  <span className={classes.Details}>www.me.resume</span>
-                  <span className={classes.Bio}>
-                    <p>{profile.bio}</p>
+                  <span className={classes.Location}>
+                    {current_user.occupation}
                   </span>
-                  <span className={classes.Skills}>
-                    {skills.map((obj, key) => (
-                      <i key={key}> {obj}</i>
-                    ))}
+                  <span className={classes.Details}>
+                    {current_user.address}
+                  </span>
+                  <span className={classes.Details}>
+                    {current_user.company}
+                  </span>
+                  <span className={classes.Details}>
+                    {current_user.website}
+                  </span>
+                  <span className={classes.Bio}>
+                    <p>{current_user.bio}</p>
                   </span>
                 </div>
               </div>
-              {/* <div id="Posts" className="tabContent">
-                <span>
-                  <h3>MY POSTS</h3>
-                </span>
-                <div className={classes.ProfileTab}>
-                  <div className={classes.Posts}>
-                    {" "}
-                    <Link to="/singleArticle">
-                      <div className={classes.MyPosts}>
-                        <div>
-                          <img src={postImg} alt="" />
-                        </div>
-                        <div className={classes.PostTitle}>
-                          Peace is a stress-free state of security and calmness
-                        </div>
-                        <div className={classes.PostDetails}>
-                          EmaBush 2 days ago | &#128338; 4 min to read
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className={classes.Posts}>
-                    {" "}
-                    <Link to="/singleArticle">
-                      <div className={classes.MyPosts}>
-                        <div>
-                          <img src={postImg} alt="" />
-                        </div>
-                        <div className={classes.PostTitle}>
-                          Peace is a stress-free state of security and calmness
-                        </div>
-                        <div className={classes.PostDetails}>
-                          EmaBush 2 days ago | &#128338; 4 min to read
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div id="Likes" className="tabContent">
-                <span>
-                  <h3>MY LIKES</h3>
-                </span>
-                <div className={classes.ProfileTab}>
-                  <div className={classes.Posts}>
-                    {" "}
-                    <Link to="/singleArticle">
-                      <div className={classes.MyPosts}>
-                        <div>
-                          <img src={postImg} alt="" />
-                        </div>
-                        <div className={classes.PostTitle}>
-                          Peace is a stress-free state of security and calmness
-                        </div>
-                        <div className={classes.PostDetails}>
-                          EmaBush 2 days ago | &#128338; 4 min to read
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className={classes.Posts}>
-                    {" "}
-                    <Link to="/singleArticle">
-                      <div className={classes.MyPosts}>
-                        <div>
-                          <img src={postImg} alt="" />
-                        </div>
-                        <div className={classes.PostTitle}>
-                          Peace is a stress-free state of security and calmness
-                        </div>
-                        <div className={classes.PostDetails}>
-                          EmaBush 2 days ago | &#128338; 4 min to read
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div> */}
               <div id="Followers" className="tabContent">
                 {followersList}
               </div>
@@ -293,6 +221,8 @@ class Profile extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  fetchMyFollowers,
+  fetchMyFollowing,
   getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
   getUser: () => dispatch(fetchCurrentUser()),
 });
@@ -308,8 +238,8 @@ const mapStateToProps = (state) => {
       state.register.token !== null || state.login.token !== null,
     followersError: state.myFollowers.error,
     loadFollowers: state.myFollowers.load,
-    myFollowers: state.myFollowers,
-    myFollowings: state.myFollowings,
+    myFollowers: state.myFollowers.followers,
+    myFollowings: state.myFollowings.followings,
     followingError: state.myFollowings.error,
     loadFollowing: state.myFollowings.load,
   };

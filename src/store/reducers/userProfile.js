@@ -1,10 +1,10 @@
-import * as actionTypes from '../actions/actionTypes';
-import { updatedObject } from '../../shared/utility';
+import * as actionTypes from "../actions/actionTypes";
+import { updatedObject } from "../../shared/utility";
 
 const initialState = {
   profile: {
     social: {},
-    skills: [],
+    occupation: "",
     user: {},
   },
   error: null,
@@ -100,7 +100,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.EDIT_PROFILE_USER_FAIL:
       return editProfileUserFail(state, action);
     case actionTypes.EDIT_PROFILE_USER_SUCCESS:
-      return editProfileUserSuccess(state, action);  
+      return editProfileUserSuccess(state, action);
     case actionTypes.CREATE_PROFILE_USER_START:
       return createProfileUserStart(state, action);
     case actionTypes.CREATE_PROFILE_USER_FAIL:

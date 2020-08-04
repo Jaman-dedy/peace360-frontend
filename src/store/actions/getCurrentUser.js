@@ -23,7 +23,6 @@ export const fetchCurrentUserStart = () => {
 };
 
 export const fetchCurrentUser = () => {
-
   return async (dispatch) => {
     dispatch(fetchCurrentUserStart());
     try {
@@ -39,12 +38,10 @@ export const fetchCurrentUser = () => {
       );
       dispatch(fetchCurrentUserSuccess(response.data.user));
     } catch ({ response }) {
-      console.log("or here", response);
       dispatch(fetchCurrentUserFail(response));
     }
   };
 };
-
 
 export const editUserPicSuccess = (user) => {
   return {
@@ -70,7 +67,7 @@ export const editUserPic = (avatar) => {
   return async (dispatch) => {
     dispatch(editUserPicStart());
     try {
-      const response = await axios.put(`users/updateImage`, {avatar});
+      const response = await axios.put(`users/updateImage`, { avatar });
       dispatch(editUserPicSuccess(response));
     } catch ({ response }) {
       dispatch(editUserPicFail(response));

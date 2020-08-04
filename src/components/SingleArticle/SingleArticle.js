@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
 import "./Article/Article.scss";
 import Layout from "../../hoc/Layout/Layout";
@@ -8,6 +9,7 @@ import CreateArticleLink from "../../components/SingleArticle/Article/CreateArti
 import FollowUser from "./FollowUser/FollowUser";
 import Tag from "./Tag/Tag";
 import Like from "./FavoriteUser/Like/Like";
+// import Rate from './FavoriteUser/Rate/Rate';
 import CommentForm from "../../containers/CommentForm/CommentForm";
 import Comments from "../Comments/Comments";
 import SocialShare from "../SocialShare/SocialShare";
@@ -19,7 +21,7 @@ import * as actions from "../../store/actions/index";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 class SingleArticle extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const {
       location: { state },
     } = this.props;
@@ -27,6 +29,7 @@ class SingleArticle extends Component {
       const { articleId } = state;
       this.props.onFetchSingleArticle(articleId);
     }
+    window.scrollTo(0, 0);
   }
   render() {
     let createArticleLink = "";
@@ -50,7 +53,14 @@ class SingleArticle extends Component {
       likes = article.likes;
       articleId = article._id;
 
-      followUserComponent = <FollowUser user={user} articleId={article._id} />;
+      followUserComponent = (
+        <FollowUser
+          user={user}
+          article={this.props.article}
+          articleId={article._id}
+          pathname={this.props.location.pathname}
+        />
+      );
       tags = article.tags;
       coverPhoto = article.coverPhoto ? article.coverPhoto : articleImg;
 
@@ -91,7 +101,6 @@ class SingleArticle extends Component {
             {article && article.Subtitle}
           </div>
           {followUserComponent}
-          {console.log("process.env.APP_URI", BASE_URL)}
           <SocialShare url={BASE_URL} articleId={article && article._id} />
           {displaySingleArticle}
           {tags &&

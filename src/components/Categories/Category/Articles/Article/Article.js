@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import moment from "moment";
-
 import classes from "./Article.module.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -35,7 +34,7 @@ class Article extends Component {
           </div>
           <div className={classes.Title}>{article.title}</div>
           <div className={classes.Details}>
-            {user.username}, {timeAgo} | &#128338; 4 min to read
+            {user.username}, {timeAgo} | &#128338; {article.readTime}
           </div>
         </div>
       </Link>

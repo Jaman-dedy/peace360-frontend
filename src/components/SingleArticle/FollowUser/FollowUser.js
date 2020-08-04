@@ -1,137 +1,136 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import classes from './FollowUser.module.scss';
-import * as actions from '../../../store/actions/index';
-import userAvatar from '../../../assets/images/avatar.jpg';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import Moment from "react-moment";
+import classes from "./FollowUser.module.scss";
+import "./follow.scss";
+import userAvatar from "../../../assets/images/avatar.jpg";
+import {
+  followUser,
+  unfollowUser,
+  clearFollowing,
+} from "../../../store/actions/followUser";
+import { fetchMyFollowing } from "../../../store/actions/getFollowing";
 
-class FollowUser extends Component {
-  state = {
-    isFollowed: true,
-    followerId: null,
+const FOLLOW = "Follow";
+const UNFOLLOW = "Unfollow";
+
+export class FollowUser extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttonState: FOLLOW,
+      unfollowButtonStyle: {
+        backgroundColor: "#7aadcf",
+        color: "white",
+        border: "1px solid #7aadcf",
+      },
+    };
+  }
+
+  UNSAFE_componentWillMount = () => {
+    const { props } = this;
+    return localStorage.token
+      ? props.fetchMyFollowing()
+      : this.setState((prevState) => ({ ...prevState, buttonState: FOLLOW }));
   };
-  switchFavoriteUserHandle = (articleId) => {
-    if (!this.props.isAuthenticated) {
-      this.props.onSetRedirectPath();
-    }
-    this.setState((prevState) => {
-      return { isFollowed: !prevState.isFollowed };
+
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    const { followings, followDetails } = nextProps;
+    const { currentUser, user } = this.props;
+    const { id } = user || {};
+    const { _id } = currentUser.user || {};
+    let buttonState = FOLLOW;
+
+    [...followings, ...followDetails].forEach(({ follower, following }) => {
+      if (
+        (follower._id === _id && following._id === id) ||
+        (follower === _id && following === id)
+      ) {
+        buttonState = UNFOLLOW;
+      }
+      return true;
     });
 
-    this.props.onFollowUser(articleId);
+    return this.setState((prevState) => ({
+      ...prevState,
+      buttonState,
+    }));
   };
-  componentWillReceiveProps(nextProps) {
-    const { user } = this.props;
-    const { followUser } = this.props;
-    const { followings } = this.props.myFollowings;
-
-    let myFlwings;
-
-    if (followUser.state === 'unfollow') {
-      if (followUser.user.username === user.username) {
-        this.setState({ isFollowed: true });
-      }
-    }
-
-    if (followings) {
-      myFlwings = followings.map((flwings) => {
-        myFlwings = flwings.username === nextProps.user.username;
-
-        if (myFlwings) {
-          this.setState({ isFollowed: false });
-        } else {
-          this.setState({ isFollowed: true });
-        }
-        return myFlwings;
-      });
-    }
+  componentWillUnmount() {
+    const { clearFollowing } = this.props;
+    clearFollowing();
   }
-  componentDidMount() {
-    const { user } = this.props;
-    const { followings } = this.props.myFollowings;
+  submitFollowOrUnFollow = () => {
+    const { isAuthenticated } = this.props;
+    return !!isAuthenticated;
+  };
 
-    let myFlwings;
-
-    if (!this.props.isAuthenticated) {
-      this.setState({ isFollowed: true });
+  handleClick = () => {
+    const { pathname, history } = this.props;
+    if (!this.submitFollowOrUnFollow()) {
+      return history.push(`/login?redirectTo=${pathname}`);
     }
-
-    if (followings && user) {
-      myFlwings = followings.map((flwings) => {
-        myFlwings = flwings.username === user.username;
-
-        if (myFlwings) {
-          this.setState({ isFollowed: false });
-        } else {
-          this.setState({ isFollowed: true });
-        }
-        return myFlwings;
-      });
-    }
-  }
+    const { buttonState } = this.state;
+    const { followUser, unfollowUser, user, currentUser } = this.props;
+    this.setState((prevState) => ({
+      ...prevState,
+      buttonState: buttonState === UNFOLLOW ? FOLLOW : UNFOLLOW,
+    }));
+    return buttonState === FOLLOW ? followUser(user.id) : unfollowUser(user.id);
+  };
 
   render() {
-    const redirectPath = <Redirect to={this.props.redirectPath} />;
-    const { articleId = {} } = this.props;
-
-    const { user = {} } = this.props;
-    const { currentUser = {} } = this.props;
-
-    const followBox =
-      user.id !== currentUser.user._id ? (
-        <div
-          className={
-            this.state.isFollowed ? classes.FollowBox : classes.UnFollowBox
-          }
-          onClick={(e) => this.switchFavoriteUserHandle(articleId)}
-        >
-          {this.state.isFollowed ? 'Follow' : 'UnFollow'}
-        </div>
-      ) : (
-        ''
-      );
+    const { user = {}, article } = this.props;
+    console.log("props from follow", this.props);
+    const { buttonState, unfollowButtonStyle } = this.state;
 
     return (
       <div className={classes.FollowUser}>
-        {redirectPath}
         <div className={classes.Avatar}>
           <img src={user ? user.avatar : userAvatar} alt="" />
         </div>
         <div className={classes.UserName}>
-          {user ? user.username : 'Peace Activist'}
+          {user ? user.username : "Peace Activist"}
         </div>
-        {followBox}
-        <div className={classes.Details}>Dec 25, 6 min read</div>
+        <div className="Follow__button">
+          <button
+            className="button"
+            style={buttonState === UNFOLLOW ? unfollowButtonStyle : {}}
+            type="button"
+            onClick={this.handleClick}
+            value={buttonState}
+          >
+            {buttonState}
+          </button>
+        </div>
+        {/* <div className={classes.Details}>Dec 25, 6 min read</div> */}
+        <div className={classes.Details}>
+          <span className="heading__munite">
+            {/* {moment(date).startOf("hour").fromNow()} */}
+            <Moment fromNow>{article.date}</Moment>, {article.readTime}
+          </span>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.currentUser,
-    loading: state.currentUser.loading,
-    isAuthenticated:
-      state.login.token !== null || state.register.token !== null,
-    redirectPath:
-      state.login.authRedirectPath || state.register.authRedirectPath,
-    followUser: state.followUser.msg,
-    errorOnFollow: state.followUser.error,
-    followersError: state.myFollowers.error,
-    loadFollowers: state.myFollowers.load,
-    myFollowers: state.myFollowers,
-    myFollowings: state.myFollowings,
-    followingError: state.myFollowings.error,
-    loadFollowing: state.myFollowings.load,
-    singleArticle: state.fetchSingleArticle.article,
-  };
+const mapDispatchToProps = {
+  followUser,
+  unfollowUser,
+  fetchMyFollowing,
+  clearFollowing,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSetRedirectPath: () => dispatch(actions.setAuthRedirectPath('/login')),
-    onFollowUser: (articleId) => dispatch(actions.followUser(articleId)),
-  };
-};
+const mapStateToProps = (state) => ({
+  currentUser: state.currentUser,
+  isAuthenticated: state.login.token !== null || state.register.token !== null,
+  followDetails: state.followUser.followDetails,
+  followings: state.myFollowings.followings,
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(FollowUser);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(FollowUser));
