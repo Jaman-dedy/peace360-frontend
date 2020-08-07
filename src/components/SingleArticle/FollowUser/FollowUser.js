@@ -30,9 +30,8 @@ export class FollowUser extends Component {
 
   UNSAFE_componentWillMount = () => {
     const { props } = this;
-    return localStorage.token
-      ? props.fetchMyFollowing()
-      : this.setState((prevState) => ({ ...prevState, buttonState: FOLLOW }));
+    this.setState((prevState) => ({ ...prevState, buttonState: FOLLOW }));
+    return localStorage.token ? props.fetchMyFollowing() : false;
   };
 
   UNSAFE_componentWillReceiveProps = (nextProps) => {
@@ -57,10 +56,7 @@ export class FollowUser extends Component {
       buttonState,
     }));
   };
-  componentWillUnmount() {
-    const { clearFollowing } = this.props;
-    clearFollowing();
-  }
+
   submitFollowOrUnFollow = () => {
     const { isAuthenticated } = this.props;
     return !!isAuthenticated;
@@ -75,7 +71,7 @@ export class FollowUser extends Component {
     const { followUser, unfollowUser, user, currentUser } = this.props;
     this.setState((prevState) => ({
       ...prevState,
-      buttonState: buttonState === UNFOLLOW ? FOLLOW : UNFOLLOW,
+      buttonState: buttonState === UNFOLLOW ? FOLLOW : prevState.buttonState,
     }));
     return buttonState === FOLLOW ? followUser(user.id) : unfollowUser(user.id);
   };
@@ -103,10 +99,8 @@ export class FollowUser extends Component {
             {buttonState}
           </button>
         </div>
-        {/* <div className={classes.Details}>Dec 25, 6 min read</div> */}
         <div className={classes.Details}>
           <span className="heading__munite">
-            {/* {moment(date).startOf("hour").fromNow()} */}
             <Moment fromNow>{article.date}</Moment>, {article.readTime}
           </span>
         </div>
