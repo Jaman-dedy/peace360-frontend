@@ -87,11 +87,11 @@ class SingleArticle extends Component {
     );
     return (
       <Layout>
-        {this.props.isAuthenticated ? (
+        {/* {this.props.isAuthenticated ? (
           <AuthenticatedUser />
         ) : (
           <AuthenticationAction />
-        )}
+        )} */}
 
         <CreateArticleLink link={createArticleLink} className="ArticleLink" />
 

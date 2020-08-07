@@ -1,29 +1,28 @@
-import * as actionTypes from '../actions/actionTypes';
-import { updatedObject } from '../../shared/utility';
+import * as actionTypes from "../actions/actionTypes";
+import { updatedObject } from "../../shared/utility";
 
 const initialState = {
   article: null,
   error: null,
-  loading: false
+  loading: false,
 };
 
 const fetSingleArticleStart = (state, action) => {
-  return updatedObject(state, { error: null, loading: true });
+  return updatedObject(state, { error: null, loading: true, article: null });
 };
 
 const fetchSingleArticleSuccess = (state, action) => {
-
   return updatedObject(state, {
     article: action.article,
     error: null,
-    loading: false
+    loading: false,
   });
 };
 
 const fetchSingleArticleFail = (state, action) => {
   return updatedObject(state, {
     error: action.error,
-    loading: false
+    loading: false,
   });
 };
 

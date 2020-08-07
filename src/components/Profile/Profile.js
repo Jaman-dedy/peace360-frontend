@@ -129,46 +129,46 @@ class Profile extends Component {
                 </div>
               </div>
 
-              {current_user.social ? (
+              {current_user ? (
                 <div className={classes.FollowMe}>
                   <h2>Follow me on</h2>
                   <div className={classes.SocialMedia}>
-                    {current_user.social.facebook ? (
+                    {current_user.facebook ? (
                       <a
                         target="_blank"
-                        href={`https://www.facebook.com/${current_user.social.facebook}`}
+                        href={`https://www.facebook.com/${current_user.facebook}`}
                       >
                         <i className="fab fa-facebook"></i>
                       </a>
                     ) : null}
-                    {current_user.social.twitter ? (
+                    {current_user.twitter ? (
                       <a
                         target="_blank"
-                        href={`https://www.twitter.com/${current_user.social.twitter}`}
+                        href={`https://www.twitter.com/${current_user.twitter}`}
                       >
                         <i className="fab fa-twitter"></i>
                       </a>
                     ) : null}
-                    {current_user.social.instagram ? (
+                    {current_user.instagram ? (
                       <a
                         target="_blank"
-                        href={`https://www.instagram.com/${current_user.social.instagram}`}
+                        href={`https://www.instagram.com/${current_user.instagram}`}
                       >
                         <i className="fab fa-instagram"></i>
                       </a>
                     ) : null}
-                    {current_user.social.linkedin ? (
+                    {current_user.linkedin ? (
                       <a
                         target="_blank"
-                        href={`https://www.linkedin.com/in/${current_user.social.linkedin}`}
+                        href={`https://www.linkedin.com/in/${current_user.linkedin}`}
                       >
                         <i className="fab fa-linkedin"></i>
                       </a>
                     ) : null}
-                    {current_user.social.youtube ? (
+                    {current_user.youtube ? (
                       <a
                         target="_blank"
-                        href={`https://www.youtube.com/${current_user.social.youtube}`}
+                        href={`https://www.youtube.com/${current_user.youtube}`}
                       >
                         <i className="fab fa-youtube"></i>
                       </a>
