@@ -84,8 +84,7 @@ class Profile extends Component {
               <div className={classes.Avatar}>
                 <img src={flwers.avatar ? flwers.avatar : Avatar} alt="" />
               </div>
-              <div className={classes.Name}>{flwers.username}</div>
-              <div className={classes.Follow}>Follow</div>
+              <div className={classes.Name}>{flwers.follower.username}</div>
             </div>
           ))}
         </div>

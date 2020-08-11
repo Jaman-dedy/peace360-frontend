@@ -389,7 +389,7 @@ class EditProfile extends Component {
                             />
                             <div className="lebel">
                               <label className="upload-image" htmlFor="input">
-                                <i class="fas fa-camera"></i>
+                                <i className="fas fa-camera"></i>
                               </label>
                             </div>
                           </div>
