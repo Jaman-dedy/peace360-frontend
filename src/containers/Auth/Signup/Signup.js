@@ -114,7 +114,9 @@ class Signup extends Component {
       });
     }
   };
-
+  componentWillUnmount() {
+    window.location.reload(false);
+  }
   render() {
     const { error } = this.props;
     let formBlock;
@@ -129,7 +131,7 @@ class Signup extends Component {
         config: this.state.signupForm[key],
       });
     }
-    formElementsArray.map((element) => { 
+    formElementsArray.map((element) => {
       if (!element.config.valid) {
         disableButton = true;
       }
@@ -187,8 +189,7 @@ class Signup extends Component {
     }
     let authRedirect = null;
     if (this.props.isAuthenticated) {
-
-      authRedirect = <Redirect to='/' />;
+      authRedirect = <Redirect to="/" />;
     }
 
     return (
