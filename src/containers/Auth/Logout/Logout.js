@@ -8,6 +8,9 @@ class Logout extends Component {
   componentDidMount() {
     this.props.onLogout();
   }
+  componentWillUnmount() {
+    window.location.reload(false);
+  }
   render() {
     return <Redirect to="/" />;
   }

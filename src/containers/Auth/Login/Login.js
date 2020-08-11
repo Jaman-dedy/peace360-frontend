@@ -86,6 +86,9 @@ class Login extends Component {
       });
     }
   };
+  componentWillUnmount() {
+    window.location.reload(false);
+  }
   render() {
     let disableButton = false;
 
@@ -148,7 +151,7 @@ class Login extends Component {
     }
     let authRedirect = null;
     if (this.props.isAuthenticated) {
-      authRedirect = <Redirect to='/' />;
+      authRedirect = <Redirect to="/" />;
     }
     return (
       <div className={styles.Auth} onClick={this.closeErrorHandler}>
