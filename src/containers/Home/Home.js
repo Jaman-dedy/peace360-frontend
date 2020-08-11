@@ -22,7 +22,6 @@ class Home extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    console.log("articles in home", this.props);
     let fetchedCategories = null;
     let articleSliders = null;
     const { category } = this.props.categories;
