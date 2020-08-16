@@ -1,0 +1,65 @@
+.FollowUser {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 15rem;
+  display: grid;
+  grid-template-areas:
+    "user-avatar user-name follow-user"
+    "user-avatar article-detail article-detail";
+}
+.Avatar {
+  grid-area: user-avatar;
+  width: 4rem;
+  height: 4rem;
+  margin-top: -0.9rem;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+}
+.UserName {
+  grid-area: user-name;
+  font-size: 0.8rem;
+  color: #5a5554d7;
+}
+.FollowBox {
+  grid-area: follow-user;
+  margin-top: -0.3rem;
+  text-align: center;
+  border: solid 1px #5a555491;
+  padding: 0.3rem;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  width: 4rem;
+  height: 0.8rem;
+  color: #5a5554d7;
+  &:hover {
+    color: #54768b;
+    border-color: #54768b;
+  }
+}
+.UnFollowBox {
+  grid-area: follow-user;
+  margin-top: -0.3rem;
+  text-align: center;
+  border: solid 1px #5a555491;
+  background-color: #405e70;
+  padding: 0.3rem;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  width: 4rem;
+  height: 0.8rem;
+  color: #fdfcfbd7;
+  &:hover {
+    color: #fdfcfbd7;
+    border-color: #54768b;
+  }
+}
+.Details {
+  grid-area: article-detail;
+  font-size: 0.8rem;
+  color: #5a55548c;
+}

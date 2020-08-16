@@ -19,6 +19,7 @@ import articleImg from "../../assets/images/peace-in-africa.jpg";
 import AuthenticationAction from "../AuthenticationAction/AuthenticationAction";
 import * as actions from "../../store/actions/index";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import FollowButton from "./FollowUser/FollowButton";
 
 class SingleArticle extends Component {
   componentDidMount() {
@@ -36,6 +37,7 @@ class SingleArticle extends Component {
     const { article = {} } = this.props;
     let user;
     let followUserComponent;
+    let followButtonComponent;
     let articleId;
 
     let comments;
@@ -48,6 +50,7 @@ class SingleArticle extends Component {
     if (!article) {
       displaySingleArticle = <Spinner />;
       followUserComponent = "";
+      followButtonComponent = "";
     } else {
       user = article.user;
       likes = article.likes;
@@ -58,6 +61,12 @@ class SingleArticle extends Component {
           user={user}
           article={this.props.article}
           articleId={article._id}
+          pathname={this.props.location.pathname}
+        />
+      );
+      followButtonComponent = (
+        <FollowButton
+          user={user}
           pathname={this.props.location.pathname}
         />
       );
@@ -100,7 +109,12 @@ class SingleArticle extends Component {
           <div className={classes.ArticleSubTitle}>
             {article && article.Subtitle}
           </div>
-          {followUserComponent}
+          <div className={classes.Header}>
+            {followUserComponent}
+            <div className={classes.FollowUserButton}>
+              {followButtonComponent}
+            </div>
+          </div>
           <SocialShare url={BASE_URL} articleId={article && article._id} />
           {displaySingleArticle}
           {tags &&

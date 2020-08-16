@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "../../hoc/Layout/Layout";
 import classes from "./Profile.module.scss";
@@ -9,9 +9,10 @@ import "./Profile.scss";
 import Avatar from "../../assets/images/avatar.jpg";
 import EditLink from "./EditProfile/EditProfileLink";
 import { fetchProfileUser, fetchCurrentUser } from "../../store/actions";
-import { fetchMyFollowing, fetchMyFollowers } from "../../store/actions";
+import { fetchMyFollowers } from "../../store/actions";
 import NotFound from "../errors/NotFound/NotFound";
 import Wrapper from "../../hoc/Wrapper/Wrapper";
+import FollowButton from "../SingleArticle/FollowUser/FollowButton";
 
 class Profile extends Component {
   handleShowTabs = (event, tabName) => {
@@ -65,6 +66,9 @@ class Profile extends Component {
                 />
               </div>
               <div className={classes.Name}>{following.following.username}</div>
+              <div className={classes.FollowButton}>
+                <FollowButton id={following.following._id} />
+              </div>
             </div>
           ))}
         </div>
@@ -82,9 +86,15 @@ class Profile extends Component {
           {followers.map((flwers) => (
             <div key={flwers._id} className={classes.MyFollowers}>
               <div className={classes.Avatar}>
-                <img src={flwers.avatar ? flwers.avatar : Avatar} alt="" />
+                <img
+                  src={flwers.follower.avatar ? flwers.follower.avatar : Avatar}
+                  alt=""
+                />
               </div>
               <div className={classes.Name}>{flwers.follower.username}</div>
+              <div className={classes.FollowButton}>
+                <FollowButton id={flwers.follower._id} />
+              </div>
             </div>
           ))}
         </div>
@@ -220,8 +230,8 @@ class Profile extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMyFollowers,
-  fetchMyFollowing,
+  fetchMyFollowers: () => dispatch(fetchMyFollowers()),
+  fetchMyFollowing: () => dispatch(fetchMyFollowers()),
   getProfile: (id, cd) => dispatch(fetchProfileUser(id, cd)),
   getUser: () => dispatch(fetchCurrentUser()),
 });
