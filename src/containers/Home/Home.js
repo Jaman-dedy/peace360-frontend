@@ -21,6 +21,7 @@ class Home extends Component {
     this.props.onfetChCategories();
     window.scrollTo(0, 0);
   }
+
   render() {
     let fetchedCategories = null;
     let articleSliders = null;

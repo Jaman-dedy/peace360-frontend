@@ -163,24 +163,13 @@ body {
       width: 4rem;
       height: 0.8rem;
     }
-    .Follow {
-      &:hover {
-        color: #54768b;
-        border-color: #54768b;
-      }
-      color: #5a5554d7;
-    }
-    .UnFollow {
-      background-color: #5a5554;
-      color: #fff;
-      &:hover {
-        background-color: #2e424e;
-        border-color: #54768b;
-      }
-    }
   }
 }
-
+.MyFollowers .FollowButton {
+  // border: 2px red solid;
+  position: relative;
+  bottom: 20px;
+}
 @media screen and (max-width: 750px) and (min-width: 550px) {
   .Profile {
     width: 100%;

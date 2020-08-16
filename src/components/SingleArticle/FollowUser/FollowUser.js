@@ -10,75 +10,15 @@ import {
   unfollowUser,
   clearFollowing,
 } from "../../../store/actions/followUser";
+import FollowButton from "./FollowButton";
 import { fetchMyFollowing } from "../../../store/actions/getFollowing";
 
 const FOLLOW = "Follow";
 const UNFOLLOW = "Unfollow";
 
 export class FollowUser extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttonState: FOLLOW,
-      unfollowButtonStyle: {
-        backgroundColor: "#7aadcf",
-        color: "white",
-        border: "1px solid #7aadcf",
-      },
-    };
-  }
-
-  UNSAFE_componentWillMount = () => {
-    const { props } = this;
-    this.setState((prevState) => ({ ...prevState, buttonState: FOLLOW }));
-    return localStorage.token ? props.fetchMyFollowing() : false;
-  };
-
-  UNSAFE_componentWillReceiveProps = (nextProps) => {
-    const { followings, followDetails } = nextProps;
-    const { currentUser, user } = this.props;
-    const { id } = user || {};
-    const { _id } = currentUser.user || {};
-    let buttonState = FOLLOW;
-
-    [...followings, ...followDetails].forEach(({ follower, following }) => {
-      if (
-        (follower._id === _id && following._id === id) ||
-        (follower === _id && following === id)
-      ) {
-        buttonState = UNFOLLOW;
-      }
-      return true;
-    });
-
-    return this.setState((prevState) => ({
-      ...prevState,
-      buttonState,
-    }));
-  };
-
-  submitFollowOrUnFollow = () => {
-    const { isAuthenticated } = this.props;
-    return !!isAuthenticated;
-  };
-
-  handleClick = () => {
-    const { pathname, history } = this.props;
-    if (!this.submitFollowOrUnFollow()) {
-      return history.push(`/login?redirectTo=${pathname}`);
-    }
-    const { buttonState } = this.state;
-    const { followUser, unfollowUser, user, currentUser } = this.props;
-    this.setState((prevState) => ({
-      ...prevState,
-      buttonState: buttonState === UNFOLLOW ? FOLLOW : prevState.buttonState,
-    }));
-    return buttonState === FOLLOW ? followUser(user.id) : unfollowUser(user.id);
-  };
-
   render() {
     const { user = {}, article } = this.props;
-    const { buttonState, unfollowButtonStyle } = this.state;
 
     return (
       <div className={classes.FollowUser}>
@@ -87,17 +27,6 @@ export class FollowUser extends Component {
         </div>
         <div className={classes.UserName}>
           {user ? user.username : "Peace Activist"}
-        </div>
-        <div className="Follow__button">
-          <button
-            className="button"
-            style={buttonState === UNFOLLOW ? unfollowButtonStyle : {}}
-            type="button"
-            onClick={this.handleClick}
-            value={buttonState}
-          >
-            {buttonState}
-          </button>
         </div>
         <div className={classes.Details}>
           <span className="heading__munite">
